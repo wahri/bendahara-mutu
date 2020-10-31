@@ -7,6 +7,21 @@ class Pembayaran extends Bendahara_Controller
     function __construct()
     {
         parent::__construct();
+        $bulan = [
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni'
+        ];
+        $this->data['bulan'] = $bulan;
         $this->load->library('form_validation');
     }
 
@@ -19,7 +34,6 @@ class Pembayaran extends Bendahara_Controller
     public function detail($nis)
     {
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
-        $this->data['spp'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
         $this->data['title'] = "Detail Pembayaran";
         $this->load->view('bendahara/pembayaran_detail', $this->data);
     }
