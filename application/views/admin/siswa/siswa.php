@@ -53,7 +53,7 @@
                                             <?php echo $this->session->flashdata('message_error'); ?>
                                         </div>
                                     <?php endif; ?>
-                                    <form action="<?= base_url('admin/siswa/importdatasiswa') ?>" method="POST" enctype="multipart/form-data">
+                                    <form action="<?= base_url('admin/siswa/importdatasiswates') ?>" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group border border-info p-3">

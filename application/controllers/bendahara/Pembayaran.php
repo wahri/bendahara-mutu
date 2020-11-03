@@ -7,21 +7,6 @@ class Pembayaran extends Bendahara_Controller
     function __construct()
     {
         parent::__construct();
-        $bulan = [
-            '07' => 'Juli',
-            '08' => 'Agustus',
-            '09' => 'September',
-            '10' => 'Oktober',
-            '11' => 'November',
-            '12' => 'Desember',
-            '01' => 'Januari',
-            '02' => 'Februari',
-            '03' => 'Maret',
-            '04' => 'April',
-            '05' => 'Mei',
-            '06' => 'Juni'
-        ];
-        $this->data['bulan'] = $bulan;
         $this->load->library('form_validation');
     }
 
@@ -31,9 +16,14 @@ class Pembayaran extends Bendahara_Controller
         $this->load->view('bendahara/pembayaran', $this->data);
     }
 
-    public function detail($nis)
+    public function detail($nis, $tahun = null)
     {
+        $tahun = !empty($tahun) ? $tahun : date('Y');
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
+        $this->data['tahun'] = $tahun;
+        $this->data['notif_cart'] = $this->db->get_where('cart', ['nis' => $nis])->num_rows();
+        $this->data['sem_ganjil'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '1'])->result_array();
+        $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2'])->result_array();
         $this->data['title'] = "Detail Pembayaran";
         $this->load->view('bendahara/pembayaran_detail', $this->data);
     }
@@ -49,17 +39,19 @@ class Pembayaran extends Bendahara_Controller
         echo json_encode($cart);
     }
 
-    public function addCart()
+    public function tambahCart()
     {
         //ambil data tagihan
-        $tagihan = $this->db->get_where('tagihan', ['id_tagihan' => $this->input->post('idTagihanToCart')])->row();
-        $sisa_tagihan = $tagihan->sisa_bayar + 1;
+        $tagihan = $this->db->get_where('tagihan', ['id_tagihan' => $this->input->post('idTagihanToCart')])->row_array();
+        // print_r($tagihan);
+        // die;
+        $sisa_tagihan = $tagihan['harga'] - $tagihan['jml_dibayar'];
 
 
         //form validation rule
-        $this->form_validation->set_rules('nisToCart', 'nisToCart', 'required|integer');
+        $this->form_validation->set_rules('nisToCart', 'nisToCart', 'required');
         $this->form_validation->set_rules('itemToCart', 'itemToCart', 'required');
-        $this->form_validation->set_rules('nominalToCart', 'itemToCart', 'required|less_than[' . $sisa_tagihan . ']');
+        $this->form_validation->set_rules('nominalToCart', 'itemToCart', 'required');
         $this->form_validation->set_rules('idTagihanToCart', 'idTagihanToCart', 'required|integer');
 
         //custom message
@@ -68,27 +60,28 @@ class Pembayaran extends Bendahara_Controller
         $this->form_validation->set_message('less_than', 'Input Tidak Boleh Lebih Dari Tagihan!');
 
         $nominal = str_replace('.', '', $this->input->post('nominalToCart'));
-        $data = [
-            'nis' => $this->input->post('nisToCart'),
-            'item' => $this->input->post('itemToCart'),
-            'nominal' => $nominal,
-            'id_tagihan' => $this->input->post('idTagihanToCart'),
-        ];
 
-        if ($this->form_validation->run() == FALSE) {
-            $validation_error = validation_errors();
-            $msg = [
-                'error' => true,
-                'message' => preg_replace('#</?(p|img).*?>#is', '', $validation_error)
-            ];
-        } else {
-            $result = $this->db->insert('cart', $data);
-            if ($result) {
-                $msg['success'] = true;
+        if ($this->form_validation->run() == TRUE) {
+            if (($sisa_tagihan - $nominal) >= 0) {
+                $data = [
+                    'nis' => $this->input->post('nisToCart'),
+                    'item' => $this->input->post('itemToCart'),
+                    'nominal' => $nominal,
+                    'id_tagihan' => $this->input->post('idTagihanToCart'),
+                ];
+                $this->db->insert('cart', $data);
+                $this->session->set_flashdata('message', '<strong>Berhasil!</strong> menambahkan item ke cart');
+                redirect('bendahara/pembayaran/detail/' . $tagihan['nis']);
+                // echo "error ss";
+                // die;
+            } else {
+                $this->session->set_flashdata('message_error', '<strong>Gagal!</strong> Jumlah melebihi sisa pembayaran');
+                redirect('bendahara/pembayaran/detail/' . $tagihan['nis']);
             }
+        } else {
+            echo 'error';
+            die;
         }
-
-        echo json_encode($msg);
     }
 
     public function deleteCart($id)
