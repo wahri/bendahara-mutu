@@ -21,7 +21,12 @@ class Pembayaran extends Bendahara_Controller
         $tahun = !empty($tahun) ? $tahun : date('Y');
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
         $this->data['tahun'] = $tahun;
+
         $this->data['notif_cart'] = $this->db->get_where('cart', ['nis' => $nis])->num_rows();
+        $this->data['cart'] = $this->db->get_where('cart', ['nis' => $nis])->result_array();
+        $this->db->select_sum('nominal');
+        $this->data['total_cart'] = $this->db->get_where('cart', ['nis' => $nis])->row_array();
+
         $this->data['sem_ganjil'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '1'])->result_array();
         $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2'])->result_array();
         $this->data['title'] = "Detail Pembayaran";
@@ -46,7 +51,6 @@ class Pembayaran extends Bendahara_Controller
         // print_r($tagihan);
         // die;
         $sisa_tagihan = $tagihan['harga'] - $tagihan['jml_dibayar'];
-
 
         //form validation rule
         $this->form_validation->set_rules('nisToCart', 'nisToCart', 'required');
@@ -84,13 +88,12 @@ class Pembayaran extends Bendahara_Controller
         }
     }
 
-    public function deleteCart($id)
+    public function hapusCart($nis, $id)
     {
-        $result =  $this->db->delete('cart', array('id' => $id));;
-        if ($result) {
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
+        $this->db->delete('cart', array('id_tagihan' => $id));
+
+        $this->session->set_flashdata('message', '<strong>Berhasil!</strong> menghapus item dari cart');
+        redirect('bendahara/pembayaran/detail/' . $nis);
     }
 
     public function confirmPembayaran($nis)
@@ -98,9 +101,11 @@ class Pembayaran extends Bendahara_Controller
         //ambil data input berupa array
         $nominal = $this->input->post('nominal');
 
-
         //looping data update ke tabel tagihan
         $i = 0;
+        $kode_transaksi = 'TR-' . date("YmdHis");
+        $total = 0;
+
         foreach ($this->input->post('id_tagihan') as $id_tagihan) {
 
             $tagihan = $this->db->get_where('tagihan', ['id_tagihan' => $id_tagihan])->row_array();
@@ -108,8 +113,7 @@ class Pembayaran extends Bendahara_Controller
             $bayar = $tagihan['jml_dibayar'] + $nominal[$i];
 
             $data = [
-                'jml_dibayar' => $bayar,
-                'sisa_bayar' => $tagihan['harga'] - $bayar
+                'jml_dibayar' => $bayar
             ];
 
 
@@ -119,55 +123,39 @@ class Pembayaran extends Bendahara_Controller
                 $data['is_lunas'] = 0;
             }
 
-
             //update data tagihan
             $this->db->where('id_tagihan', $id_tagihan);
-            $result = $this->db->update('tagihan', $data);
-        }
+            $this->db->update('tagihan', $data);
 
-        if ($result) {
-            $i = 0;
-            $kode_transaksi = 'TR-' . date("YmdHis");
 
-            $total = 0;
+            $cart = $this->db->get_where('cart', ['id_tagihan' => $id_tagihan])->row_array();
 
-            //input transaction detail           
-            foreach ($this->input->post('id_tagihan') as $id_tagihan) {
-
-                $cart = $this->db->get_where('cart', ['id_tagihan' => $id_tagihan])->row_array();
-                $tagihan = $this->db->get_where('tagihan', ['id_tagihan' => $id_tagihan])->row_array();
-
-                $transaksi_detail = [
-                    'kode_transaksi' => $kode_transaksi,
-                    'nominal' => $nominal[$i],
-                    'nama_item' => $cart['item'],
-                    'id_tagihan' => $id_tagihan,
-                    'id_pembayaran' => $tagihan['id_pembayaran']
-                ];
-
-                $total += $nominal[$i];
-
-                $this->db->insert('transaksi_detail', $transaksi_detail);
-            }
-
-            //input transaction
-            $transaksi = [
+            $transaksi_detail = [
                 'kode_transaksi' => $kode_transaksi,
-                'total' => $total,
-                'nis' => $nis
-            ];
-            $insert_transaksi = $this->db->insert('transaksi', $transaksi);
-
-            //delete item cart
-            $this->db->where('nis', $tagihan['nis']);
-            $this->db->delete('cart');
-
-            $msg = [
-                'success' => true,
-                'kode_transaksi' => $kode_transaksi
+                'nominal' => $nominal[$i],
+                'nama_item' => $cart['item'],
+                'id_tagihan' => $id_tagihan,
+                'kode_tagihan' => $tagihan['kode_tagihan']
             ];
 
-            echo json_encode($msg);
+            $total += $nominal[$i];
+
+            $this->db->insert('transaksi_detail', $transaksi_detail);
+            $i++;
         }
+
+        //input transaction
+        $transaksi = [
+            'kode_transaksi' => $kode_transaksi,
+            'total' => $total,
+            'nis' => $nis
+        ];
+        $this->db->insert('transaksi', $transaksi);
+
+        //delete item cart
+        $this->db->where('nis', $tagihan['nis']);
+        $this->db->delete('cart');
+
+        redirect('bendahara/transaksi/success/' . $kode_transaksi);
     }
 }

@@ -147,8 +147,8 @@
                           <th style="width: 20%">Nama Tagihan</th>
                           <th>Jumlah Tagihan</th>
                           <th>Jumlah Dibayar</th>
-                          <th>Status</th>
-                          <th style="width: 20%">Action</th>
+                          <th class="text-center">Status</th>
+                          <th style="width: 20%" class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -158,22 +158,31 @@
                         <?php
                         foreach ($sem_ganjil as $ganjil) :
                           $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $ganjil['id_tagihan']])->row_array();
+                          $sisa = $ganjil['harga'] - $ganjil['jml_dibayar'];
                         ?>
                           <tr>
                             <td><?= $ganjil['nama_tagihan'] ?></td>
-                            <td>Rp. <?= number_format($ganjil['harga'], 2, ',', '.') ?></td>
-                            <td>Rp. <?= number_format($ganjil['jml_dibayar'], 2, ',', '.') ?></td>
-                            <td><button type="button" class="btn btn-danger btn-xs">Terhutang</button></td>
-                            <td>
-                              <?php
-                              if (empty($cek_cart)) :
-                              ?>
-                                <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $ganjil['nis'] ?>" data-item="<?= $ganjil['nama_tagihan'] ?>" data-id="<?= $ganjil['id_tagihan'] ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
-                                </button>
+                            <td>Rp. <?= number_format($ganjil['harga'], 0, ',', '.') ?></td>
+                            <td>Rp. <?= number_format($ganjil['jml_dibayar'], 0, ',', '.') ?></td>
+                            <td class="text-center">
+                              <?php if ($ganjil['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
                               <?php else : ?>
-                                <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
-                                  <i class="fa fa-shopping-cart"></i> Checkout
-                                </button>
+                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                              <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                              <?php if (!$ganjil['is_lunas']) : ?>
+                                <?php
+                                if (empty($cek_cart)) :
+                                ?>
+                                  <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $ganjil['nis'] ?>" data-item="<?= $ganjil['nama_tagihan'] ?>" data-id="<?= $ganjil['id_tagihan'] ?>" data-sisa="<?= number_format($sisa, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                  </button>
+                                <?php else : ?>
+                                  <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                    <i class="fa fa-shopping-cart"></i> Checkout
+                                  </button>
+                                <?php endif; ?>
                               <?php endif; ?>
                             </td>
                           </tr>
@@ -184,22 +193,31 @@
                         <?php
                         foreach ($sem_genap as $genap) :
                           $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $genap['id_tagihan']])->row_array();
+                          $sisa2 = $genap['harga'] - $genap['jml_dibayar'];
                         ?>
                           <tr>
                             <td><?= $genap['nama_tagihan'] ?></td>
-                            <td>Rp. <?= number_format($genap['harga'], 2, ',', '.') ?></td>
-                            <td>Rp. <?= number_format($genap['jml_dibayar'], 2, ',', '.') ?></td>
-                            <td><button type="button" class="btn btn-danger btn-xs">Terhutang</button></td>
-                            <td>
-                              <?php
-                              if (empty($cek_cart)) :
-                              ?>
-                                <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $genap['nis'] ?>" data-item="<?= $genap['nama_tagihan'] ?>" data-id="<?= $genap['id_tagihan'] ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
-                                </button>
+                            <td>Rp. <?= number_format($genap['harga'], 0, ',', '.') ?></td>
+                            <td>Rp. <?= number_format($genap['jml_dibayar'], 0, ',', '.') ?></td>
+                            <td class="text-center">
+                              <?php if ($genap['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
                               <?php else : ?>
-                                <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
-                                  <i class="fa fa-shopping-cart"></i> Checkout
-                                </button>
+                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                              <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                              <?php if (!$genap['is_lunas']) : ?>
+                                <?php
+                                if (empty($cek_cart)) :
+                                ?>
+                                  <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $genap['nis'] ?>" data-item="<?= $genap['nama_tagihan'] ?>" data-id="<?= $genap['id_tagihan'] ?>" data-sisa="<?= number_format($sisa2, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                  </button>
+                                <?php else : ?>
+                                  <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                    <i class="fa fa-shopping-cart"></i> Checkout
+                                  </button>
+                                <?php endif; ?>
                               <?php endif; ?>
                             </td>
                           </tr>
@@ -292,46 +310,57 @@
       <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <form method="POST" id="confirmCartForm">
-              <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Cart</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
+            <div class="modal-header">
+              <h5 class="modal-title" id="cartModalLabel">Cart</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
 
+            <form action="<?= base_url('bendahara/pembayaran/confirmpembayaran/') . $siswa['nis'] ?>" method="POST">
 
               <div class="modal-body" id="cart">
-                <div class="row item justify-content-between">
-                  <div class="col-4 item-name ">
-                    asdas
+                <?php if (empty($cart)) : ?>
+                  <h2 class="text-center">Cart Kosong</h2>
+                <?php else : ?>
+                  <?php
+                  foreach ($cart as $c) :
+                  ?>
+                    <div class="row item justify-content-between">
+                      <div class="col-4 item-name ">
+                        <?= $c['item'] ?>
+                      </div>
+                      <div class="col-auto text-center">
+                        <span class="badge mr-2 item-price badge-pill badge-success">
+                          Rp. <?= number_format($c['nominal'], 2, ',', '.') ?>
+                        </span>
+                        <a href="<?= base_url('bendahara/pembayaran/hapuscart/') . $siswa['nis'] . '/' . $c['id_tagihan'] ?>" class="btn btn-danger hapusCart">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <input type="hidden" value="<?= $c['nominal'] ?>" name="nominal[]"></input>
+                    <input type="hidden" value="<?= $c['id_tagihan'] ?>" name="id_tagihan[]"></input>
+
+                  <?php endforeach; ?>
+                  <div class="row total">
+                    <div class=" col-4">
+                      <span class="badge item-price badge-pill badge-primary">
+                        Total : Rp. <?= number_format($total_cart['nominal'], 2, ',', '.') ?>
+                      </span>
+                    </div>
                   </div>
-                  <div class="col-4 text-center">
-                    <span class="badge mr-2 item-price badge-pill badge-success">
-                      Rp.12121
-                    </span>
-                    <button data-id="${data[i].id}" class="btn btn-danger hapusCart">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                </div>
-                <input type="hidden" value="${data[i].nominal}" name="nominal[]"></input>
-                <input type="hidden" value="${data[i].id_tagihan}" name="id_tagihan[]"></input>
+                <?php endif; ?>
               </div>
 
-              <div class="row total justify-content-start">
-                <div class="col-4">
-                  <span class="badge item-price badge-pill badge-primary">
-                    Total : Rp. 121212
-                  </span>
-                </div>
-              </div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="confirmCart" class="btn btn-primary">Konfirmasi</button>
+                <button type="submit" class="btn btn-primary">Konfirmasi</button>
               </div>
+
             </form>
+
           </div>
         </div>
       </div>
@@ -357,6 +386,7 @@
                   </div>
                   <input type="text" class="form-control" id='rupiah' name="nominalToCart">
                 </div>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -403,12 +433,14 @@
     var nis = button.data('nis')
     var item = button.data('item')
     var id_tagihan = button.data('id')
+    var sisa = button.data('sisa')
 
 
     var modal = $(this)
     modal.find('.modal-body #nisToCart').val(nis)
     modal.find('.modal-body #itemToCart').val(item)
     modal.find('.modal-body #idTagihanToCart').val(id_tagihan)
+    modal.find('#rupiah').val(sisa)
   })
 </script>
 

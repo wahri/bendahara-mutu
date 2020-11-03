@@ -28,7 +28,11 @@ class Transaksi extends Bendahara_Controller
     public function print($kode)
     {
         $this->data['title'] = "Transaksi Record";
-        $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result();
+
+        $this->data['transaksi'] = $this->db->get_where('transaksi', ['kode_transaksi' => $kode])->row_array();
+        $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $this->data['transaksi']['nis']])->row_array();
+
         $this->load->view('bendahara/print_transaksi', $this->data);
     }
 
