@@ -89,6 +89,82 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Pengelolaan Data Siswa</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <div class="form-inline mx-3 mb-4">
+                                                    <label for="filter-siswa">Filter Siswa</label>
+                                                    <select class="custom-select ml-2" id="filter-siswa">
+                                                        <option value="">Pilih Kelas</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="Alumni">Alumni</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <table id="dataSiswa" style="width: 100%;" class="table table-striped">
+                                                    <thead class="thead-darkblue">
+                                                        <tr>
+                                                            <th><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
+                                                            <th>Nama</th>
+                                                            <th>NIS</th>
+                                                            <th>NISN</th>
+                                                            <th>Kelas</th>
+                                                            <th>Tahun Masuk</th>
+                                                            <th>Tahun Lulus</th>
+                                                            <th>Cash</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <?php foreach ($siswa as $s) : ?>
+                                                            <tr>
+                                                                <td><input type="checkbox" name="id_siswa" class="id_siswa" value="<?= $s['id'] ?>"></td>
+                                                                <td><?= $s['nama'] ?></td>
+                                                                <td><?= $s['nis'] ?></td>
+                                                                <td><?= $s['nisn'] ?></td>
+                                                                <td><?= $s['kelas'] ?></td>
+                                                                <td><?= $s['tahun_masuk'] ?></td>
+                                                                <td><?= $s['tahun_lulus'] ?></td>
+                                                                <td><?= $s['cash'] ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+
+                                                    </tbody>
+
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Nama</th>
+                                                            <th>NIS</th>
+                                                            <th>NISN</th>
+                                                            <th>Kelas</th>
+                                                            <th>Tahun Masuk</th>
+                                                            <th>Tahun Lulus</th>
+                                                            <th>Cash</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /page content -->
@@ -127,6 +203,28 @@
                     return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
                 }
             </script>
+
+            <script>
+                $(document).ready(function() {
+                    var table = $('#dataSiswa').DataTable();
+
+                    $('#checkAll').on('click', function() {
+                        var siswa_check = $('.id_siswa');
+                        siswa_check.prop('checked', !siswa_check.prop("checked"))
+                    });
+
+                    $('#filter-siswa').on('change', function() {
+                        console.log(this.value)
+                        table.column(4)
+                            .search(this.value)
+                            .draw();
+                    });
+
+
+                });
+            </script>
+
+
 </body>
 
 </html>
