@@ -1,17 +1,17 @@
 .bg-dark-blue {
-	background-color: #2A3F54 !important;
+	background-color: #2a3f54 !important;
 }
 
 .bg-light-blue {
-	background-color: #1ABB9C;
+	background-color: #1abb9c;
 }
 
 .custom-link {
-	color: #1ABB9C;
+	color: #1abb9c;
 }
 
 .custom-link:hover {
-	color: #1ABB9C;
+	color: #1abb9c;
 	text-decoration: underline;
 }
 
@@ -19,43 +19,23 @@
 	color: #000;
 }
 
-.invoice-header h4,
-h5,
-h6 {
-	line-height: 12px;
 
+.thead-darkblue {
+	background-color: #2a3f54;
+	color: white;
+	border-bottom: none;
 }
-
-.invoice-header {
-	border-bottom: 2px solid #000;
-	color: #000;
-	padding: 5px 0px;
-}
-
 
 #cartModal .modal-dialog {
 	max-width: 700px !important;
 }
 
-#cartModal .item-name {
-	font-size: 18px;
-	color: #000;
-}
-
-#cartModal .item-detail {
-	width: 600px;
-}
-
-#cartModal .item-price {
-	font-size: 18px !important;
-	color: #fff;
-}
 
 #cartModal .modal-body {
 	padding: 20px 50px;
 }
 
-#cartModal .total {
-	font-size: 18px !important;
-	color: red;
+
+.invoice {
+	padding: 60px 20px;
 }

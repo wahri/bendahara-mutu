@@ -142,7 +142,7 @@
                     </form>
 
                     <table class="table table-striped projects mt-3" id="datatable">
-                      <thead>
+                      <thead class="thead-darkblue">
                         <tr>
                           <th style="width: 20%">Nama Tagihan</th>
                           <th>Jumlah Tagihan</th>
@@ -228,7 +228,7 @@
 
                   <div class="tab-pane fade" id="pills-kat" role="tabpanel" aria-labelledby="pills-kat-tab">
                     <table class="table table-striped projects">
-                      <thead>
+                      <thead class="thead-darkblue">
                         <tr>
                           <th style="width: 20%">Nama Tagihan</th>
                           <th>Jumlah Tagihan</th>
@@ -264,7 +264,7 @@
 
                   <div class="tab-pane fade" id="pills-lainnya" role="tabpanel" aria-labelledby="pills-lainnya-tab">
                     <table class="table table-striped projects">
-                      <thead>
+                      <thead class="thead-darkblue``">
                         <tr>
                           <th style="width: 20%">Nama Tagihan</th>
                           <th>Jumlah Tagihan</th>
@@ -323,33 +323,43 @@
                 <?php if (empty($cart)) : ?>
                   <h2 class="text-center">Cart Kosong</h2>
                 <?php else : ?>
-                  <?php
-                  foreach ($cart as $c) :
-                  ?>
-                    <div class="row item justify-content-between">
-                      <div class="col-4 item-name ">
-                        <?= $c['item'] ?>
-                      </div>
-                      <div class="col-auto text-center">
-                        <span class="badge mr-2 item-price badge-pill badge-success">
-                          Rp. <?= number_format($c['nominal'], 2, ',', '.') ?>
-                        </span>
-                        <a href="<?= base_url('bendahara/pembayaran/hapuscart/') . $siswa['nis'] . '/' . $c['id_tagihan'] ?>" class="btn btn-danger hapusCart">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <input type="hidden" value="<?= $c['nominal'] ?>" name="nominal[]"></input>
-                    <input type="hidden" value="<?= $c['id_tagihan'] ?>" name="id_tagihan[]"></input>
+                  <table class="table">
+                    <thead>
+                      <th>Item</th>
+                      <th>Nominal</th>
+                      <th>Action</th>
+                    </thead>
+                    <tbody>
+                      <?php
+                      foreach ($cart as $c) :
+                      ?>
+                        <tr>
+                          <td> <?= $c['item'] ?></td>
+                          <td><?= 'Rp.' . number_format($c['nominal'], 2, ',', '.') ?></td>
+                          <td> <a href="<?= base_url('bendahara/pembayaran/hapuscart/') . $siswa['nis'] . '/' . $c['id_tagihan'] ?>" class="btn btn-danger hapusCart">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a></td>
+                        </tr>
+                        <input type="hidden" value="<?= $c['nominal'] ?>" name="nominal[]"></input>
+                        <input type="hidden" value="<?= $c['id_tagihan'] ?>" name="id_tagihan[]"></input>
 
-                  <?php endforeach; ?>
-                  <div class="row total">
+                      <?php endforeach; ?>
+                    </tbody>
+
+                    <tfoot>
+                      <tr>
+                        <td class="text-right font-weight-bold">Total:</td>
+                        <td colspan="2"><?= 'Rp.' . number_format($total_cart['nominal'], 2, ',', '.') ?></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <!-- <div class="row total">
                     <div class=" col-4">
                       <span class="badge item-price badge-pill badge-primary">
                         Total : Rp. <?= number_format($total_cart['nominal'], 2, ',', '.') ?>
                       </span>
                     </div>
-                  </div>
+                  </div> -->
                 <?php endif; ?>
               </div>
 

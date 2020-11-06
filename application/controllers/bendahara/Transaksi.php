@@ -20,7 +20,10 @@ class Transaksi extends Bendahara_Controller
     public function success($kode)
     {
         $this->data['title'] = "Transaksi Record";
-        $this->data['kode_transaksi'] = $kode;
+
+        $this->data['transaksi'] = $this->db->get_where('transaksi', ['kode_transaksi' => $kode])->row_array();
+        $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result_array();
+
         $this->load->view('bendahara/success_bayar', $this->data);
     }
 
