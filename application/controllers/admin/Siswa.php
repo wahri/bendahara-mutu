@@ -14,8 +14,20 @@ class Siswa extends Admin_Controller
 
     public function index()
     {
+        $this->data['siswa'] = $this->db->get('siswa')->result_array();
         $this->data['title'] = "Siswa Management";
         $this->load->view('admin/siswa/siswa', $this->data);
+    }
+
+    public function detail($id)
+    {
+        $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id]);
+        $this->load->view('admin/siswa/siswa_detail');
+    }
+
+    public function tambah()
+    {
+        $this->load->view('admin/siswa/siswa_tambah');
     }
 
     // public function importDataSiswa()

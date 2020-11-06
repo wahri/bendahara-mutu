@@ -124,44 +124,150 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Pengelolaan Data Siswa</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <form action="" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="form-inline mx-4 mb-4">
+                                                    <label for="filter-siswa">Filter Siswa</label>
+                                                    <select class="custom-select ml-2" id="filter-siswa">
+                                                        <option value="">Pilih Kelas</option>
+                                                        <option value="10">10</option>
+                                                        <option value="11">11</option>
+                                                        <option value="12">12</option>
+                                                        <option value="Alumni">Alumni</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4 text-right offset-4">
+                                                <button class="btn btn-sm btn-success">
+                                                    <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
+                                                </button>
+                                                <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <table id="dataSiswa" style="width: 100%;" class="table table-striped">
+                                                <thead class="thead-darkblue">
+                                                    <tr>
+                                                        <th><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
+                                                        <th width="15%">Nama</th>
+                                                        <th>NIS</th>
+                                                        <th>NISN</th>
+                                                        <th>Kelas</th>
+                                                        <th>Tahun Masuk</th>
+                                                        <th>Tahun Lulus</th>
+                                                        <th>Cash</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <?php foreach ($siswa as $s) : ?>
+                                                        <tr>
+                                                            <td><input type="checkbox" name="id_siswa" class="id_siswa" value="<?= $s['id'] ?>"></td>
+                                                            <td><?= $s['nama'] ?></td>
+                                                            <td><?= $s['nis'] ?></td>
+                                                            <td><?= $s['nisn'] ?></td>
+                                                            <td><?= $s['kelas'] ?></td>
+                                                            <td><?= $s['tahun_masuk'] ?></td>
+                                                            <td><?= $s['tahun_lulus'] ?></td>
+                                                            <td><?= $s['cash'] ?></td>
+                                                            <td><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </div>
+
+                                </form>
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /page content -->
-            <?php $this->load->view('admin/template/footer') ?>
+        </div>
+        <!-- /page content -->
+        <?php $this->load->view('admin/template/footer') ?>
 
-            <script type="text/javascript">
-                var spp = document.getElementById('spp');
-                spp.addEventListener('keyup', function(e) {
-                    // tambahkan 'Rp.' pada saat form di ketik
-                    // gunakan fungsi formatspp() untuk mengubah angka yang di ketik menjadi format angka
-                    spp.value = formatRupiah(this.value);
-                });
+        <script type="text/javascript">
+            var spp = document.getElementById('spp');
+            spp.addEventListener('keyup', function(e) {
+                // tambahkan 'Rp.' pada saat form di ketik
+                // gunakan fungsi formatspp() untuk mengubah angka yang di ketik menjadi format angka
+                spp.value = formatRupiah(this.value);
+            });
 
-                var kat = document.getElementById('kat');
-                kat.addEventListener('keyup', function(e) {
-                    // tambahkan 'Rp.' pada saat form di ketik
-                    // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
-                    kat.value = formatRupiah(this.value);
-                });
+            var kat = document.getElementById('kat');
+            kat.addEventListener('keyup', function(e) {
+                // tambahkan 'Rp.' pada saat form di ketik
+                // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
+                kat.value = formatRupiah(this.value);
+            });
 
-                /* Fungsi formatRupiah */
-                function formatRupiah(angka, prefix) {
-                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                        split = number_string.split(','),
-                        sisa = split[0].length % 3,
-                        rupiah = split[0].substr(0, sisa),
-                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-                    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-                    if (ribuan) {
-                        separator = sisa ? '.' : '';
-                        rupiah += separator + ribuan.join('.');
-                    }
-
-                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+                // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
                 }
-            </script>
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                var table = $('#dataSiswa').DataTable({
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ]
+                });
+
+                $('#checkAll').on('click', function() {
+                    var siswa_check = $('.id_siswa');
+                    siswa_check.prop('checked', !siswa_check.prop("checked"))
+                });
+
+                $('#filter-siswa').on('change', function() {
+                    console.log(this.value)
+                    table.column(4)
+                        .search(this.value)
+                        .draw();
+                });
+
+
+            });
+        </script>
+
+
 </body>
 
 </html>
