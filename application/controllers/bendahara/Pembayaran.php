@@ -27,8 +27,9 @@ class Pembayaran extends Bendahara_Controller
         $this->db->select_sum('nominal');
         $this->data['total_cart'] = $this->db->get_where('cart', ['nis' => $nis])->row_array();
 
-        $this->data['sem_ganjil'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '1'])->result_array();
-        $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2'])->result_array();
+        $this->data['sem_ganjil'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '1', 'kode_tagihan' => 1])->result_array();
+        $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2', 'kode_tagihan' => 1])->result_array();
+        $this->data['uang_kat'] = $this->db->get_where('tagihan', ['nis' => $nis, 'kode_tagihan' => 2])->row_array();
         $this->data['title'] = "Detail Pembayaran";
         $this->load->view('bendahara/pembayaran_detail', $this->data);
     }

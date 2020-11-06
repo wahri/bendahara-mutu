@@ -7,7 +7,7 @@ class Transaksi extends Bendahara_Controller
 
     public function log($nis)
     {
-        $transaksi = $this->db->get_where('transaksi', ['nis' => $nis])->result();
+        $transaksi = $this->db->get_where('transaksi', ['nis' => $nis])->result_array();
 
         $this->data['transaksi'] = $transaksi;
         $this->data['title'] = "Transaksi Record";

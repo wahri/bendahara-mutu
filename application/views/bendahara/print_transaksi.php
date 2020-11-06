@@ -85,17 +85,17 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-4">Nama</div>
+                <div class="col-2">Nama</div>
                 <div class="col-auto px-0">:</div>
                 <div class="col-auto"> <?= $siswa['nama'] ?></div>
             </div>
             <div class="row">
-                <div class="col-4">NIS</div>
+                <div class="col-2">NIS</div>
                 <div class="col-auto px-0">:</div>
                 <div class="col-auto"> <?= $siswa['nis'] ?></div>
             </div>
             <div class="row">
-                <div class="col-4">Kelas</div>
+                <div class="col-2">Kelas</div>
                 <div class="col-auto px-0">:</div>
                 <div class="col-auto"> <?= $siswa['kelas'] ?></div>
             </div>

@@ -178,7 +178,7 @@ class Siswa extends Admin_Controller
                             'harga' => str_replace('.', '', $this->input->post('spp')),
                             'tahun' => $sheetData[$j][4] . '1',
                             'bulan' => $angka_bulan[$i],
-                            'kode_tagihan' => '2',
+                            'kode_tagihan' => '1',
                             'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $sheetData[$j][4]
                         ];
 

@@ -16,7 +16,7 @@
 <!-- FastClick -->
 <script src="<?= base_url('assets') ?>/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
-<script src="<?= base_url('assets') ?>/vendors/nprogress/nprogress.js"></script>
+<!-- <script src="<?= base_url('assets') ?>/vendors/nprogress/nprogress.js"></script> -->
 <!-- bootstrap-progressbar -->
 <script src="<?= base_url('assets') ?>/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 <!-- iCheck -->

@@ -238,21 +238,40 @@
                         </tr>
                       </thead>
                       <tbody>
+                      <?php
+                      $cek_cart_kat = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $uang_kat['id_tagihan']])->row_array();
+                      $sisa_kat = $uang_kat['harga'] - $uang_kat['jml_dibayar'];
+                      ?>
                         <tr>
                           <td>
-                            Uang KAT
+                            <?= $uang_kat['nama_tagihan'] ?>
                           </td>
                           <td>
-                            Rp.1.000.000,-
+                            Rp. <?= number_format($uang_kat['harga'], 0, ',', '.') ?>
                           </td>
                           <td>
-                            Rp.500.000,-
+                            Rp. <?= number_format($uang_kat['jml_dibayar'], 0, ',', '.') ?>
                           </td>
-                          <td>
-                            <button type="button" class="btn btn-danger btn-sm">Terhutang</button>
+                          <td class="text-center">
+                            <?php if ($uang_kat['is_lunas']) : ?>
+                              <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                            <?php else : ?>
+                              <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                            <?php endif; ?>
                           </td>
-                          <td width="30%">
-
+                          <td class="text-center">
+                            <?php if (!$uang_kat['is_lunas']) : ?>
+                              <?php
+                              if (empty($cek_cart_kat)) :
+                              ?>
+                                <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $uang_kat['nis'] ?>" data-item="<?= $uang_kat['nama_tagihan'] ?>" data-id="<?= $uang_kat['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_kat, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                </button>
+                              <?php else : ?>
+                                <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                  <i class="fa fa-shopping-cart"></i> Checkout
+                                </button>
+                              <?php endif; ?>
+                            <?php endif; ?>
                           </td>
                         </tr>
 

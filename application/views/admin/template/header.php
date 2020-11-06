@@ -15,7 +15,7 @@
     <!-- Font Awesome -->
     <link href="<?= base_url('assets') ?>/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="<?= base_url('assets') ?>/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- <link href="<?= base_url('assets') ?>/vendors/nprogress/nprogress.css" rel="stylesheet"> -->
     <!-- iCheck -->
     <link href="<?= base_url('assets') ?>/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
@@ -33,3 +33,4 @@
 
     <!-- Custom Theme Style -->
     <link href="<?= base_url('assets') ?>/build/css/custom.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets') ?>/build/css/style.css" rel="stylesheet">
