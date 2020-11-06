@@ -115,10 +115,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-3 offset-5">
-                                                <button class="btn btn-success">
+                                            <div class="col-4 text-right offset-4">
+                                                <button class="btn btn-sm btn-success">
                                                     <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
                                                 </button>
+                                                <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -148,8 +151,7 @@
                                                             <td><?= $s['tahun_masuk'] ?></td>
                                                             <td><?= $s['tahun_lulus'] ?></td>
                                                             <td><?= $s['cash'] ?></td>
-                                                            <td><a href="" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                <a href="" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            <td><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
