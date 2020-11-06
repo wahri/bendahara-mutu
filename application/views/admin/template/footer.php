@@ -38,3 +38,5 @@
 
 <!-- Custom Theme Scripts -->
 <script src="<?= base_url('assets') ?>/build/js/custom.min.js"></script>
+
+<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152197/smartwizard/jquery.smartWizard.min.js"></script>
