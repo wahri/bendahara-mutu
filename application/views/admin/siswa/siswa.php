@@ -128,15 +128,15 @@
                                             <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                 <thead class="thead-darkblue">
                                                     <tr>
-                                                        <th><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
-                                                        <th width="15%">Nama</th>
-                                                        <th>NIS</th>
-                                                        <th>NISN</th>
-                                                        <th>Kelas</th>
-                                                        <th>Tahun Masuk</th>
-                                                        <th>Tahun Lulus</th>
-                                                        <th>Cash</th>
-                                                        <th>Action</th>
+                                                        <th width="10%"><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
+                                                        <th width="10%">Nama</th>
+                                                        <th width="10%">NIS</th>
+                                                        <th width="10%">NISN</th>
+                                                        <th width="10%">Kelas</th>
+                                                        <th width="10%">Tahun Masuk</th>
+                                                        <th width="10%">Tahun Lulus</th>
+                                                        <th width="20%">Cash</th>
+                                                        <th width="10%">Action</th>
                                                     </tr>
                                                 </thead>
 
