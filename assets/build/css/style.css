@@ -39,3 +39,39 @@
 .invoice {
 	padding: 60px 20px;
 }
+
+
+.img-profile {
+	width: 250px;
+	height: 250px;
+}
+
+#naik-kelas-modal .modal-dialog {
+	min-width: 700px;
+	min-width: 800px;
+}
+
+
+.form-control:focus {
+	color: #495057;
+	background-color: #fff;
+	border-color: #80bdff;
+	outline: 0;
+	box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25)
+}
+
+.btn-secondary:focus {
+	box-shadow: 0 0 0 0rem rgba(108, 117, 125, .5)
+}
+
+.close:focus {
+	box-shadow: 0 0 0 0rem rgba(108, 117, 125, .5)
+}
+
+.mt-200 {
+	margin-top: 200px
+}
+
+.confirm-text {
+	font-size: 18px;
+}

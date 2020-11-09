@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="x_content">
 
-                                    <form action="" method="POST" enctype="multipart/form-data">
+                                    <form class="form-naik-kelas" action="#" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-inline mx-4 mb-4">
@@ -151,7 +151,7 @@
                                             </div>
 
                                             <div class="col-4 text-right offset-4">
-                                                <button class="btn btn-sm btn-success">
+                                                <button type="button" data-toggle="modal" data-target="#naik-kelas-modal" class="btn btn-sm btn-success">
                                                     <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
                                                 </button>
                                                 <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
@@ -163,15 +163,15 @@
                                             <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                 <thead class="thead-darkblue">
                                                     <tr>
-                                                        <th><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
-                                                        <th width="15%">Nama</th>
-                                                        <th>NIS</th>
-                                                        <th>NISN</th>
-                                                        <th>Kelas</th>
-                                                        <th>Tahun Masuk</th>
-                                                        <th>Tahun Lulus</th>
-                                                        <th>Cash</th>
-                                                        <th>Action</th>
+                                                        <th width="10%"><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
+                                                        <th width="10%">Nama</th>
+                                                        <th width="10%">NIS</th>
+                                                        <th width="10%">NISN</th>
+                                                        <th width="10%">Kelas</th>
+                                                        <th width="10%">Tahun Masuk</th>
+                                                        <th width="10%">Tahun Lulus</th>
+                                                        <th width="20%">Cash</th>
+                                                        <th width="10%">Action</th>
                                                     </tr>
                                                 </thead>
 
@@ -205,7 +205,113 @@
                 </div>
             </div>
         </div>
-        <!-- /page content -->
+
+        <!-- Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="naik-kelas-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div id="smartwizard">
+                            <ul>
+                                <li><a href="#step-1"><br /><small>Info</small></a></li>
+                                <li><a href="#step-2"><br /><small>Pilih Siswa</small></a></li>
+                                <li><a href="#step-3"><br /><small>Konfirmasi</small></a></li>
+                            </ul>
+                            <div>
+                                <div id="step-1">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <h4></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-2">
+                                    <div class="row justify-content-center">
+                                        <div class="col-10">
+                                            <table id="dataSiswa" style="width: 100%;" class="table table-striped">
+                                                <thead class="thead-darkblue">
+                                                    <tr>
+                                                        <th width="10%"><button type="button" class="btn btn-sm btn-dark" disabled><i class="fa fa-check" aria-hidden="true"></i></button></th>
+                                                        <th width="10%">Nama</th>
+                                                        <th width="10%">NIS</th>
+                                                        <th width="10%">NISN</th>
+                                                        <th width="10%">Kelas</th>
+                                                        <th width="10%">Tahun Masuk</th>
+                                                        <th width="10%">Tahun Lulus</th>
+                                                        <th width="20%">Cash</th>
+                                                        <th width="10%">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="checkbox" checked disabled></td>
+                                                        <td>Rizky</td>
+                                                        <td>2155</td>
+                                                        <td>0051518104</td>
+                                                        <td>10</td>
+                                                        <td>2018</td>
+                                                        <td>Belum Lulus</td>
+                                                        <td>Rp.100.000</td>
+                                                        </td>
+                                                        <td><button disabled class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" checked disabled></td>
+                                                        <td>Ridho</td>
+                                                        <td>2157</td>
+                                                        <td>0051518105</td>
+                                                        <td>10</td>
+                                                        <td>2018</td>
+                                                        <td>Belum Lulus</td>
+                                                        <td>Rp.100.000</td>
+                                                        </td>
+                                                        <td><button disabled class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-10">
+                                            <div class="alert alert-primary" role="alert">
+                                                Pilih Siswa Dengan Menekan Tombol Ceklis!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="step-3">
+                                    <div class="row justify-content-center">
+                                        <div class="col-10 text-center">
+                                            <div class="alert alert-primary confirm-text" role="alert">
+                                                Apakah Anda Yakin?
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-3">
+                                            <div class="form-inline justify-content-between mt-3">
+                                                <button class="btn btn-success confirm-wizard">
+                                                    Ya
+                                                </button>
+                                                <button type="button" data-dismiss="modal" class="btn btn-danger">
+                                                    Tidak
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /page content -->
         <?php $this->load->view('admin/template/footer') ?>
 
         <script type="text/javascript">
@@ -244,6 +350,7 @@
 
         <script>
             $(document).ready(function() {
+                // setting
                 var table = $('#dataSiswa').DataTable({
                     "lengthMenu": [
                         [10, 25, 50, -1],
@@ -251,11 +358,13 @@
                     ]
                 });
 
+                // check all
                 $('#checkAll').on('click', function() {
                     var siswa_check = $('.id_siswa');
                     siswa_check.prop('checked', !siswa_check.prop("checked"))
                 });
 
+                // filter siswa
                 $('#filter-siswa').on('change', function() {
                     console.log(this.value)
                     table.column(4)
@@ -263,6 +372,20 @@
                         .draw();
                 });
 
+                // smart wizard
+                $('#smartwizard').smartWizard({
+                    selected: 0,
+                    theme: 'dots',
+                    autoAdjustHeight: true,
+                    transitionEffect: 'fade',
+                    showStepURLhash: false,
+
+                });
+
+                //confirm wizard submit
+                $('.confirm-wizard').click(function() {
+                    $('.form-naik-kelas').submit()
+                })
 
             });
         </script>
