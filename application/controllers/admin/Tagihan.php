@@ -21,6 +21,14 @@ class Tagihan extends Admin_Controller
         $this->load->view('admin/tagihan/diskon_tagihan', $this->data);
     }
 
+    public function editdiskon()
+    {
+        $this->data['title'] = "Edit Diskon";
+        $this->load->view('admin/tagihan/edit_diskon', $this->data);
+    }
+
+
+
     public function buatTagihan()
     {
         if ($this->input->post("lingkup") == "semuasiswa") {

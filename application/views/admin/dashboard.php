@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Plain Page</h3>
+                            <h3>Dashboard Admin</h3>
                         </div>
 
                         <div class="title_right">
@@ -34,12 +34,20 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12  ">
                             <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Plain Page</h2>
-                                    <div class="clearfix"></div>
-                                </div>
                                 <div class="x_content">
-                                    Add content to the page ...
+                                    <div class="row justify-content-start">
+                                        <div class="col-12 col-md-4">
+                                            <div class="card  text-white mb-3" style="max-width: 30rem; ">
+                                                <div class="card-header bg-light-blue">Data Siswa</div>
+                                                <div class="card-body py-4 bg-dark-blue">
+                                                    <span class="card-count">10</span>
+                                                    <a class="custom-link" href="<?= base_url('bendahara/pembayaran') ?>">
+                                                        <h5 class="card-title d-inline ml-2">Siswa</h5>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

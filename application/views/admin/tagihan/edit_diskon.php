@@ -12,32 +12,24 @@
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>Diskon Tagihan</h3>
-                        </div>
-
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
 
                     <div class="row">
+                        <div class="col-1">
+                            <a href="<?= base_url('admin/tagihan/diskon') ?>" class="btn btn-lg btn-success">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="row mt-3">
                         <div class="col-md-6 col-sm-6">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Tambah Diskon</h2>
+                                    <h2>Edit Diskon</h2>
                                     <div class="clearfix"></div>
                                 </div>
-
                                 <div class="x_content">
                                     <form action="">
                                         <div class="form-group">
@@ -67,36 +59,16 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-group"><button type="submit" class="btn btn-success">
+                                                Update
+                                            </button></div>
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-sm-6">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Tabel Diskon</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
 
-                                    <table class="table">
-                                        <thead class="thead-darkblue">
-                                            <tr>
-                                                <th>Diskon</th>
-                                                <th>Tagihan</th>
-                                                <th>Expire Date</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
 
