@@ -44,7 +44,7 @@
                     <li><a><i class="fa fa-sitemap"></i> Tagihan Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="<?= base_url('admin/tagihan') ?>">Tagihan</a></li>
-                            <li><a href="<?= base_url('admin/uang_keluar') ?>">Diskon Tagihan</a></li>
+                            <li><a href="<?= base_url('admin/tagihan/diskon') ?>">Diskon Tagihan</a></li>
                         </ul>
                     </li>
                 </ul>
