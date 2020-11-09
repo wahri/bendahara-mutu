@@ -74,7 +74,7 @@
                         </p>
                     </div>
                 </div>
-                <span id="nomor">NO. 0001</span>
+                <span id="nomor"><?= $transaksi['kode_transaksi'] ?></span>
 
             </div>
 

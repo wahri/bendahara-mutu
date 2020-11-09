@@ -238,10 +238,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <?php
-                      $cek_cart_kat = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $uang_kat['id_tagihan']])->row_array();
-                      $sisa_kat = $uang_kat['harga'] - $uang_kat['jml_dibayar'];
-                      ?>
+                        <?php
+                        $cek_cart_kat = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $uang_kat['id_tagihan']])->row_array();
+                        $sisa_kat = $uang_kat['harga'] - $uang_kat['jml_dibayar'];
+                        ?>
                         <tr>
                           <td>
                             <?= $uang_kat['nama_tagihan'] ?>
@@ -367,8 +367,8 @@
 
                     <tfoot>
                       <tr>
-                        <td class="text-right font-weight-bold">Total:</td>
-                        <td colspan="2"><?= 'Rp.' . number_format($total_cart['nominal'], 2, ',', '.') ?></td>
+                        <td class="font-weight-bold">Total:</td>
+                        <td class="font-weight-bold" colspan="2"><?= 'Rp.' . number_format($total_cart['nominal'], 2, ',', '.') ?></td>
                       </tr>
                     </tfoot>
                   </table>
