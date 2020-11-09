@@ -32,7 +32,7 @@
                                                     <th width="10%">Kelas</th>
                                                     <th width="10%">Tahun Masuk</th>
                                                     <th width="10%">Tahun Lulus</th>
-                                                    <th width="20%">Cash</th>
+                                                    <th width="15%">Cash</th>
                                                     <th width="10%">Action</th>
                                                 </tr>
                                             </thead>
