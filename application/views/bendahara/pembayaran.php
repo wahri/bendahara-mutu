@@ -21,22 +21,7 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="form-inline ml-2 mb-4">
-                                                <label for="filter-siswa">Filter Siswa</label>
-                                                <select class="custom-select ml-2" id="filter-siswa">
-                                                    <option value="">Pilih Kelas</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="Alumni">Alumni</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-
-                                    </div>
                                     <div class="col-12">
                                         <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                             <thead class="thead-darkblue">
