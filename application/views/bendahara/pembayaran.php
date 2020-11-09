@@ -11,20 +11,55 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="row" style="margin-top: 80px;">
+                <div class="">
 
-                    <div class="col-8 col-sm-8">
-                        <form class="form-inline">
-                            <select name="nis" id="nis" class="selectpicker" data-live-search="true">
-                                <option>Cari Data Siswa</option>
-                                <?php foreach ($this->db->get('siswa')->result() as $row) : ?>
-                                    <option value="<?= $row->nis ?>"><?= $row->nama ?> - <?= $row->nis ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="submit" id="cariSiswa" class="btn btn-primary ml-3">Cari</button>
-                        </form>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Pembayaran</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <div class="col-12">
+                                        <table id="dataSiswa" style="width: 100%;" class="table table-striped">
+                                            <thead class="thead-darkblue">
+                                                <tr>
+                                                    <th width="10%">Nama</th>
+                                                    <th width="10%">NIS</th>
+                                                    <th width="10%">NISN</th>
+                                                    <th width="10%">Kelas</th>
+                                                    <th width="10%">Tahun Masuk</th>
+                                                    <th width="10%">Tahun Lulus</th>
+                                                    <th width="15%">Cash</th>
+                                                    <th width="10%">Action</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php foreach ($siswa as $s) : ?>
+                                                    <tr>
+
+                                                        <td><?= $s['nama'] ?></td>
+                                                        <td><?= $s['nis'] ?></td>
+                                                        <td><?= $s['nisn'] ?></td>
+                                                        <td><?= $s['kelas'] ?></td>
+                                                        <td><?= $s['tahun_masuk'] ?></td>
+                                                        <td><?= $s['tahun_lulus'] ?></td>
+                                                        <td><?= $s['cash'] ?></td>
+                                                        <td><a href="<?= base_url('bendahara/pembayaran/detail/') . $s['nis'] ?>" class="btn btn-success"><i class="fa fa-dollar" aria-hidden="true"></i> Bayar
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
 
             </div>
@@ -43,45 +78,29 @@
                 <?php endforeach; ?>
             </script>
 
-            <!-- format rupiah -->
-            <script type="text/javascript">
-                var uang = document.querySelectorAll('.formatrupiah');
-                uang.addEventListener('keyup', function(e) {
-                    // tambahkan 'Rp.' pada saat form di ketik
-                    // gunakan fungsi formatuang() untuk mengubah angka yang di ketik menjadi format angka
-                    uang.value = formatRupiah(this.value, 'Rp.  ');
+            <script>
+                $(document).ready(function() {
+                    // setting
+                    var table = $('#dataSiswa').DataTable({
+                        "lengthMenu": [
+                            [10, 25, 50, -1],
+                            [10, 25, 50, "All"]
+                        ]
+                    });
+
+                    // filter siswa
+                    $('#filter-siswa').on('change', function() {
+                        console.log(this.value)
+                        table.column(3)
+                            .search(this.value)
+                            .draw();
+                    });
                 });
-
-                $('.formatrupiah').keyup(formatRupiah(this.value))
-
-                /* Fungsi formatRupiah */
-                function formatRupiah(angka, prefix) {
-                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                        split = number_string.split(','),
-                        sisa = split[0].length % 3,
-                        rupiah = split[0].substr(0, sisa),
-                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                    // tambahkan titik jika yang di input sudah menjadi angka ribuan
-                    if (ribuan) {
-                        separator = sisa ? '.' : '';
-                        rupiah += separator + ribuan.join('.');
-                    }
-
-                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-                }
             </script>
+
+
+
 </body>
 
-<script>
-    $(function() {
-        $('#cariSiswa').on('click', function(e) {
-            e.preventDefault();
-            var data = $('#nis').val();
-            window.location.href = "<?= base_url('bendahara/pembayaran/detail/') ?>" + data;
-        })
-    })
-</script>
 
 </html>
