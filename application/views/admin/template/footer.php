@@ -1,7 +1,7 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+        <a href="#">W2SDev Team</a> &copy; <?= date('Y') ?>
     </div>
     <div class="clearfix"></div>
 </footer>
@@ -16,13 +16,7 @@
 <!-- FastClick -->
 <script src="<?= base_url('assets') ?>/vendors/fastclick/lib/fastclick.js"></script>
 <!-- NProgress -->
-<<<<<<< HEAD
-<!-- <script src="<?= base_url('assets') ?>/vendors/nprogress/nprogress.js"></script> -->
-<!-- bootstrap-progressbar -->
-<script src="<?= base_url('assets') ?>/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-=======
 <script src="<?= base_url('assets') ?>/vendors/nprogress/nprogress.js"></script>
->>>>>>> a75237d8f27129918b9a41bfc91d36c19b4e03b2
 <!-- iCheck -->
 <script src="<?= base_url('assets') ?>/vendors/iCheck/icheck.min.js"></script>
 <!-- Datatables -->

@@ -101,7 +101,7 @@
                                                     </td>
                                                     <td>
                                                         <?php
-                                                        if ($row->is_spp == 1) :
+                                                        if ($row->kode_tagihan == 1) :
                                                         ?>
                                                             <span class="badge badge-success">SPP</span>
 
@@ -160,11 +160,11 @@
                                 <div class="form-group">
                                     <label for="">Tipe Pembayaran </label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_spp" id="inlineRadio1" value="1">
+                                        <input class="form-check-input" type="radio" name="kode_tagihan" id="inlineRadio1" value="1">
                                         <label class="form-check-label" for="inlineRadio1">SPP</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_spp" id="inlineRadio2" value="0">
+                                        <input class="form-check-input" type="radio" name="kode_tagihan" id="inlineRadio2" value="0">
                                         <label class="form-check-label" for="inlineRadio2">Bukan SPP</label>
                                     </div>
                                 </div>

@@ -11,7 +11,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="row justify-content-center">
+                <!-- <div class="row justify-content-center">
                     <div class="col-12 col-md-4">
                         <div class="card  text-white mb-3" style="max-width: 30rem; ">
                             <div class="card-header bg-light-blue">Data Pembayaran</div>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">

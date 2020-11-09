@@ -27,8 +27,4 @@
     <link href="<?= base_url('assets') ?>/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?= base_url('assets') ?>/build/css/custom.min.css" rel="stylesheet">
-<<<<<<< HEAD
-=======
-
->>>>>>> a75237d8f27129918b9a41bfc91d36c19b4e03b2
     <link href="<?= base_url('assets') ?>/build/css/style.css" rel="stylesheet">
