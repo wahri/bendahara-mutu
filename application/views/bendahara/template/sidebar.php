@@ -32,7 +32,7 @@
                         <ul class="nav child_menu">
                             <li><a href="<?= base_url('bendahara/pembayaran') ?>">Pembayaran</a></li>
                             <li><a href="uangkeluar.html">Uang Keluar</a></li>
-                            <li><a href="laporan.html">Laporan</a></li>
+                            <li><a href="<?= base_url('bendahara/laporan') ?>">Laporan</a></li>
                         </ul>
                     </li>
 
