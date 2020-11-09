@@ -67,7 +67,7 @@
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-md-12 col-sm-12  ">
+                        <div class="col-md-12 col-sm-12 ">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Form Upload Data Siswa</h2>
@@ -205,85 +205,86 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <?php $this->load->view('admin/template/footer') ?>
+    <?php $this->load->view('admin/template/footer') ?>
 
-        <script type="text/javascript">
-            var spp = document.getElementById('spp');
-            spp.addEventListener('keyup', function(e) {
-                // tambahkan 'Rp.' pada saat form di ketik
-                // gunakan fungsi formatspp() untuk mengubah angka yang di ketik menjadi format angka
-                spp.value = formatRupiah(this.value);
-            });
+    <script type="text/javascript">
+        var spp = document.getElementById('spp');
+        spp.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatspp() untuk mengubah angka yang di ketik menjadi format angka
+            spp.value = formatRupiah(this.value);
+        });
 
-            var kat = document.getElementById('kat');
-            kat.addEventListener('keyup', function(e) {
-                // tambahkan 'Rp.' pada saat form di ketik
-                // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
-                kat.value = formatRupiah(this.value);
-            });
+        var kat = document.getElementById('kat');
+        kat.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
+            kat.value = formatRupiah(this.value);
+        });
 
-            /* Fungsi formatRupiah */
-            function formatRupiah(angka, prefix) {
-                var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+        /* Fungsi formatRupiah */
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-                // tambahkan titik jika yang di input sudah menjadi angka ribuan
-                if (ribuan) {
-                    separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
             }
-        </script>
 
-        <script>
-            $(document).ready(function() {
-                // setting
-                var table = $('#dataSiswa').DataTable({
-                    "lengthMenu": [
-                        [10, 25, 50, -1],
-                        [10, 25, 50, "All"]
-                    ]
-                });
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    </script>
 
-                // check all
-                $('#checkAll').on('click', function() {
-                    var siswa_check = $('.id_siswa');
-                    siswa_check.prop('checked', !siswa_check.prop("checked"))
-                });
+    <script>
+        $(document).ready(function() {
+            // setting
+            var table = $('#dataSiswa').DataTable({
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ]
+            });
 
-                // filter siswa
-                $('#filter-siswa').on('change', function() {
-                    console.log(this.value)
-                    table.column(4)
-                        .search(this.value)
-                        .draw();
-                });
+            // check all
+            $('#checkAll').on('click', function() {
+                var siswa_check = $('.id_siswa');
+                siswa_check.prop('checked', !siswa_check.prop("checked"))
+            });
 
-                // smart wizard
-                $('#smartwizard').smartWizard({
-                    selected: 0,
-                    theme: 'dots',
-                    autoAdjustHeight: true,
-                    transitionEffect: 'fade',
-                    showStepURLhash: false,
+            // filter siswa
+            $('#filter-siswa').on('change', function() {
+                console.log(this.value)
+                table.column(4)
+                    .search(this.value)
+                    .draw();
+            });
 
-                });
-
-                //confirm wizard submit
-                $('.confirm-wizard').click(function() {
-                    $('.form-naik-kelas').submit()
-                })
+            // smart wizard
+            $('#smartwizard').smartWizard({
+                selected: 0,
+                theme: 'dots',
+                autoAdjustHeight: true,
+                transitionEffect: 'fade',
+                showStepURLhash: false,
 
             });
-        </script>
+
+            //confirm wizard submit
+            $('.confirm-wizard').click(function() {
+                $('.form-naik-kelas').submit()
+            })
+
+        });
+    </script>
 
 
 </body>

@@ -136,10 +136,7 @@
                                             <?php endforeach; ?>
                                         </tbody>
                                     </table>
-
                                     </ul>
-
-
                                 </div>
                             </div>
                         </div>
@@ -172,7 +169,6 @@
                                     <input type="text" id="harga" name="harga" class="form-control">
                                 </div>
 
-
                                 <div class="form-group">
                                     <label for="">Tipe Pembayaran </label>
                                     <div class="form-check">
@@ -184,8 +180,6 @@
                                         <label class="form-check-label" for="inlineRadio2">Bukan SPP</label>
                                     </div>
                                 </div>
-
-
 
                             </div>
                             <div class="modal-footer">

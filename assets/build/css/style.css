@@ -75,3 +75,8 @@
 .confirm-text {
 	font-size: 18px;
 }
+
+.card-count {
+	font-size: 20px;
+	font-weight: bold;
+}

@@ -8,15 +8,10 @@
             <?php $this->load->view('admin/template/sidebar') ?>
 
             <?php $this->load->view('admin/template/topbar') ?>
-
             <!-- page content -->
             <div class="right_col" role="main">
-
-
                 <div class="">
-
                     <div class="clearfix"></div>
-
                     <div class="row">
                         <div class="col-1">
                             <a id="cartButton" href="<?= base_url('admin/siswa') ?>" class="btn btn-lg btn-success">
@@ -24,16 +19,13 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="row mt-2">
-
                         <div class="col-8">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Tambah Siswa</h2>
                                     <div class="clearfix"></div>
                                 </div>
-
                                 <div class="x_content">
                                     <div class="row">
                                         <div class="col-12">
@@ -56,16 +48,15 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /page content -->
-        <?php $this->load->view('admin/template/footer') ?>
-
+    </div>
+    <!-- /page content -->
+    <?php $this->load->view('admin/template/footer') ?>
 </body>
 
 </html>
