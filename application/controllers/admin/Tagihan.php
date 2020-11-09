@@ -12,7 +12,7 @@ class Tagihan extends Admin_Controller
     public function index()
     {
         $this->data['title'] = "Tagihan";
-        $this->load->view('admin/tagihan', $this->data);
+        $this->load->view('admin/tagihan/tagihan', $this->data);
     }
 
     public function buatTagihan()

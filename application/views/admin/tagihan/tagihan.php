@@ -29,6 +29,8 @@
                         </div>
                     </div>
 
+
+
                     <div class="clearfix"></div>
 
                     <div class="row">
@@ -42,7 +44,7 @@
                                     <form method="POST" action="<?= base_url('admin/tagihan/buattagihan') ?>">
                                         <div class="form-group">
                                             <label for="">Pilih Jenis Tagihan</label>
-                                            <select name="tagihan" id="tagihan" class="selectpicker" data-live-search="true">
+                                            <select name="tagihan" id="tagihan" class="custom-select" data-live-search="true">
                                                 <?php $pembayaran = $this->db->get("pembayaran");
                                                 foreach ($pembayaran->result() as $row) :
                                                 ?>
@@ -53,7 +55,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Pilih Lingkup Tagihan</label>
-                                            <select name="lingkup" class="selectpicker" data-live-search="true">
+                                            <select name="lingkup" class="custom-select" data-live-search="true">
                                                 <option value="semuasiswa">Semua Siswa</option>
                                                 <option value="semuasiswa">Per Kelas</option>
                                             </select>
@@ -66,12 +68,13 @@
 
 
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit">Buat Tagihan</button>
+                                            <button class="btn btn-success" type="submit">Buat Tagihan</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 col-sm-6">
                             <div class="x_panel">
                                 <div class="x_title">
@@ -79,8 +82,11 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <table class="table table-striped projects">
-                                        <thead>
+                                    <div class="form-group">
+                                        <button class="btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#pembayaranModal"> <i class="fa fa-plus" aria-hidden="true"></i> Pembayaran</button>
+                                    </div>
+                                    <table class="table">
+                                        <thead class="thead-darkblue">
                                             <tr>
                                                 <th>Nama Pembayaran</th>
                                                 <th>Harga</th>
@@ -122,13 +128,12 @@
 
                                     </ul>
 
-                                    <div class="form-group">
-                                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#pembayaranModal">Tambah Pembayaran</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 

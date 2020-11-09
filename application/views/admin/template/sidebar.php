@@ -32,7 +32,7 @@
                     <li>
                         <a href="<?= base_url('admin/siswa') ?>"><i class="fa fa-sitemap"></i> Siswa Management</a>
                     </li>
-                    <li><a><i class="fa fa-bug"></i> Keuangan Management <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-dollar"></i> Keuangan Management <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="<?= base_url('admin/uang_masuk') ?>">Uang Masuk</a></li>
                             <li><a href="<?= base_url('admin/uang_keluar') ?>">Uang Keluar</a></li>
@@ -41,8 +41,11 @@
                     <li>
                         <a href="<?= base_url('admin/user') ?>"><i class="fa fa-sitemap"></i> User Management</a>
                     </li>
-                    <li>
-                        <a href="<?= base_url('admin/tagihan') ?>"><i class="fa fa-sitemap"></i> Tagihan</a>
+                    <li><a><i class="fa fa-sitemap"></i> Tagihan Management <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="<?= base_url('admin/tagihan') ?>">Tagihan</a></li>
+                            <li><a href="<?= base_url('admin/uang_keluar') ?>">Diskon Tagihan</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
