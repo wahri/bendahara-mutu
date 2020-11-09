@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="x_content">
                                     <form method="POST" action="<?= base_url('admin/tagihan/buattagihan') ?>">
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="">Pilih Jenis Tagihan</label>
                                             <select name="tagihan" id="tagihan" class="custom-select" data-live-search="true">
                                                 <?php $pembayaran = $this->db->get("pembayaran");
@@ -52,18 +52,29 @@
 
                                                 <?php endforeach; ?>
                                             </select>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                             <label for="">Pilih Lingkup Tagihan</label>
                                             <select name="lingkup" class="custom-select" data-live-search="true">
-                                                <option value="semuasiswa">Semua Siswa</option>
-                                                <option value="semuasiswa">Per Kelas</option>
+                                                <option value="all">Semua Siswa</option>
+                                                <option value="10">Kelas 10</option>
+                                                <option value="11">Kelas 11</option>
+                                                <option value="12">Kelas 12</option>
                                             </select>
                                         </div>
 
-                                        <div class="form-group" id="tahun">
-                                            <label for="tahun">Tahun</label>
-                                            <input id="tahun" name="tahun" type="text" class="form-control">
+                                        <div class="form-group" id="nama_tagihan">
+                                            <label for="nama_tagihan">Nama Tagihan</label>
+                                            <input id="nama_tagihan" placeholder="..." name="nama_tagihan" type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group" id="harga">
+                                            <label for="harga">Nominal</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Rp. </span>
+                                                </div>
+                                                <input type="text" class="form-control" id='rupiah' name="harga">
+                                            </div>
                                         </div>
 
 
@@ -189,6 +200,32 @@
 
             <!-- /page content -->
             <?php $this->load->view('admin/template/footer') ?>
+            <!-- membuat format rupiah -->
+            <script>
+                function formatRupiah(angka, prefix) {
+                    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                        split = number_string.split(','),
+                        sisa = split[0].length % 3,
+                        rupiah = split[0].substr(0, sisa),
+                        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                    // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                    return rupiah;
+                }
+
+                var elements = document.getElementById("rupiah");
+                elements.addEventListener('keyup', function(e) {
+                    // tambahkan 'Rp.' pada saat form di ketik
+                    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+                    rupiah.value = formatRupiah(this.value, 'Rp. ');
+                });
+            </script>
 </body>
 
 

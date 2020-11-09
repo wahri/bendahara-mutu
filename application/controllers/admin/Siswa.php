@@ -141,7 +141,7 @@ class Siswa extends Admin_Controller
     {
         $fileName = $_FILES['file']['name'];
 
-        $config['upload_path'] = './assets/'; //path upload
+        $config['upload_path'] = './temp_upload/'; //path upload
         $config['file_name'] = $fileName;  // nama file
         $config['allowed_types'] = 'xls|xlsx|csv'; //tipe file yang diperbolehkan
         $config['max_size'] = 100000; // maksimal sizze
@@ -150,16 +150,20 @@ class Siswa extends Admin_Controller
         $this->upload->initialize($config);
 
         if ($this->upload->do_upload('file')) {
-            $inputFileName = './assets/' . $this->upload->data('file_name');
+            $inputFileName = './temp_upload/' . $this->upload->data('file_name');
 
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
             $spreadsheet = $reader->load($inputFileName);
 
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
-
-            for ($i = 1; $i < count($sheetData); $i++) {
+            // echo "<pre>";
+            // print_r($sheetData);
+            // echo "</pre>";
+            // die;
+            for ($i = 0; $i < count($sheetData); $i++) {
                 if (empty($sheetData[$i][0]) || empty($sheetData[$i][1]) || empty($sheetData[$i][2]) || empty($sheetData[$i][3]) || empty($sheetData[$i][4])) {
+                    unlink('./temp_upload/' . $this->upload->data('file_name'));
                     $this->session->set_flashdata('message_error', 'Pesan!!! Data excel tidak boleh ada yang kosong<br>Baris ' . ($i + 1) . ' kosong');
                     redirect('admin/siswa');
                 }
@@ -169,8 +173,13 @@ class Siswa extends Admin_Controller
             //     echo $i . '<br>';
             // }
             // die;
-
+            $hitung_error_baris = "";
             for ($j = 0; $j < count($sheetData); $j++) {
+                $cek_nis = $this->db->get_where('siswa', ['nis' => $sheetData[$j][0]])->row_array();
+                if (!empty($cek_nis)) {
+                    $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan<br />";
+                    continue;
+                }
                 $data = [
                     "nis" => $sheetData[$j][0],
                     "nisn" => $sheetData[$j][1],
@@ -224,6 +233,11 @@ class Siswa extends Admin_Controller
                     echo "something is wrong.";
                     die;
                 }
+            }
+
+            unlink('./temp_upload/' . $this->upload->data('file_name'));
+            if(!empty($hitung_error_baris)){
+                $this->session->set_flashdata('message_error', $hitung_error_baris);
             }
             $this->session->set_flashdata('message', 'Berhasil mengimport data siswa');
             redirect('admin/siswa');

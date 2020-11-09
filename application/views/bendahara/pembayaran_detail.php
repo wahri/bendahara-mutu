@@ -168,7 +168,9 @@
                               <?php if ($ganjil['is_lunas']) : ?>
                                 <button type="button" class="btn btn-success btn-xs">Lunas</button>
                               <?php else : ?>
-                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php if (date('Y') > substr($ganjil['tahun'], 0, 4) || (date('Y') == substr($ganjil['tahun'], 0, 4) && date('m') >= $ganjil['bulan'])) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
@@ -203,7 +205,9 @@
                               <?php if ($genap['is_lunas']) : ?>
                                 <button type="button" class="btn btn-success btn-xs">Lunas</button>
                               <?php else : ?>
-                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y')== substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
