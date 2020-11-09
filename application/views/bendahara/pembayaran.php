@@ -30,9 +30,9 @@
                                                     <th width="10%">NIS</th>
                                                     <th width="10%">NISN</th>
                                                     <th width="10%">Kelas</th>
-                                                    <th width="10%">Tahun Masuk</th>
+                                                    <!-- <th width="10%">Tahun Masuk</th>
                                                     <th width="10%">Tahun Lulus</th>
-                                                    <th width="15%">Cash</th>
+                                                    <th width="15%">Cash</th> -->
                                                     <th width="10%">Action</th>
                                                 </tr>
                                             </thead>
@@ -45,9 +45,9 @@
                                                         <td><?= $s['nis'] ?></td>
                                                         <td><?= $s['nisn'] ?></td>
                                                         <td><?= $s['kelas'] ?></td>
-                                                        <td><?= $s['tahun_masuk'] ?></td>
+                                                        <!-- <td><?= $s['tahun_masuk'] ?></td>
                                                         <td><?= $s['tahun_lulus'] ?></td>
-                                                        <td><?= $s['cash'] ?></td>
+                                                        <td><?= $s['cash'] ?></td> -->
                                                         <td><a href="<?= base_url('bendahara/pembayaran/detail/') . $s['nis'] ?>" class="btn btn-success"><i class="fa fa-dollar" aria-hidden="true"></i> Bayar
                                                         </td>
                                                     </tr>
