@@ -13,7 +13,7 @@ class Transaksi extends Bendahara_Controller
         $this->data['title'] = "Transaksi Record";
         $this->data['nis'] = $nis;
 
-        $this->load->view('bendahara/transaksi_record', $this->data);
+        $this->load->view('bendahara/pembayaran/transaksi_record', $this->data);
     }
 
 
@@ -24,7 +24,7 @@ class Transaksi extends Bendahara_Controller
         $this->data['transaksi'] = $this->db->get_where('transaksi', ['kode_transaksi' => $kode])->row_array();
         $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result_array();
 
-        $this->load->view('bendahara/success_bayar', $this->data);
+        $this->load->view('bendahara/pembayaran/success_bayar', $this->data);
     }
 
 
@@ -36,7 +36,7 @@ class Transaksi extends Bendahara_Controller
         $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result_array();
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $this->data['transaksi']['nis']])->row_array();
 
-        $this->load->view('bendahara/print_transaksi', $this->data);
+        $this->load->view('bendahara/pembayaran/print_transaksi', $this->data);
     }
 
     public function detail($kode)

@@ -14,7 +14,7 @@ class Pembayaran extends Bendahara_Controller
     {
         $this->data['title'] = "Cari Siswa";
         $this->data['siswa'] = $this->db->get('siswa')->result_array();
-        $this->load->view('bendahara/pembayaran', $this->data);
+        $this->load->view('bendahara/pembayaran/pembayaran', $this->data);
     }
 
     public function detail($nis, $tahun = null)
@@ -32,7 +32,7 @@ class Pembayaran extends Bendahara_Controller
         $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2', 'kode_tagihan' => 1])->result_array();
         $this->data['uang_kat'] = $this->db->get_where('tagihan', ['nis' => $nis, 'kode_tagihan' => 2])->row_array();
         $this->data['title'] = "Detail Pembayaran";
-        $this->load->view('bendahara/pembayaran_detail', $this->data);
+        $this->load->view('bendahara/pembayaran/pembayaran_detail', $this->data);
     }
 
 
