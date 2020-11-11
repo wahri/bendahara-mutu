@@ -134,59 +134,56 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-
-                                    <form class="form-naik-kelas" action="#" method="POST" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <div class="form-inline mx-4 mb-4">
-                                                    <label for="filter-siswa">Filter Siswa</label>
-                                                    <select class="custom-select ml-2" id="filter-siswa">
-                                                        <option value="">Pilih Kelas</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                        <option value="Alumni">Alumni</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-4 text-right offset-4">
-                                                <button type="button" data-toggle="modal" data-target="#naik-kelas-modal" class="btn btn-sm btn-success">
-                                                    <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
-                                                </button>
-                                                <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa
-                                                </a>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-inline mx-4 mb-4">
+                                                <label for="filter-siswa">Filter Siswa</label>
+                                                <select class="custom-select ml-2" id="filter-siswa">
+                                                    <option value="">Semua Kelas</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="Alumni">Alumni</option>
+                                                </select>
                                             </div>
                                         </div>
+
+                                        <div class="col-4 text-right offset-4">
+                                            <a href="<?= base_url('admin/siswa/naik_kelas') ?>" type="button" class="btn btn-sm btn-success">
+                                                <i class="fa fa-arrow-up" aria-hidden="true"></i> Kenaikan Kelas
+                                            </a>
+                                            <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                                                <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-12">
                                             <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                 <thead class="thead-darkblue">
                                                     <tr>
-                                                        <th width="10%"><button type="button" class="btn btn-sm btn-dark" id="checkAll"><i class="fa fa-check" aria-hidden="true"></i></button></th>
-                                                        <th width="10%">Nama</th>
-                                                        <th width="10%">NIS</th>
-                                                        <th width="10%">NISN</th>
-                                                        <th width="10%">Kelas</th>
-                                                        <th width="10%">Tahun Masuk</th>
-                                                        <th width="10%">Tahun Lulus</th>
-                                                        <th width="20%">Cash</th>
-                                                        <th width="10%">Action</th>
+                                                        <th class="text-center" width="10%">Nama</th>
+                                                        <th class="text-center">NIS</th>
+                                                        <th class="text-center">NISN</th>
+                                                        <th class="text-center">Kelas</th>
+                                                        <th class="text-center">Tahun Masuk</th>
+                                                        <th class="text-center">Tahun Lulus</th>
+                                                        <th class="text-center" width="20%">Cash</th>
+                                                        <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
                                                     <?php foreach ($siswa as $s) : ?>
                                                         <tr>
-                                                            <td><input type="checkbox" name="id_siswa" class="id_siswa" value="<?= $s['id'] ?>"></td>
-                                                            <td><?= $s['nama'] ?></td>
-                                                            <td><?= $s['nis'] ?></td>
-                                                            <td><?= $s['nisn'] ?></td>
-                                                            <td><?= $s['kelas'] ?></td>
-                                                            <td><?= $s['tahun_masuk'] ?></td>
-                                                            <td><?= $s['tahun_lulus'] ?></td>
-                                                            <td><?= $s['cash'] ?></td>
-                                                            <td><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
+                                                            <td class="text-center"><?= $s['nama'] ?></td>
+                                                            <td class="text-center"><?= $s['nis'] ?></td>
+                                                            <td class="text-center"><?= $s['nisn'] ?></td>
+                                                            <td class="text-center"><?= $s['kelas'] ?></td>
+                                                            <td class="text-center"><?= $s['tahun_masuk'] ?></td>
+                                                            <td class="text-center"><?= $s['tahun_lulus'] ?></td>
+                                                            <td class="text-center"><?= $s['cash'] ?></td>
+                                                            <td class="text-center"><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
                                                             </td>
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -194,11 +191,8 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                    </div>
                                 </div>
-
-                                </form>
-
-
                             </div>
                         </div>
                     </div>
@@ -245,47 +239,16 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            // setting
-            var table = $('#dataSiswa').DataTable({
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ]
-            });
-
-            // check all
-            $('#checkAll').on('click', function() {
-                var siswa_check = $('.id_siswa');
-                siswa_check.prop('checked', !siswa_check.prop("checked"))
-            });
-
-            // filter siswa
-            $('#filter-siswa').on('change', function() {
-                console.log(this.value)
-                table.column(4)
-                    .search(this.value)
-                    .draw();
-            });
-
-            // smart wizard
-            $('#smartwizard').smartWizard({
-                selected: 0,
-                theme: 'dots',
-                autoAdjustHeight: true,
-                transitionEffect: 'fade',
-                showStepURLhash: false,
-
-            });
-
-            //confirm wizard submit
-            $('.confirm-wizard').click(function() {
-                $('.form-naik-kelas').submit()
-            })
-
+        // setting
+        var table = $('#dataSiswa').DataTable();
+        // filter siswa
+        $('#filter-siswa').on('change', function() {
+            console.log(this.value)
+            table.column(3)
+                .search(this.value)
+                .draw();
         });
     </script>
-
 
 </body>
 

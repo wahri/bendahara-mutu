@@ -21,17 +21,26 @@ class Siswa extends Admin_Controller
 
     public function detail($id)
     {
+        $this->data['title'] = "Detail Siswa";
         $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id])->row_array();
         $this->load->view('admin/siswa/siswa_detail', $this->data);
     }
 
     public function tambah()
     {
+        $this->data['title'] = "Tambah Siswa";
         $this->load->view('admin/siswa/siswa_tambah');
     }
 
     public function update($id)
     {
+    }
+
+    public function naik_kelas()
+    {
+        $this->data['title'] = "Naik Kelas";
+        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->load->view('admin/siswa/naik_kelas', $this->data);
     }
 
     // public function importDataSiswa()
@@ -236,7 +245,7 @@ class Siswa extends Admin_Controller
             }
 
             unlink('./temp_upload/' . $this->upload->data('file_name'));
-            if(!empty($hitung_error_baris)){
+            if (!empty($hitung_error_baris)) {
                 $this->session->set_flashdata('message_error', $hitung_error_baris);
             }
             $this->session->set_flashdata('message', 'Berhasil mengimport data siswa');
