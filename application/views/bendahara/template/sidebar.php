@@ -31,7 +31,7 @@
                     <li><a><i class="fa fa-bar-chart-o"></i> Data <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="<?= base_url('bendahara/pembayaran') ?>">Pembayaran</a></li>
-                            <li><a href="uangkeluar.html">Uang Keluar</a></li>
+                            <li><a href="<?= base_url('bendahara/uangkeluar') ?>">Uang Keluar</a></li>
                             <li><a href="<?= base_url('bendahara/laporan') ?>">Laporan</a></li>
                         </ul>
                     </li>

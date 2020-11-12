@@ -80,3 +80,22 @@
 	font-size: 20px;
 	font-weight: bold;
 }
+
+.card-balance .balance {
+	color: #fff;
+	font-size: 20px;
+}
+
+.card-balance .balance-label {
+	color: #fff;
+	font-size: 18px;
+}
+
+.card-balance {
+	cursor: pointer;
+}
+
+
+.card-balance .card-header {
+	font-size: 18px;
+}
