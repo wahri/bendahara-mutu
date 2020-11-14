@@ -44,7 +44,7 @@
                                                         <td><?= $s['nama'] ?></td>
                                                         <td><?= $s['nis'] ?></td>
                                                         <td><?= $s['nisn'] ?></td>
-                                                        <td><?= $s['kelas'] ?></td>
+                                                        <td><?= $s['kelas'] == 13 ? 'Alumni ' .$s['tahun_lulus'] : $s['kelas'] ?></td>
                                                         <!-- <td><?= $s['tahun_masuk'] ?></td>
                                                         <td><?= $s['tahun_lulus'] ?></td>
                                                         <td><?= $s['cash'] ?></td> -->

@@ -81,6 +81,10 @@
                         <h2>NISN :</h2>
                         <h2 class="text-primary"> <?= $siswa['nisn'] ?></h2>
                       </li>
+                      <li class="mt-3">
+                        <h2>Kelas :</h2>
+                        <h2 class="text-primary"> <?= $siswa['kelas'] ?></h2>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -128,7 +132,7 @@
                         // Set your latest year you want in the range, in this case we use PHP to just set it to the current year.
                         // $latest_year = $siswa['tahun_masuk'] + 2;
                         if (empty($siswa['tahun_lulus'])) {
-                          $latest_year = date('Y');
+                          $latest_year = date('Y') + 2;
                         } else {
                           $latest_year = $siswa['tahun_lulus'];
                         }
@@ -205,7 +209,7 @@
                               <?php if ($genap['is_lunas']) : ?>
                                 <button type="button" class="btn btn-success btn-xs">Lunas</button>
                               <?php else : ?>
-                                <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y')== substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
+                                <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y') == substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
                                 <?php endif; ?>
                               <?php endif; ?>
