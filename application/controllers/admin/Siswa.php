@@ -39,112 +39,70 @@ class Siswa extends Admin_Controller
     public function naik_kelas()
     {
         $this->data['title'] = "Naik Kelas";
-        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', 'kelas != 13')->result_array();
         $this->load->view('admin/siswa/naik_kelas', $this->data);
     }
 
-    // public function importDataSiswa()
-    // {
-    //     $this->load->library('Excel');
+    public function progresnaikkelas()
+    {
+        $data13['kelas']=13;
+        $data13['tahun_lulus']= date('Y');
+        $this->db->where('kelas', 12);
+        $this->db->where_not_in('nis', $this->input->post('nis'));
+        $this->db->update('siswa', $data13);
+        $data12['kelas']=12;
+        $this->db->where('kelas', 11);
+        $this->db->where_not_in('nis', $this->input->post('nis'));
+        $this->db->update('siswa', $data12);
+        $data11['kelas']=11;
+        $this->db->where('kelas', 10);
+        $this->db->where_not_in('nis', $this->input->post('nis'));
+        $this->db->update('siswa', $data11);
 
-    //     $fileName = $_FILES['file']['name'];
+        // buat tagihan setahun kedepan
+        $siswa = $this->db->get_where('siswa', ('kelas != 13'))->result_array();
+        foreach ($siswa as $s) {
+            $this->db->order_by('id_tagihan', 'DESC');
+            $tagihan_lama = $this->db->get_where('tagihan', ['nis' => $s['nis'], 'kode_tagihan' => 1])->row_array();
+            $tahun = substr($tagihan_lama['tahun'], 0, 4) + 1;
 
-    //     $config['upload_path'] = './assets/'; //path upload
-    //     $config['file_name'] = $fileName;  // nama file
-    //     $config['allowed_types'] = 'xls|xlsx|csv'; //tipe file yang diperbolehkan
-    //     $config['max_size'] = 100000; // maksimal sizze
+            $angka_bulan = [
+                "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
+            ];
 
-    //     $this->load->library('upload'); //meload librari upload
-    //     $this->upload->initialize($config);
+            $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
 
-    //     if (!$this->upload->do_upload('file')) {
-    //         $this->session->set_flashdata('message_error', $this->upload->display_errors());
-    //         redirect('admin/siswa');
-    //     }
+            for ($i = 0; $i <= 5; $i++) {
+                $tagihan_spp = [
+                    'nis' => $s['nis'],
+                    'harga' => $tagihan_lama['harga'],
+                    'tahun' => $tahun . '1',
+                    'bulan' => $angka_bulan[$i],
+                    'kode_tagihan' => '1',
+                    'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $tahun,
+                    'kelas' => $s['kelas']
+                ];
 
-    //     $inputFileName = './assets/' . $this->upload->data('file_name');
+                $this->db->insert("tagihan", $tagihan_spp);
+            }
+            for ($i = 6; $i <= 11; $i++) {
+                $tagihan_spp = [
+                    'nis' => $s['nis'],
+                    'harga' => $tagihan_lama['harga'],
+                    'tahun' => $tahun . '2',
+                    'bulan' => $angka_bulan[$i],
+                    'kode_tagihan' => '1',
+                    'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($tahun + 1),
+                    'kelas' => $s['kelas']
+                ];
 
-    // try {
-    //     $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
-    //     $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-    //     $objPHPExcel = $objReader->load($inputFileName);
-    // } catch (Exception $e) {
-    //     die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
-    // }
+                $this->db->insert("tagihan", $tagihan_spp);
+            }
+        }
 
-    // $sheet = $objPHPExcel->getSheet(0);
-    // $highestRow = $sheet->getHighestRow();
-    // $highestColumn = $sheet->getHighestColumn();
+        redirect('admin/siswa/naik_kelas');
+    }
 
-    // for ($row = 1; $row <= $highestRow; $row++) {                  //  Read a row of data into an array                 
-    //     $rowData = $sheet->rangeToArray(
-    //         'A' . $row . ':' . $highestColumn . $row,
-    //         NULL,
-    //         TRUE,
-    //         FALSE
-    //     );
-
-    //     // Sesuaikan key array dengan nama kolom di database                                                         
-    //     $data = array(
-    //         "nis" => $rowData[0][0],
-    //         "nisn" => $rowData[0][1],
-    //         "nama" => $rowData[0][2],
-    //         "kelas" => $rowData[0][3],
-    //         "tahun_masuk" => $rowData[0][4]
-    //     );
-    //     $import = $this->db->insert("siswa", $data);
-
-    //         if ($import) {
-
-    //             $angka_bulan = [
-    //                 "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
-    //             ];
-
-    //             $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
-
-    //             for ($i = 0; $i <= 5; $i++) {
-    //                 $tagihan_spp = [
-    //                     'nis' => $rowData[0][0],
-    //                     'harga' => str_replace('.', '', $this->input->post('spp')),
-    //                     'tahun' => $rowData[0][4] . '1',
-    //                     'bulan' => $angka_bulan[$i],
-    //                     'kode_tagihan' => '2',
-    //                     'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $rowData[0][4]
-    //                 ];
-
-    //                 $this->db->insert("tagihan", $tagihan_spp);
-    //             }
-    //             for ($i = 6; $i <= 11; $i++) {
-    //                 $tagihan_spp = [
-    //                     'nis' => $rowData[0][0],
-    //                     'harga' => str_replace('.', '', $this->input->post('spp')),
-    //                     'tahun' => $rowData[0][4] . '2',
-    //                     'bulan' => $angka_bulan[$i],
-    //                     'kode_tagihan' => '2',
-    //                     'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($rowData[0][4] + 1)
-    //                 ];
-
-    //                 $this->db->insert("tagihan", $tagihan_spp);
-    //             }
-
-    //             $kat = [
-    //                 'nis' => $rowData[0][0],
-    //                 'harga' => str_replace('.', '', $this->input->post('kat')),
-    //                 'kode_tagihan' => '2',
-    //                 'nama_tagihan' => 'Uang KAT'
-    //             ];
-    //             $this->db->insert("tagihan", $kat);
-    //         } else {
-    //             echo "something is wrong.";
-    //             die;
-    //         }
-    //     }
-
-    //     unlink('./assets/' . $this->upload->data('file_name'));
-
-    //     $this->session->set_flashdata('message', 'Berhasil mengimport data siswa');
-    //     redirect('admin/siswa');
-    // }
 
     public function importDataSiswaTes()
     {
@@ -186,7 +144,7 @@ class Siswa extends Admin_Controller
             for ($j = 0; $j < count($sheetData); $j++) {
                 $cek_nis = $this->db->get_where('siswa', ['nis' => $sheetData[$j][0]])->row_array();
                 if (!empty($cek_nis)) {
-                    $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan<br />";
+                    $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, NIS duplikat atau sudah terdaftar<br />";
                     continue;
                 }
                 $data = [
@@ -248,7 +206,7 @@ class Siswa extends Admin_Controller
             if (!empty($hitung_error_baris)) {
                 $this->session->set_flashdata('message_error', $hitung_error_baris);
             }
-            $this->session->set_flashdata('message', 'Berhasil mengimport data siswa');
+            $this->session->set_flashdata('message', 'Selesai mengimport data siswa...');
             redirect('admin/siswa');
         } else {
             $this->session->set_flashdata('message_error', $this->upload->display_errors());

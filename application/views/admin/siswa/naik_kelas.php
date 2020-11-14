@@ -49,27 +49,48 @@
                                         </div>
 
                                         <div class="col-4 text-right offset-4">
-                                            <button class="btn btn-sm btn-success" onclick="document.getElementById('formNaikKelas').submit()">
+                                            <button type="button" data-toggle="modal" data-target="#yakin" class="btn btn-success btn-xs">
                                                 <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
                                             </button>
+                                            <!-- modal yakin? -->
+                                            <div class="modal fade" id="yakin" tabindex="-1" aria-labelledby="yakinLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="yakinLabel">Apakah anda yakin?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ipsum rem voluptatum asperiores, alias placeat. Veniam odit ex repellendus minus vel ipsam, assumenda fugiat nemo officiis facere magni enim est.</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-success" onclick="document.getElementById('formNaikKelas').submit()">
+                                                                    <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
+                                                                </button>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end modal -->
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <form id="formNaikKelas" action="" method="post">
+                                            <form id="formNaikKelas" action="<?= base_url('admin/siswa/progresnaikkelas') ?>" method="post">
                                                 <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                     <thead class="thead-darkblue">
                                                         <tr>
                                                             <th class="text-center">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                             </th>
-                                                            <th class="text-center" width="10%">Nama</th>
                                                             <th class="text-center">NIS</th>
+                                                            <th class="text-center" width="10%">Nama</th>
                                                             <th class="text-center">NISN</th>
                                                             <th class="text-center">Kelas</th>
                                                             <th class="text-center">Tahun Masuk</th>
-                                                            <th class="text-center">Tahun Lulus</th>
-                                                            <th class="text-center" width="20%">Cash</th>
 
                                                         </tr>
                                                     </thead>
@@ -78,16 +99,13 @@
                                                         <?php foreach ($siswa as $s) : ?>
                                                             <tr>
                                                                 <td class="text-center">
-                                                                    <input type="checkbox" aria-label="Checkbox for following text input">
-
+                                                                    <input type="checkbox" aria-label="Checkbox for following text input" value="<?= $s['nis'] ?>" name="nis[]">
                                                                 </td>
-                                                                <td class="text-center"><?= $s['nama'] ?></td>
                                                                 <td class="text-center"><?= $s['nis'] ?></td>
+                                                                <td class="text-center"><?= $s['nama'] ?></td>
                                                                 <td class="text-center"><?= $s['nisn'] ?></td>
                                                                 <td class="text-center"><?= $s['kelas'] ?></td>
                                                                 <td class="text-center"><?= $s['tahun_masuk'] ?></td>
-                                                                <td class="text-center"><?= $s['tahun_lulus'] ?></td>
-                                                                <td class="text-center"><?= $s['cash'] ?></td>
 
                                                             </tr>
                                                         <?php endforeach; ?>

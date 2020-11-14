@@ -167,8 +167,6 @@
                                                         <th class="text-center">NISN</th>
                                                         <th class="text-center">Kelas</th>
                                                         <th class="text-center">Tahun Masuk</th>
-                                                        <th class="text-center">Tahun Lulus</th>
-                                                        <th class="text-center" width="20%">Cash</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -181,8 +179,6 @@
                                                             <td class="text-center"><?= $s['nisn'] ?></td>
                                                             <td class="text-center"><?= $s['kelas'] ?></td>
                                                             <td class="text-center"><?= $s['tahun_masuk'] ?></td>
-                                                            <td class="text-center"><?= $s['tahun_lulus'] ?></td>
-                                                            <td class="text-center"><?= $s['cash'] ?></td>
                                                             <td class="text-center"><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
                                                             </td>
                                                         </tr>

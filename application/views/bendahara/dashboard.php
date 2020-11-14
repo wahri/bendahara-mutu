@@ -28,7 +28,7 @@
                             <div class="card-header bg-light-blue">Data Uang Keluar</div>
                             <div class="card-body py-4 bg-dark-blue">
                                 <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
-                                <a class="custom-link" href="uangkeluar.html">
+                                <a class="custom-link" href="<?= base_url('bendahara/uangkeluar') ?>">
                                     <h5 class="card-title d-inline ml-2">Uang Keluar</h5>
                                 </a>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="card-header bg-light-blue">Laporan</div>
                             <div class="card-body py-4 bg-dark-blue">
                                 <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                                <a class="custom-link" href="pembayaran.html">
+                                <a class="custom-link" href="<?= base_url('bendahara/laporan') ?>">
                                     <h5 class="card-title d-inline ml-2">Laporan</h5>
                                 </a>
                             </div>
