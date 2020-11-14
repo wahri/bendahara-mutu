@@ -9,9 +9,15 @@ class Laporan extends Bendahara_Controller
         parent::__construct();
     }
 
-    public function index()
+    public function uang_masuk()
     {
-        $this->data['title'] = "Cari Siswa";
-        $this->load->view('bendahara/laporan/laporan', $this->data);
+        $this->data['title'] = 'Laporan Uang Masuk';
+        $this->load->view('bendahara/laporan/uang_masuk', $this->data);
+    }
+
+    public function uang_keluar()
+    {
+        $this->data['title'] = 'Laporan Uang Keluar';
+        $this->load->view('bendahara/laporan/uang_keluar', $this->data);
     }
 }

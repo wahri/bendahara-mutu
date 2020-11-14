@@ -14,16 +14,16 @@
                     <div class="clearfix"></div>
                     <div class="row">
                         <div class="col-1">
-                            <a id="cartButton" href="<?= base_url('bendahara/uangkeluar') ?>" class="btn btn-lg btn-success">
+                            <a id="cartButton" href="<?= base_url('bendahara/uang_keluar') ?>" class="btn btn-lg btn-success">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Tambah Akun</h2>
+                                    <h2>Tambah Transaksi</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -31,18 +31,23 @@
                                         <div class="col-12">
                                             <form action="" method="post">
                                                 <div class="form-group">
-                                                    <label for="nama">Nama Akun</label>
-                                                    <input id="nama" name="nama" type="text" class="form-control"></div>
-                                                <div class="form-group">
-                                                    <label for="saldo">Saldo</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">Rp.</span>
-                                                        </div>
-                                                        <input name="saldo" id="saldo" type="text" class="form-control" aria-describedby="basic-addon1">
-                                                    </div>
+                                                    <label for="akun">Akun</label>
+                                                    <select class="form-control" name="akun" id="akun">
+                                                        <option value="">Pilih Akun</option>
+                                                        <option value="">Akun 1</option>
+                                                        <option value="">Akun 2</option>
+                                                        <option value="">Akun 3</option>
+                                                    </select>
                                                 </div>
-                                                <div class="form-group mt-3">
+                                                <div class="form-group">
+                                                    <label for="nominal">Nominal</label>
+                                                    <input type="text" id="nominal" name="nominal" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="catatan">Catatan</label>
+                                                    <input id="catatan" name="catatan" type="text" class="form-control"></div>
+
+                                                <div class="form-group">
                                                     <button class="btn btn-success">
                                                         Submit
                                                     </button>
@@ -61,12 +66,12 @@
     <!-- /page content -->
     <?php $this->load->view('admin/template/footer') ?>
 
-    <script>
-        var saldo = document.getElementById('saldo');
-        saldo.addEventListener('keyup', function(e) {
+    <script type="text/javascript">
+        var nominal = document.getElementById('nominal');
+        nominal.addEventListener('keyup', function(e) {
             // tambahkan 'Rp.' pada saat form di ketik
             // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
-            saldo.value = formatRupiah(this.value);
+            nominal.value = formatRupiah(this.value);
         });
 
         /* Fungsi formatRupiah */
@@ -87,6 +92,12 @@
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
     </script>
+
+
+    <script>
+        $('.datepicker').datepicker();
+    </script>
+
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class UangKeluar extends Bendahara_Controller
+class Uang_Keluar extends Bendahara_Controller
 {
 
     function __construct()
@@ -12,13 +12,13 @@ class UangKeluar extends Bendahara_Controller
 
     public function index()
     {
-
         $this->data['title'] = "Uang Keluar";
         $this->load->view('bendahara/uang_keluar/uang_keluar', $this->data);
     }
-    public function buat_akun()
+
+    public function tambah_transaksi()
     {
-        $this->data['title'] = "Buat Akun";
-        $this->load->view('bendahara/uang_keluar/buat_akun', $this->data);
+        $this->data['title'] = "Tambah Transaksi";
+        $this->load->view('bendahara/uang_keluar/tambah_transaksi', $this->data);
     }
 }
