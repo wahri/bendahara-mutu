@@ -54,7 +54,6 @@ class Keuangan extends Admin_Controller
     }
     public function edit_saldo($id = '')
     {
-
         $this->data['title'] = 'Saldo Akun';
         $this->load->view('admin/keuangan/edit_saldo', $this->data);
     }

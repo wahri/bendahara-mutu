@@ -27,12 +27,15 @@
                 <ul class="nav side-menu">
                     <li><a href="<?= base_url('bendahara/dashboard') ?>"><i class="fa fa-home"></i> Home </a>
 
-                    </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data <span class="fa fa-chevron-down"></span></a>
+
+                    <li><a href="<?= base_url('bendahara/pembayaran') ?>"> <i class="fa fa-dollar"></i> Pembayaran</a></li>
+                    <li><a href="<?= base_url('bendahara/uang_keluar') ?>"><i class="fa fa-dollar"></i> Uang Keluar</a></li>
+
+
+                    <li><a><i class="fa fa-file-text" aria-hidden="true"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="<?= base_url('bendahara/pembayaran') ?>">Pembayaran</a></li>
-                            <li><a href="<?= base_url('bendahara/uangkeluar') ?>">Uang Keluar</a></li>
-                            <li><a href="<?= base_url('bendahara/laporan') ?>">Laporan</a></li>
+                            <li><a href="<?= base_url('bendahara/laporan/uang_masuk') ?>">Uang Masuk</a></li>
+                            <li><a href="<?= base_url('bendahara/laporan/uang_keluar') ?>">Uang Keluar</a></li>
                         </ul>
                     </li>
 
