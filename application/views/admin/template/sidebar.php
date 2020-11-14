@@ -32,11 +32,7 @@
                     <li>
                         <a href="<?= base_url('admin/siswa') ?>"><i class="fa fa-sitemap"></i> Siswa Management</a>
                     </li>
-                    <li><a><i class="fa fa-dollar"></i> Keuangan Management <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="<?= base_url('admin/uang_masuk') ?>">Uang Masuk</a></li>
-                            <li><a href="<?= base_url('admin/uang_keluar') ?>">Uang Keluar</a></li>
-                        </ul>
+                    <li><a href="<?= base_url('admin/keuangan') ?>"><i class="fa fa-dollar"></i> Keuangan Management </a>
                     </li>
                     <li>
                         <a href="<?= base_url('admin/user') ?>"><i class="fa fa-sitemap"></i> User Management</a>

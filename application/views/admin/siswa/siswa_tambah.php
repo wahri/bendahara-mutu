@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-8">
+                        <div class="col-6">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Tambah Siswa</h2>
