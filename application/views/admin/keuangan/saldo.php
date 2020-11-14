@@ -38,10 +38,10 @@
                                         </div>
                                         <div class="col-6">
                                             <h2 class="text-success">
-                                                : Akun1
+                                                : <?= $akun['nama_akun'] ?>
                                             </h2>
                                             <h2 class="text-success">
-                                                : Rp.900.000
+                                                : Rp. <?= $akun['nominal'] ?>
                                             </h2>
                                             <h2 class="text-success">
                                                 : Aktif

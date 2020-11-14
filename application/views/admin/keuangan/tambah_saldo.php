@@ -35,22 +35,33 @@
                                                     <input id="nama_saldo" name="nama_saldo" type="text" class="form-control"></div>
                                                 <div class="form-group">
                                                     <label for="nominal">Nominal</label>
-                                                    <input type="text" id="nominal" name="nominal" class="form-control">
+                                                    <div class="input-group flex-nowrap">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">Rp</span>
+                                                        </div>
+                                                        <input type="text" id="nominal" placeholder="0" name="nominal" class="form-control">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="periode">Periode</label>
-                                                    <input id="periode" name="periode" type="text" class="form-control"></div>
-                                                <div class="form-group">
-                                                    <label for="expired">Expired</label>
                                                     <div class="input-group date" data-provide="datepicker">
-                                                        <input type="text" class="form-control" name="expire">
+                                                        <input type="text" class="form-control" name="periode">
                                                         <div class="input-group-addon">
                                                             <span class="glyphicon glyphicon-th"></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <button class="btn btn-success">
+                                                    <label for="expired">Expired</label>
+                                                    <div class="input-group date" data-provide="datepicker">
+                                                        <input type="text" class="form-control" name="expired">
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-th"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" name="tambah_saldo" value="1" class="btn btn-success">
                                                         Submit
                                                     </button>
                                                 </div>

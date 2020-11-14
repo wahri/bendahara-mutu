@@ -32,29 +32,48 @@
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Tambah Akun</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <form action="#" method="post">
+
+                                    <form action="" method="post">
                                         <div class="form-group">
                                             <label for="nama_akun">Nama Akun</label>
                                             <input type="text" class="form-control" id="nama_akun" name="nama_akun">
                                         </div>
+                                        <button name="tambah_akun" type="submit" value="1" class="btn btn-success">Tambah Akun</button>
                                     </form>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
+                        </div> -->
+                        <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Tabel Data Akun</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
+                                    <?php if (!empty($this->session->flashdata('message'))) : ?>
+                                        <div class="alert alert-success alert-dismissible " role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <?php echo $this->session->flashdata('message'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($this->session->flashdata('message_error'))) : ?>
+                                        <div class="alert alert-error alert-dismissible " role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <?php echo $this->session->flashdata('message_error'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <a class="btn btn-sm btn-success" href="<?= base_url('admin/keuangan/tambah_saldo/1') ?>">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Saldo
+                                    </a>
                                     <table class="table mt-2">
                                         <thead class="thead-darkblue">
                                             <tr>
@@ -65,14 +84,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Akun1</td>
-                                                <td>Aktif</td>
-                                                <td>Rp.900.000</td>
-                                                <td>
-                                                    <a href="<?= base_url('admin/keuangan/saldo/1') ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                </td>
-                                            </tr>
+                                            <?php foreach ($akun as $d) : ?>
+                                                <tr>
+                                                    <td><?= $d['nama_akun'] ?></td>
+                                                    <td><?= $d['status'] == 1 ? 'Active' : 'Inactive' ?></td>
+                                                    <td>Rp.900.000</td>
+                                                    <td>
+                                                        <a href="<?= base_url('admin/keuangan/saldo/') . $d['id_akun'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
