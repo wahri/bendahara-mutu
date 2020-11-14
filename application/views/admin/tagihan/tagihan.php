@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Tagihan</h3>
+                            <h3>Keuangan</h3>
                         </div>
 
                         <div class="title_right">
