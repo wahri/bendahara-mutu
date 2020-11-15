@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Uang Keluar</h3>
+                            <h3>Uang Masuk</h3>
                         </div>
 
                         <div class="title_right">
@@ -76,17 +76,17 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a href="" class="btn btn-success">Detail</a></td>
+                                                <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
                                                 <td>TR-20201103222342</td>
                                                 <td>23256</td>
                                                 <td>24/09/2020</td>
-                                                <td>Rp.1.000.000</td>
+                                                <td>Rp.900.000</td>
                                             </tr>
                                         </tbody>
                                         <tfoot class="thead-darkblue">
                                             <tr>
                                                 <td class="text-right" colspan="4">Total : </td>
-                                                <td>Rp.1.000.000</td>
+                                                <td>Rp.900.000</td>
                                             </tr>
                                         </tfoot>
                                     </table>

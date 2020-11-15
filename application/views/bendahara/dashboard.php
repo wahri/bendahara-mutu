@@ -11,7 +11,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="row justify-content-center">
+                <div class="row justify-content-start">
                     <div class="col-12 col-md-4">
                         <div class="card  text-white mb-3" style="max-width: 30rem; ">
                             <div class="card-header bg-light-blue">Data Pembayaran</div>
@@ -39,8 +39,19 @@
                             <div class="card-header bg-light-blue">Laporan</div>
                             <div class="card-body py-4 bg-dark-blue">
                                 <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                                <a class="custom-link" href="<?= base_url('bendahara/laporan') ?>">
-                                    <h5 class="card-title d-inline ml-2">Laporan</h5>
+                                <a class="custom-link" href="<?= base_url('bendahara/laporan/uang_masuk') ?>">
+                                    <h5 class="card-title d-inline ml-2"> Uang Masuk</h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="card  text-white mb-3" style="max-width:30rem; ">
+                            <div class="card-header bg-light-blue">Laporan</div>
+                            <div class="card-body py-4 bg-dark-blue">
+                                <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
+                                <a class="custom-link" href="<?= base_url('bendahara/laporan/uang_keluar') ?>">
+                                    <h5 class="card-title d-inline ml-2"> Uang Keluar</h5>
                                 </a>
                             </div>
                         </div>

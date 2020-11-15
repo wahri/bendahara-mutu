@@ -36,7 +36,7 @@
                         <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Tabel Transaksi Uang Masuk</h2>
+                                    <h2>Tabel Transaksi Uang Keluar</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -76,17 +76,17 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a href="" class="btn btn-success">Detail</a></td>
+                                                <td><a href="<?= base_url('bendahara/transaksi/uang_keluar/1') ?>" class="btn btn-success">Detail</a></td>
                                                 <td>Akun 1</td>
                                                 <td>-</td>
                                                 <td>24/09/2020</td>
-                                                <td>Rp.1.000.000</td>
+                                                <td>Rp.900.000</td>
                                             </tr>
                                         </tbody>
                                         <tfoot class="thead-darkblue">
                                             <tr>
                                                 <td class="text-right" colspan="4">Total : </td>
-                                                <td>Rp.1.000.000</td>
+                                                <td>Rp.900.000</td>
                                             </tr>
                                         </tfoot>
                                     </table>
