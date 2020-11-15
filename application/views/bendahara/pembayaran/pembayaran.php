@@ -23,24 +23,26 @@
                                 <div class="x_content">
 
                                     <div class="col-12">
-                                        <table id="dataSiswa" style="width: 100%;" class="table table-striped">
+                                        <table id="dataSiswa" class="table table-striped">
                                             <thead class="thead-darkblue">
                                                 <tr>
-                                                    <th width="10%">Nama</th>
-                                                    <th width="10%">NIS</th>
-                                                    <th width="10%">NISN</th>
-                                                    <th width="10%">Kelas</th>
-                                                    <!-- <th width="10%">Tahun Masuk</th>
-                                                    <th width="10%">Tahun Lulus</th>
+                                                    <th>No</th>
+                                                    <th width="">Nama</th>
+                                                    <th width="">NIS</th>
+                                                    <th width="">NISN</th>
+                                                    <th width="">Kelas</th>
+                                                    <!-- <th width="">Tahun Masuk</th>
+                                                    <th width="">Tahun Lulus</th>
                                                     <th width="15%">Cash</th> -->
-                                                    <th width="10%">Action</th>
+                                                    <th width="">Action</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                                <?php foreach ($siswa as $s) : ?>
+                                                <?php $i = 1; foreach ($siswa as $s) : ?>
                                                     <tr>
 
+                                                        <td><?= $i ?></td>
                                                         <td><?= $s['nama'] ?></td>
                                                         <td><?= $s['nis'] ?></td>
                                                         <td><?= $s['nisn'] ?></td>
@@ -51,7 +53,7 @@
                                                         <td><a href="<?= base_url('bendahara/pembayaran/detail/') . $s['nis'] ?>" class="btn btn-success"><i class="fa fa-dollar" aria-hidden="true"></i> Bayar
                                                         </td>
                                                     </tr>
-                                                <?php endforeach; ?>
+                                                <?php $i++; endforeach; ?>
 
                                             </tbody>
                                         </table>
