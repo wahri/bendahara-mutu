@@ -40,13 +40,13 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <form class="form-inline mb-3" action="" method="post">
+                                    <form class="form-inline mb-3" action="" method="get">
                                         <div class="form-group ml-2">
                                             <div class="input-group date">
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
-                                                <input id="tgl_mulai" placeholder="Pilih Tanggal Awal" type="text" class="form-control datepicker" name="tgl_awal">
+                                                <input id="tgl_mulai" placeholder="<?= $this->input->get('tgl_awal') != null ? date('d F Y', strtotime($this->input->get('tgl_awal'))) : 'Pilih Tanggal Awal' ?>" type="text" class="form-control datepicker" name="tgl_awal">
                                             </div>
                                         </div>
                                         <div class="form-group ml-2">
@@ -54,42 +54,48 @@
                                                 <div class="input-group-addon">
                                                     <span class="glyphicon glyphicon-th"></span>
                                                 </div>
-                                                <input id="tgl_akhir" placeholder="Pilih Tanggal Akhir" type="text" class="form-control datepicker" name="tgl_akhir">
+                                                <input id="tgl_akhir" placeholder="<?= $this->input->get('tgl_akhir') != null ? date('d F Y', strtotime($this->input->get('tgl_akhir'))) : 'Pilih Tanggal Akhir' ?>" type="text" class="form-control datepicker" name="tgl_akhir">
                                             </div>
                                         </div>
                                         <div class="form-group mb-1 ml-3">
-                                            <button class="btn btn-success">
-                                                submit
+                                            <button type="submit" class="btn btn-info">
+                                                Filter
                                             </button>
                                         </div>
                                     </form>
-
-                                    <table id="uang_masuk" class="table mt-2">
-                                        <thead class="thead-darkblue">
-                                            <tr>
-                                                <th>Action</th>
-                                                <th>Kode Transaksi</th>
-                                                <th>NIS</th>
-                                                <th>Date</th>
-                                                <th>Nominal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
-                                                <td>TR-20201103222342</td>
-                                                <td>23256</td>
-                                                <td>24/09/2020</td>
-                                                <td>Rp.900.000</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot class="thead-darkblue">
-                                            <tr>
-                                                <td class="text-right" colspan="4">Total : </td>
-                                                <td>Rp.900.000</td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                    <?php if (!empty($laporan)) : ?>
+                                        <table id="uang_masuk" class="table mt-2">
+                                            <thead class="thead-darkblue">
+                                                <tr>
+                                                    <th>Kode Transaksi</th>
+                                                    <th>NIS</th>
+                                                    <th>Nama</th>
+                                                    <th>Date</th>
+                                                    <th>Nominal</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($laporan as $d) : ?>
+                                                    <tr>
+                                                        <td><?= $d['kode_transaksi'] ?></td>
+                                                        <td><?= $d['nis'] ?></td>
+                                                        <td><?= $d['nama'] ?></td>
+                                                        <td><?= date('d F Y', strtotime($d['date'])) ?></td>
+                                                        <td>Rp. <?= number_format($d['total'], 0, ',', '.') ?></td>
+                                                        <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                            <tfoot class="thead-darkblue">
+                                                <tr>
+                                                    <td class="text-right" colspan="4">Total : </td>
+                                                    <td>Rp. <?= number_format($total_laporan['total'], 0, ',', '.') ?></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

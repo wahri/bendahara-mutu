@@ -31,27 +31,26 @@
                                         <div class="col-12">
                                             <form action="" method="post">
                                                 <div class="form-group">
-                                                    <label for="akun">Akun</label>
-                                                    <select class="form-control" name="akun" id="akun">
-                                                        <option value="">Pilih Akun</option>
-                                                        <option value="">Akun 1</option>
-                                                        <option value="">Akun 2</option>
-                                                        <option value="">Akun 3</option>
-                                                    </select>
+                                                    <label for="nama_pemakai">Nama</label>
+                                                    <input type="text" id="nama_pemakai" name="nama_pemakai" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nominal">Nominal</label>
-                                                    <input type="text" id="nominal" name="nominal" class="form-control">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">Rp. </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id='nominal' name="nominal">
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="catatan">Catatan</label>
-                                                    <input id="catatan" name="catatan" type="text" class="form-control"></div>
+                                                    <textarea class="form-control" id="catatan" name="catatan" rows="2"></textarea>
 
-                                                <div class="form-group">
-                                                    <button class="btn btn-success">
-                                                        Submit
-                                                    </button>
                                                 </div>
+                                                <button type="submit" name="submit" value="1" class="btn btn-success">
+                                                    Submit
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
