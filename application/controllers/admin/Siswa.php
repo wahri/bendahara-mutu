@@ -60,46 +60,47 @@ class Siswa extends Admin_Controller
         $this->db->update('siswa', $data11);
 
         // buat tagihan setahun kedepan
-        $siswa = $this->db->get_where('siswa', ('kelas != 13'))->result_array();
-        foreach ($siswa as $s) {
-            $this->db->order_by('id_tagihan', 'DESC');
-            $tagihan_lama = $this->db->get_where('tagihan', ['nis' => $s['nis'], 'kode_tagihan' => 1])->row_array();
-            $tahun = substr($tagihan_lama['tahun'], 0, 4) + 1;
+        // $siswa = $this->db->get_where('siswa', ('kelas != 13'))->result_array();
+        // foreach ($siswa as $s) {
+        //     $this->db->order_by('id_tagihan', 'DESC');
+        //     $tagihan_lama = $this->db->get_where('tagihan', ['nis' => $s['nis'], 'kode_tagihan' => 1])->row_array();
+        //     $tahun = substr($tagihan_lama['tahun'], 0, 4) + 1;
 
-            $angka_bulan = [
-                "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
-            ];
+        //     $angka_bulan = [
+        //         "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
+        //     ];
 
-            $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
+        //     $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
 
-            for ($i = 0; $i <= 5; $i++) {
-                $tagihan_spp = [
-                    'nis' => $s['nis'],
-                    'harga' => $tagihan_lama['harga'],
-                    'tahun' => $tahun . '1',
-                    'bulan' => $angka_bulan[$i],
-                    'kode_tagihan' => '1',
-                    'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $tahun,
-                    'kelas' => $s['kelas']
-                ];
+        //     for ($i = 0; $i <= 5; $i++) {
+        //         $tagihan_spp = [
+        //             'nis' => $s['nis'],
+        //             'harga' => $tagihan_lama['harga'],
+        //             'tahun' => $tahun . '1',
+        //             'bulan' => $angka_bulan[$i],
+        //             'kode_tagihan' => '1',
+        //             'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $tahun,
+        //             'kelas' => $s['kelas']
+        //         ];
 
-                $this->db->insert("tagihan", $tagihan_spp);
-            }
-            for ($i = 6; $i <= 11; $i++) {
-                $tagihan_spp = [
-                    'nis' => $s['nis'],
-                    'harga' => $tagihan_lama['harga'],
-                    'tahun' => $tahun . '2',
-                    'bulan' => $angka_bulan[$i],
-                    'kode_tagihan' => '1',
-                    'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($tahun + 1),
-                    'kelas' => $s['kelas']
-                ];
+        //         $this->db->insert("tagihan", $tagihan_spp);
+        //     }
+        //     for ($i = 6; $i <= 11; $i++) {
+        //         $tagihan_spp = [
+        //             'nis' => $s['nis'],
+        //             'harga' => $tagihan_lama['harga'],
+        //             'tahun' => $tahun . '2',
+        //             'bulan' => $angka_bulan[$i],
+        //             'kode_tagihan' => '1',
+        //             'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($tahun + 1),
+        //             'kelas' => $s['kelas']
+        //         ];
 
-                $this->db->insert("tagihan", $tagihan_spp);
-            }
-        }
+        //         $this->db->insert("tagihan", $tagihan_spp);
+        //     }
+        // }
 
+        $this->session->set_flashdata('message', 'kelas berhasil di update...');
         redirect('admin/siswa/naik_kelas');
     }
 
