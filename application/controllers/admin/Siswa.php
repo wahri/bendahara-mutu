@@ -147,6 +147,11 @@ class Siswa extends Admin_Controller
                     $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, NIS duplikat atau sudah terdaftar<br />";
                     continue;
                 }
+                $cek_nisn = $this->db->get_where('siswa', ['nisn' => $sheetData[$j][1]])->row_array();
+                if (!empty($cek_nisn)) {
+                    $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, NISN duplikat atau sudah terdaftar<br />";
+                    continue;
+                }
                 $data = [
                     "nis" => $sheetData[$j][0],
                     "nisn" => $sheetData[$j][1],

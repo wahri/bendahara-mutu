@@ -76,7 +76,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><a href="<?= base_url('bendahara/transaksi/uang_keluar/1') ?>" class="btn btn-success">Detail</a></td>
+                                                <td><a href="<?= base_url('bendahara/lapora/detail_uang_keluar/1') ?>" class="btn btn-success">Detail</a></td>
                                                 <td>Akun 1</td>
                                                 <td>-</td>
                                                 <td>24/09/2020</td>

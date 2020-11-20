@@ -83,7 +83,7 @@
                                                         <td><?= $d['nama'] ?></td>
                                                         <td><?= date('d F Y', strtotime($d['date'])) ?></td>
                                                         <td>Rp. <?= number_format($d['total'], 0, ',', '.') ?></td>
-                                                        <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
+                                                        <td><a href="<?= base_url('bendahara/laporan/detail_uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

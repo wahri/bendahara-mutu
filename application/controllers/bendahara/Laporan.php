@@ -47,4 +47,19 @@ class Laporan extends Bendahara_Controller
         $this->data['title'] = 'Laporan Uang Keluar';
         $this->load->view('bendahara/laporan/uang_keluar', $this->data);
     }
+
+    public function detail_uang_masuk($kode = '')
+    {
+        $this->db->join('siswa', 'siswa.nis = transaksi.nis');
+        $this->data['transaksi'] = $this->db->get_where('transaksi', ['kode_transaksi' => $kode])->row_array();
+        $this->data['transaksi_detail'] = $this->db->get_where('transaksi_detail', ['kode_transaksi' => $kode])->result_array();
+        $this->data['title'] = "Detail Transaksi Masuk";
+        $this->load->view('bendahara/transaksi/transaksi_masuk', $this->data);
+    }
+
+    public function detail_uang_keluar($kode = '')
+    {
+        $this->data['title'] = "Detail Transaksi Keluar";
+        $this->load->view('bendahara/transaksi/transaksi_keluar', $this->data);
+    }
 }
