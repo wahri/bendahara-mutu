@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Keuangan</h3>
+                            <h3>Tagihan</h3>
                         </div>
 
                         <div class="title_right">
@@ -77,7 +77,6 @@
                                             </div>
                                         </div>
 
-
                                         <div class="form-group">
                                             <button class="btn btn-success" type="submit">Buat Tagihan</button>
                                         </div>
@@ -85,63 +84,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-6 col-sm-6">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Tambah Pembayaran</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <div class="form-group">
-                                        <button class="btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#pembayaranModal"> <i class="fa fa-plus" aria-hidden="true"></i> Pembayaran</button>
-                                    </div>
-                                    <table class="table">
-                                        <thead class="thead-darkblue">
-                                            <tr>
-                                                <th>Nama Pembayaran</th>
-                                                <th>Harga</th>
-                                                <th>Tipe</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $pembayaran = $this->db->get("pembayaran"); ?>
-                                            <?php foreach ($pembayaran->result() as $row) : ?>
-                                                <tr>
-
-                                                    <td>
-                                                        <?= $row->nama_pembayaran; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= "Rp." . $row->harga . ",-" ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        if ($row->kode_tagihan == 1) :
-                                                        ?>
-                                                            <span class="badge badge-success">SPP</span>
-
-                                                        <?php else : ?>
-                                                            <span class="badge badge-danger">Bukan SPP</span>
-                                                        <?php endif; ?>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
                 </div>
             </div>
 

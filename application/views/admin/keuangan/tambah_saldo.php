@@ -14,7 +14,7 @@
                     <div class="clearfix"></div>
                     <div class="row">
                         <div class="col-1">
-                            <a id="cartButton" href="<?= base_url('admin/keuangan/saldo/1') ?>" class="btn btn-lg btn-success">
+                            <a id="cartButton" href="<?= base_url('admin/keuangan') ?>" class="btn btn-lg btn-success">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                             </a>
                         </div>

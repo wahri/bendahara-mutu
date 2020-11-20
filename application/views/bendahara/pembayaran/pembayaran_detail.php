@@ -301,24 +301,44 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>
-                            Uang Prakerin
-                          </td>
-                          <td>
-                            Rp.1.000.000,-
-                          </td>
-                          <td>
-                            Rp.500.000,-
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
-                          </td>
-                          <td>
-                            <button type="button" data-toggle="modal" data-target="#bayarModal" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Bayar
-                            </button>
-                          </td>
-                        </tr>
+                        <?php
+                        foreach ($uang_lainnya as $u) :
+                          $sisa_l = $u['harga'] - $u['jml_dibayar'];
+                        ?>
+
+                          <tr>
+                            <td>
+                              <?= $u['nama_tagihan'] ?>
+                            </td>
+                            <td>
+                              Rp. <?= number_format($u['harga'], 0, ',', '.') ?>
+                            </td>
+                            <td>
+                              Rp. <?= number_format($u['jml_dibayar'], 0, ',', '.') ?>
+                            </td>
+                            <td>
+                              <?php if ($u['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                              <?php else : ?>
+                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                              <?php endif; ?>
+                            </td>
+                            <td>
+                              <?php if (!$u['is_lunas']) : ?>
+                                <?php
+                                if (empty($cek_cart_kat)) :
+                                ?>
+                                  <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $u['nis'] ?>" data-item="<?= $u['nama_tagihan'] ?>" data-id="<?= $u['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_l, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                  </button>
+                                <?php else : ?>
+                                  <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                    <i class="fa fa-shopping-cart"></i> Checkout
+                                  </button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
 
                       </tbody>
                     </table>

@@ -13,7 +13,7 @@ class Transaksi extends Bendahara_Controller
         $this->data['title'] = "Transaksi Record";
         $this->data['nis'] = $nis;
 
-        $this->load->view('bendahara/pembayaran/transaksi_record', $this->data);
+        $this->load->view('bendahara/transaksi/transaksi_record', $this->data);
     }
 
 

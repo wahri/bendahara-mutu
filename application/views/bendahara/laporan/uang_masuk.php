@@ -77,6 +77,27 @@
                                         <tbody>
                                             <tr>
                                                 <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
+                                                <td>TR-20201103222577</td>
+                                                <td>23256</td>
+                                                <td>24/09/2020</td>
+                                                <td>Rp.900.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
+                                                <td>TR-20201103222846</td>
+                                                <td>23256</td>
+                                                <td>24/09/2020</td>
+                                                <td>Rp.900.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
+                                                <td>TR-20201103222264</td>
+                                                <td>23256</td>
+                                                <td>24/09/2020</td>
+                                                <td>Rp.900.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><a href="<?= base_url('bendahara/transaksi/uang_masuk/1') ?>" class="btn btn-success">Detail</a></td>
                                                 <td>TR-20201103222342</td>
                                                 <td>23256</td>
                                                 <td>24/09/2020</td>
@@ -86,7 +107,7 @@
                                         <tfoot class="thead-darkblue">
                                             <tr>
                                                 <td class="text-right" colspan="4">Total : </td>
-                                                <td>Rp.900.000</td>
+                                                <td>Rp.3.600.000</td>
                                             </tr>
                                         </tfoot>
                                     </table>
