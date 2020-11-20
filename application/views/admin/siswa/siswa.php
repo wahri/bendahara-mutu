@@ -177,7 +177,7 @@
                                                             <td class="text-center"><?= $s['nama'] ?></td>
                                                             <td class="text-center"><?= $s['nis'] ?></td>
                                                             <td class="text-center"><?= $s['nisn'] ?></td>
-                                                            <td class="text-center"><?= $s['kelas'] ?></td>
+                                                            <td class="text-center"><?= $s['kelas'] == 13 ? 'Alumni' : $s['kelas'] ?></td>
                                                             <td class="text-center"><?= $s['tahun_masuk'] ?></td>
                                                             <td class="text-center"><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
                                                             </td>

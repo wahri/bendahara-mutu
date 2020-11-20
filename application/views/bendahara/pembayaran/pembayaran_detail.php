@@ -132,9 +132,9 @@
                         // Set your latest year you want in the range, in this case we use PHP to just set it to the current year.
                         // $latest_year = $siswa['tahun_masuk'] + 2;
                         if (empty($siswa['tahun_lulus'])) {
-                          $latest_year = date('Y') + 2;
+                          $latest_year = $siswa['kelas'] == 10 ? date('Y') + 2 : $siswa['kelas'] == 11 ? date('Y') + 1 : date('Y');
                         } else {
-                          $latest_year = $siswa['tahun_lulus'];
+                          $latest_year = $siswa['tahun_lulus'] - 1;
                         }
                         // Loops over each int[year] from current year, back to the $earliest_year [1950]
                         foreach (range($latest_year, $earliest_year) as $i) :
@@ -144,6 +144,8 @@
                         <?php endforeach; ?>
                       </select>
                     </form>
+
+
 
                     <table class="table table-striped projects mt-3" id="datatable">
                       <thead class="thead-darkblue">
@@ -156,6 +158,121 @@
                         </tr>
                       </thead>
                       <tbody>
+
+                        <?php
+                        $ganjil = [7 => "Juli", 8 => "Agustus", 9 => "September", 10 => "Oktober", 11 => "November", 12 => "Desember"];
+                        $genap = [1 => "Januari", 2 => "Februari", 3 => "Maret", 4 => "April", 5 => "Mei", 6 => "Juni"];
+                        ?>
+                        <tr>
+                          <th colspan="5">Semester Ganjil</th>
+                        </tr>
+                        <?php
+                        foreach ($ganjil as $k => $d) :
+                          $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => $tahun, 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
+
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                        ?>
+                          <tr>
+                            <td>
+                              SPP <?= $d . ' ' . $tahun ?>
+                            </td>
+                            <td>
+                              Rp. <?= number_format($siswa['spp'], 0, ',', '.') ?>
+                            </td>
+                            <td>
+                              <?php if (!empty($cek['jml_dibayar'])) : ?>
+                                <?= $cek['jml_dibayar'] ?>
+                              <?php else : ?>
+                                Rp. 0
+                              <?php endif; ?>
+                            </td>
+                            <td>
+                              <?php if ($cek['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                              <?php else : ?>
+                                <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                            <td>
+                              <?php if (empty($cek)) : ?>
+                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= $tahun ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                </button>
+                              <?php else : ?>
+                                <?php if (!$cek['is_lunas']) : ?>
+                                  <?php
+                                  $sisa_tagihan = $cek['harga'] - $cek['jml_dibayar'];
+                                  if (empty($cek_cart)) :
+                                  ?>
+                                    <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $cek['nis'] ?>" data-item="<?= $cek['nama_tagihan'] ?>" data-id="<?= $cek['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_tagihan, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                    </button>
+                                  <?php else : ?>
+                                    <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                      <i class="fa fa-shopping-cart"></i> Checkout
+                                    </button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                          <th colspan="5">Semester Genap</th>
+                        </tr>
+                        <?php
+                        foreach ($genap as $k => $d) :
+                          $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => ($tahun + 1), 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
+
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                        ?>
+                          <tr>
+                            <td>
+                              SPP <?= $d . ' ' . ($tahun + 1) ?>
+                            </td>
+                            <td>
+                              Rp. <?= number_format($siswa['spp'], 0, ',', '.') ?>
+                            </td>
+                            <td>
+                              <?php if (!empty($cek['jml_dibayar'])) : ?>
+                                <?= $cek['jml_dibayar'] ?>
+                              <?php else : ?>
+                                Rp. 0
+                              <?php endif; ?>
+                            </td>
+                            <td>
+                              <?php if ($cek['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                              <?php else : ?>
+                                <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                            <td>
+                              <?php if (empty($cek)) : ?>
+                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= ($tahun + 1) ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                </button>
+                              <?php else : ?>
+                                <?php if (!$cek['is_lunas']) : ?>
+                                  <?php
+                                  $sisa_tagihan = $cek['harga'] - $cek['jml_dibayar'];
+                                  if (empty($cek_cart)) :
+                                  ?>
+                                    <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $cek['nis'] ?>" data-item="<?= $cek['nama_tagihan'] ?>" data-id="<?= $cek['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_tagihan, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                    </button>
+                                  <?php else : ?>
+                                    <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                      <i class="fa fa-shopping-cart"></i> Checkout
+                                    </button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+
+                        <!--                         
                         <tr>
                           <th colspan="5">Semester Ganjil</th>
                         </tr>
@@ -231,7 +348,98 @@
                           </tr>
                         <?php endforeach; ?>
                       </tbody>
-                    </table>
+                    </table> -->
+
+
+
+
+                        <table class="table table-striped projects mt-3" id="datatable">
+                          <thead class="thead-darkblue">
+                            <tr>
+                              <th style="width: 20%">Nama Tagihan</th>
+                              <th>Jumlah Tagihan</th>
+                              <th>Jumlah Dibayar</th>
+                              <th class="text-center">Status</th>
+                              <th style="width: 20%" class="text-center">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th colspan="5">Semester Ganjil</th>
+                            </tr>
+                            <?php
+                            foreach ($sem_ganjil as $ganjil) :
+                              $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $ganjil['id_tagihan']])->row_array();
+                              $sisa = $ganjil['harga'] - $ganjil['jml_dibayar'];
+                            ?>
+                              <tr>
+                                <td><?= $ganjil['nama_tagihan'] ?></td>
+                                <td>Rp. <?= number_format($ganjil['harga'], 0, ',', '.') ?></td>
+                                <td>Rp. <?= number_format($ganjil['jml_dibayar'], 0, ',', '.') ?></td>
+                                <td class="text-center">
+                                  <?php if ($ganjil['is_lunas']) : ?>
+                                    <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                                  <?php else : ?>
+                                    <?php if (date('Y') > substr($ganjil['tahun'], 0, 4) || (date('Y') == substr($ganjil['tahun'], 0, 4) && date('m') >= $ganjil['bulan'])) : ?>
+                                      <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                    <?php endif; ?>
+                                  <?php endif; ?>
+                                </td>
+                                <td class="text-center">
+                                  <?php if (!$ganjil['is_lunas']) : ?>
+                                    <?php
+                                    if (empty($cek_cart)) :
+                                    ?>
+                                      <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $ganjil['nis'] ?>" data-item="<?= $ganjil['nama_tagihan'] ?>" data-id="<?= $ganjil['id_tagihan'] ?>" data-sisa="<?= number_format($sisa, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                      </button>
+                                    <?php else : ?>
+                                      <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                        <i class="fa fa-shopping-cart"></i> Checkout
+                                      </button>
+                                    <?php endif; ?>
+                                  <?php endif; ?>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+                            <tr>
+                              <th colspan="5">Semester Genap</th>
+                            </tr>
+                            <?php
+                            foreach ($sem_genap as $genap) :
+                              $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $genap['id_tagihan']])->row_array();
+                              $sisa2 = $genap['harga'] - $genap['jml_dibayar'];
+                            ?>
+                              <tr>
+                                <td><?= $genap['nama_tagihan'] ?></td>
+                                <td>Rp. <?= number_format($genap['harga'], 0, ',', '.') ?></td>
+                                <td>Rp. <?= number_format($genap['jml_dibayar'], 0, ',', '.') ?></td>
+                                <td class="text-center">
+                                  <?php if ($genap['is_lunas']) : ?>
+                                    <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                                  <?php else : ?>
+                                    <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y') == substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
+                                      <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                    <?php endif; ?>
+                                  <?php endif; ?>
+                                </td>
+                                <td class="text-center">
+                                  <?php if (!$genap['is_lunas']) : ?>
+                                    <?php
+                                    if (empty($cek_cart)) :
+                                    ?>
+                                      <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $genap['nis'] ?>" data-item="<?= $genap['nama_tagihan'] ?>" data-id="<?= $genap['id_tagihan'] ?>" data-sisa="<?= number_format($sisa2, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                      </button>
+                                    <?php else : ?>
+                                      <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                        <i class="fa fa-shopping-cart"></i> Checkout
+                                      </button>
+                                    <?php endif; ?>
+                                  <?php endif; ?>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+                          </tbody>
+                        </table>
                   </div>
 
                   <div class="tab-pane fade" id="pills-kat" role="tabpanel" aria-labelledby="pills-kat-tab">
@@ -454,6 +662,41 @@
         </div>
       </div>
 
+      <!-- Modal -->
+      <div class="modal fade" id="buatTagihan" tabindex="-1" aria-labelledby="buatTagihanLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="buatTagihanLabel">Masukkan Nominal Pembayaran</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="<?= base_url('bendahara/pembayaran/buatTagihan') ?>" method="POST">
+              <div class="modal-body">
+                <input type="hidden" class="form-control" name="nis" id="nis">
+                <input type="hidden" class="form-control" name="harga" id="harga">
+                <input type="hidden" class="form-control" name="tahun" id="tahun">
+                <input type="hidden" class="form-control" name="bulan" id="bulan">
+                <input type="hidden" class="form-control" name="kode" id="kode">
+                <input type="hidden" class="form-control" name="nama" id="nama">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Rp. </span>
+                  </div>
+                  <input type="text" class="form-control" id='rupiahs' name="nominalToCart">
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add To Cart</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <?php $this->load->view('bendahara/template/footer') ?>
 </body>
 
@@ -498,6 +741,29 @@
     modal.find('.modal-body #itemToCart').val(item)
     modal.find('.modal-body #idTagihanToCart').val(id_tagihan)
     modal.find('#rupiah').val(sisa)
+  })
+
+  $('#buatTagihan').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget)
+    var nis = button.data('nis')
+    var item = button.data('item')
+    var harga = button.data('harga')
+    var dibayar = button.data('dibayar')
+    var tahun = button.data('tahun')
+    var bulan = button.data('bulan')
+    var kode = button.data('kode')
+    var nama = button.data('nama')
+
+
+    var modal = $(this)
+    modal.find('.modal-body #nis').val(nis)
+    modal.find('.modal-body #item').val(item)
+    modal.find('.modal-body #harga').val(harga)
+    modal.find('.modal-body #tahun').val(tahun)
+    modal.find('.modal-body #bulan').val(bulan)
+    modal.find('.modal-body #kode').val(kode)
+    modal.find('.modal-body #nama').val(nama)
+    modal.find('#rupiahs').val(dibayar)
   })
 </script>
 

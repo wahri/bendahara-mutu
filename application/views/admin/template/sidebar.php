@@ -32,8 +32,8 @@
                     <li>
                         <a href="<?= base_url('admin/siswa') ?>"><i class="fa fa-sitemap"></i> Siswa Management</a>
                     </li>
-                    <li><a href="<?= base_url('admin/keuangan') ?>"><i class="fa fa-dollar"></i> Keuangan Management </a>
-                    </li>
+                    <!-- <li><a href="<?= base_url('admin/keuangan') ?>"><i class="fa fa-dollar"></i> Keuangan Management </a>
+                    </li> -->
                     <li>
                         <a href="<?= base_url('admin/user') ?>"><i class="fa fa-sitemap"></i> User Management</a>
                     </li>

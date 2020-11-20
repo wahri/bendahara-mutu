@@ -34,21 +34,21 @@
                                         <div class="col-6">
                                             <h2>Nama Siswa</h2>
                                             <h2>NIS</h2>
-                                            <h2>Date</h2>
-                                            <h2>Time</h2>
+                                            <h2>Tanggal</h2>
+                                            <h2>Jam</h2>
                                         </div>
                                         <div class="col-6">
                                             <h2 class="text-success">
-                                                : AHMAD THORIQ
+                                                : <?= $transaksi['nama'] ?>
                                             </h2>
                                             <h2 class="text-success">
-                                                : 23251
+                                                : <?= $transaksi['nis'] ?>
                                             </h2>
                                             <h2 class="text-success">
-                                                : 24/09/2020
+                                                : <?= date('d F Y', strtotime($transaksi['date'])) ?>
                                             </h2>
                                             <h2 class="text-success">
-                                                : 10:20:59
+                                                : <?= date('H:i', strtotime($transaksi['date'])) ?>
                                             </h2>
                                         </div>
                                     </div>
@@ -72,24 +72,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>SPP Januari 2020</td>
-                                                <td>Rp.300.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>SPP Februari 2020</td>
-                                                <td>Rp.300.000</td>
-                                            </tr>
-                                            <tr>
-                                                <td>SPP Maret 2020</td>
-                                                <td>Rp.300.000</td>
-                                            </tr>
+                                            <?php foreach ($transaksi_detail as $d) : ?>
+                                                <tr>
+                                                    <td><?= $d['nama_item'] ?></td>
+                                                    <td>Rp. <?= number_format($d['nominal'], 0, '.', ',') ?></td>
+                                                </tr>
 
+                                            <?php endforeach; ?>
                                         </tbody>
                                         <tfoot class="thead-darkblue">
                                             <tr>
                                                 <td class="text-right">Total</td>
-                                                <td>Rp.900.000</td>
+                                                <td>Rp. <?= number_format($transaksi['total'], 0, '.', ',') ?></td>
                                             </tr>
                                         </tfoot>
                                     </table>

@@ -41,23 +41,44 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <a href="<?= base_url('bendahara/uang_keluar/tambah_transaksi') ?>" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Transaksi</a>
-                                    <table class="table mt-2">
+                                    <?php if (!empty($this->session->flashdata('message'))) : ?>
+                                        <div class="alert alert-success alert-dismissible " role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <?php echo $this->session->flashdata('message'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($this->session->flashdata('message_error'))) : ?>
+                                        <div class="alert alert-error alert-dismissible " role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                            </button>
+                                            <?php echo $this->session->flashdata('message_error'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <a href="<?= base_url('bendahara/uang_keluar/tambah_transaksi') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Transaksi</a>
+                                    <table class="table mt-2" id="dataTables">
                                         <thead class="thead-darkblue">
                                             <tr>
-                                                <th>Akun</th>
+                                                <th>Nama Pengambil</th>
                                                 <th>Nominal</th>
                                                 <th>Catatan</th>
-                                                <th>Date</th>
+                                                <th>Tanggal</th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Akun 1</td>
-                                                <td>Rp.1.000.000</td>
-                                                <td>-</td>
-                                                <td>11/15/2020 12:06:50</td>
-                                            </tr>
+                                            <?php foreach ($transaksi_pengeluaran as $d) : ?>
+                                                <tr>
+                                                    <td><?= $d['nama_pemakai'] ?></td>
+                                                    <td>Rp. <?= number_format($d['nominal'], 0, ',', '.') ?></td>
+                                                    <td><?= $d['catatan'] ?></td>
+                                                    <td><?= date('d F Y', strtotime($d['datetime'])) ?></td>
+                                                    <td class="text-center">
+                                                        <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                                                        <a href="" class="btn btn-sm btn-warning">Edit</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
