@@ -5,16 +5,16 @@
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <?php $this->load->view('bendahara/template/sidebar') ?>
+            <?php $this->load->view('admin/template/sidebar') ?>
 
-            <?php $this->load->view('bendahara/template/topbar') ?>
+            <?php $this->load->view('admin/template/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
                     <div class="row">
                         <div class="col-1">
-                            <a id="cartButton" href="<?= base_url('bendahara/dashboard') ?>" class="btn btn-lg btn-success">
+                            <a id="cartButton" href="<?= base_url('admin/dashboard') ?>" class="btn btn-lg btn-success">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -47,13 +47,13 @@
                                                         : <?= $user_login['username'] ?>
                                                     </h5>
                                                     <h5>
-                                                        : Bendahara
+                                                        : Admin
                                                     </h5>
                                                     <h5>
                                                         : Aktif
                                                     </h5>
                                                     <h5>
-                                                        : <?= $user_login['last_login'] ?>
+                                                        : <?= date("d F Y H:i", strtotime($user_login['last_login'])) ?>
                                                     </h5>
                                                 </div>
                                             </div>
