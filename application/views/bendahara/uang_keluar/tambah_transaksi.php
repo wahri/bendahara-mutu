@@ -6,7 +6,6 @@
     <div class="container body">
         <div class="main_container">
             <?php $this->load->view('bendahara/template/sidebar') ?>
-
             <?php $this->load->view('bendahara/template/topbar') ?>
             <!-- page content -->
             <div class="right_col" role="main">
