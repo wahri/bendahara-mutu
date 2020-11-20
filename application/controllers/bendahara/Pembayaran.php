@@ -36,6 +36,29 @@ class Pembayaran extends Bendahara_Controller
         $this->load->view('bendahara/pembayaran/pembayaran_detail', $this->data);
     }
 
+    public function buatTagihan()
+    {
+        $data = [
+            'nis' => $this->input->post('nis'),
+            'harga' => $this->input->post('harga'),
+            'tahun' => $this->input->post('tahun'),
+            'bulan' => $this->input->post('bulan'),
+            'kode_tagihan' => $this->input->post('kode'),
+            'nama_tagihan' => $this->input->post('nama')
+        ];
+        $this->db->insert('tagihan', $data);
+        $id_tagihan = $this->db->insert_id();
+
+        $data = [
+            'nis' => $this->input->post('nis'),
+            'item' => $this->input->post('nama'),
+            'nominal' => str_replace('.', '', $this->input->post('nominalToCart')),
+            'id_tagihan' => $id_tagihan
+        ];
+        $this->db->insert('cart', $data);
+        $this->session->set_flashdata('message', '<strong>Berhasil!</strong> menambahkan item ke cart');
+        redirect('bendahara/pembayaran/detail/' . $this->input->post('nis'));
+    }
 
     public function getCart($nis)
     {

@@ -197,7 +197,7 @@
                             </td>
                             <td>
                               <?php if (empty($cek)) : ?>
-                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= $tahun ?>" data-bulan="<?= $k ?>" data-kode="1" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= $tahun ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
                                 </button>
                               <?php else : ?>
                                 <?php if (!$cek['is_lunas']) : ?>
@@ -251,7 +251,7 @@
                             </td>
                             <td>
                               <?php if (empty($cek)) : ?>
-                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= ($tahun + 1) ?>" data-bulan="<?= $k ?>" data-kode="1" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= ($tahun + 1) ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
                                 </button>
                               <?php else : ?>
                                 <?php if (!$cek['is_lunas']) : ?>
@@ -672,11 +672,10 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="<?= base_url('bendahara/pembayaran/tambahcart') ?>" method="POST">
+            <form action="<?= base_url('bendahara/pembayaran/buatTagihan') ?>" method="POST">
               <div class="modal-body">
                 <input type="hidden" class="form-control" name="nis" id="nis">
                 <input type="hidden" class="form-control" name="harga" id="harga">
-                <input type="hidden" class="form-control" name="dibayar" id="dibayar">
                 <input type="hidden" class="form-control" name="tahun" id="tahun">
                 <input type="hidden" class="form-control" name="bulan" id="bulan">
                 <input type="hidden" class="form-control" name="kode" id="kode">
@@ -685,7 +684,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Rp. </span>
                   </div>
-                  <input type="text" class="form-control" id='rupiah' name="nominalToCart">
+                  <input type="text" class="form-control" id='rupiahs' name="nominalToCart">
                 </div>
 
               </div>
@@ -742,6 +741,29 @@
     modal.find('.modal-body #itemToCart').val(item)
     modal.find('.modal-body #idTagihanToCart').val(id_tagihan)
     modal.find('#rupiah').val(sisa)
+  })
+
+  $('#buatTagihan').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget)
+    var nis = button.data('nis')
+    var item = button.data('item')
+    var harga = button.data('harga')
+    var dibayar = button.data('dibayar')
+    var tahun = button.data('tahun')
+    var bulan = button.data('bulan')
+    var kode = button.data('kode')
+    var nama = button.data('nama')
+
+
+    var modal = $(this)
+    modal.find('.modal-body #nis').val(nis)
+    modal.find('.modal-body #item').val(item)
+    modal.find('.modal-body #harga').val(harga)
+    modal.find('.modal-body #tahun').val(tahun)
+    modal.find('.modal-body #bulan').val(bulan)
+    modal.find('.modal-body #kode').val(kode)
+    modal.find('.modal-body #nama').val(nama)
+    modal.find('#rupiahs').val(dibayar)
   })
 </script>
 

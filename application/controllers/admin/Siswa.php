@@ -124,29 +124,38 @@ class Siswa extends Admin_Controller
             $spreadsheet = $reader->load($inputFileName);
 
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
-            // echo "<pre>";
-            // print_r($sheetData);
-            // echo "</pre>";
-            // die;
-            for ($i = 0; $i < count($sheetData); $i++) {
-                if (empty($sheetData[$i][0]) || empty($sheetData[$i][1]) || empty($sheetData[$i][2]) || empty($sheetData[$i][3]) || empty($sheetData[$i][4])) {
-                    unlink('./temp_upload/' . $this->upload->data('file_name'));
-                    $this->session->set_flashdata('message_error', 'Pesan!!! Data excel tidak boleh ada yang kosong<br>Baris ' . ($i + 1) . ' kosong');
-                    redirect('admin/siswa');
-                }
-            }
 
+            // cek data kosong
             // for ($i = 0; $i < count($sheetData); $i++) {
-            //     echo $i . '<br>';
+            //     if (empty($sheetData[$i][0]) || empty($sheetData[$i][1]) || empty($sheetData[$i][2]) || empty($sheetData[$i][3]) || empty($sheetData[$i][4])) {
+            //         unlink('./temp_upload/' . $this->upload->data('file_name'));
+            //         $this->session->set_flashdata('message_error', 'Pesan!!! Data excel tidak boleh ada yang kosong<br>Baris ' . ($i + 1) . ' kosong');
+            //         redirect('admin/siswa');
+            //     }
             // }
-            // die;
+
             $hitung_error_baris = "";
             for ($j = 0; $j < count($sheetData); $j++) {
+                
+                // cek field kosong
+                if (empty($sheetData[$j][0]) && empty($sheetData[$j][1]) && empty($sheetData[$j][2]) && empty($sheetData[$j][3]) && empty($sheetData[$j][4]) && empty($sheetData[$j][5])) {
+                    continue;
+                }
+
+                // cek data kosong
+                if (empty($sheetData[$j][0]) || empty($sheetData[$j][1]) || empty($sheetData[$j][2]) || empty($sheetData[$j][3]) || empty($sheetData[$j][4]) || empty($sheetData[$j][5])) {
+                    $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, Data tidak lengkap<br />";
+                    print_r($sheetData[$j]);
+                    die;
+                    continue;
+                }
+
                 $cek_nis = $this->db->get_where('siswa', ['nis' => $sheetData[$j][0]])->row_array();
                 if (!empty($cek_nis)) {
                     $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, NIS duplikat atau sudah terdaftar<br />";
                     continue;
                 }
+
                 $cek_nisn = $this->db->get_where('siswa', ['nisn' => $sheetData[$j][1]])->row_array();
                 if (!empty($cek_nisn)) {
                     $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, NISN duplikat atau sudah terdaftar<br />";
@@ -157,54 +166,57 @@ class Siswa extends Admin_Controller
                     "nisn" => $sheetData[$j][1],
                     "nama" => $sheetData[$j][2],
                     "kelas" => $sheetData[$j][3],
-                    "tahun_masuk" => $sheetData[$j][4]
+                    "tahun_masuk" => $sheetData[$j][4],
+                    "jurusan" => $sheetData[$j][5],
+                    'spp' => str_replace('.', '', $this->input->post('spp'))
                 ];
-                $import = $this->db->insert("siswa", $data);
+                // $import = $this->db->insert("siswa", $data);
+                $this->db->insert("siswa", $data);
 
-                if ($import) {
+                // if ($import) {
 
-                    $angka_bulan = [
-                        "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
-                    ];
+                //     $angka_bulan = [
+                //         "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05", "06"
+                //     ];
 
-                    $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
+                //     $bulan = ["Juli", "Agustus", "September", "Oktober", "November", "Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni"];
 
-                    for ($i = 0; $i <= 5; $i++) {
-                        $tagihan_spp = [
-                            'nis' => $sheetData[$j][0],
-                            'harga' => str_replace('.', '', $this->input->post('spp')),
-                            'tahun' => $sheetData[$j][4] . '1',
-                            'bulan' => $angka_bulan[$i],
-                            'kode_tagihan' => '1',
-                            'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $sheetData[$j][4]
-                        ];
+                //     for ($i = 0; $i <= 5; $i++) {
+                //         $tagihan_spp = [
+                //             'nis' => $sheetData[$j][0],
+                //             'harga' => str_replace('.', '', $this->input->post('spp')),
+                //             'tahun' => $sheetData[$j][4] . '1',
+                //             'bulan' => $angka_bulan[$i],
+                //             'kode_tagihan' => '1',
+                //             'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . $sheetData[$j][4]
+                //         ];
 
-                        $this->db->insert("tagihan", $tagihan_spp);
-                    }
-                    for ($i = 6; $i <= 11; $i++) {
-                        $tagihan_spp = [
-                            'nis' => $sheetData[$j][0],
-                            'harga' => str_replace('.', '', $this->input->post('spp')),
-                            'tahun' => $sheetData[$j][4] . '2',
-                            'bulan' => $angka_bulan[$i],
-                            'kode_tagihan' => '1',
-                            'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($sheetData[$j][4] + 1)
-                        ];
+                //         $this->db->insert("tagihan", $tagihan_spp);
+                //     }
+                //     for ($i = 6; $i <= 11; $i++) {
+                //         $tagihan_spp = [
+                //             'nis' => $sheetData[$j][0],
+                //             'harga' => str_replace('.', '', $this->input->post('spp')),
+                //             'tahun' => $sheetData[$j][4] . '2',
+                //             'bulan' => $angka_bulan[$i],
+                //             'kode_tagihan' => '1',
+                //             'nama_tagihan' => 'SPP ' . $bulan[$i] . ' ' . ($sheetData[$j][4] + 1)
+                //         ];
 
-                        $this->db->insert("tagihan", $tagihan_spp);
-                    }
+                //         $this->db->insert("tagihan", $tagihan_spp);
+                //     }
 
-                    $kat = [
-                        'nis' => $sheetData[$j][0],
-                        'harga' => str_replace('.', '', $this->input->post('kat')),
-                        'kode_tagihan' => '2',
-                        'nama_tagihan' => 'Uang KAT'
-                    ];
-                    $this->db->insert("tagihan", $kat);
-                } else {
-                    echo "something is wrong.";
-                    die;
-                }
+                //     $kat = [
+                //         'nis' => $sheetData[$j][0],
+                //         'harga' => str_replace('.', '', $this->input->post('kat')),
+                //         'kode_tagihan' => '2',
+                //         'nama_tagihan' => 'Uang KAT'
+                //     ];
+                //     $this->db->insert("tagihan", $kat);
+                // } else {
+                //     echo "something is wrong.";
+                //     die;
+                // }
             }
 
             unlink('./temp_upload/' . $this->upload->data('file_name'));
