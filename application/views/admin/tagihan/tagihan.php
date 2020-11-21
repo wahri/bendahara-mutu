@@ -28,63 +28,98 @@
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="clearfix"></div>
 
+                    <div class="row">
+                        <div class="col-12">
+                            <?php if (!empty($this->session->flashdata('message'))) : ?>
+                                <div class="alert alert-success alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($this->session->flashdata('message_error'))) : ?>
+                                <div class="alert alert-error alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message_error'); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Buat Tagihan</h2>
+                                    <h2>Tambah tagihan</h2>
                                     <div class="clearfix"></div>
                                 </div>
-                                <div class="x_content">
-                                    <form method="POST" action="<?= base_url('admin/tagihan/buattagihan') ?>">
-                                        <!-- <div class="form-group">
-                                            <label for="">Pilih Jenis Tagihan</label>
-                                            <select name="tagihan" id="tagihan" class="custom-select" data-live-search="true">
-                                                <?php $pembayaran = $this->db->get("pembayaran");
-                                                foreach ($pembayaran->result() as $row) :
-                                                ?>
-                                                    <option value="<?= $row->id ?>"><?= $row->nama_pembayaran ?></option>
 
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div> -->
+                                <div class="x_content">
+                                    <form action="<?= base_url('admin/tagihan/buattagihanlainnya') ?>" method="POST">
                                         <div class="form-group">
-                                            <label for="">Pilih Lingkup Tagihan</label>
-                                            <select name="lingkup" class="custom-select" data-live-search="true">
+                                            <label for="pilih_kelas">Ruang Lingkup Tagihan</label>
+                                            <select name="pilih_kelas" class="custom-select">
                                                 <option value="all">Semua Siswa</option>
                                                 <option value="10">Kelas 10</option>
                                                 <option value="11">Kelas 11</option>
                                                 <option value="12">Kelas 12</option>
+                                                <!-- <option value="13">Alumni</option> -->
                                             </select>
                                         </div>
-
-                                        <div class="form-group" id="nama_tagihan">
-                                            <label for="nama_tagihan">Nama Tagihan</label>
-                                            <input id="nama_tagihan" placeholder="..." name="nama_tagihan" type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group" id="harga">
-                                            <label for="harga">Nominal</label>
+                                        <div class="form-group">
+                                            <label for="harga">Jumlah tagihan</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">Rp. </span>
+                                                    <span class="input-group-text" id="inputGroup-sizing-default">Rp.</span>
                                                 </div>
-                                                <input type="text" class="form-control" id='rupiah' name="harga">
+                                                <input name="harga" id="harga" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="nama_tagihan">Nama Tagihan</label>
+                                            <input type="text" name="nama_tagihan" class="form-control">
                                         </div>
 
                                         <div class="form-group">
-                                            <button class="btn btn-success" type="submit">Buat Tagihan</button>
+                                            <button class="btn btn-success">
+                                                Submit
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Tabel tagihan</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <table class="table">
+                                        <thead class="thead-darkblue">
+                                            <tr>
+                                                <th>tagihan</th>
+                                                <th>Tagihan</th>
+                                                <th>Expire Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
 
@@ -112,6 +147,7 @@
                                     <input type="text" id="harga" name="harga" class="form-control">
                                 </div>
 
+
                                 <div class="form-group">
                                     <label for="">Tipe Pembayaran </label>
                                     <div class="form-check">
@@ -124,10 +160,12 @@
                                     </div>
                                 </div>
 
+
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </form>
@@ -137,8 +175,16 @@
 
             <!-- /page content -->
             <?php $this->load->view('admin/template/footer') ?>
-            <!-- membuat format rupiah -->
-            <script>
+
+            <script type="text/javascript">
+                var harga = document.getElementById('harga');
+                harga.addEventListener('keyup', function(e) {
+                    // tambahkan 'Rp.' pada saat form di ketik
+                    // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
+                    harga.value = formatRupiah(this.value);
+                });
+
+                /* Fungsi formatRupiah */
                 function formatRupiah(angka, prefix) {
                     var number_string = angka.replace(/[^,\d]/g, '').toString(),
                         split = number_string.split(','),
@@ -153,15 +199,13 @@
                     }
 
                     rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-                    return rupiah;
+                    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
                 }
+            </script>
 
-                var elements = document.getElementById("rupiah");
-                elements.addEventListener('keyup', function(e) {
-                    // tambahkan 'Rp.' pada saat form di ketik
-                    // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-                    rupiah.value = formatRupiah(this.value, 'Rp. ');
-                });
+
+            <script>
+                $('.datepicker').datepicker();
             </script>
 </body>
 

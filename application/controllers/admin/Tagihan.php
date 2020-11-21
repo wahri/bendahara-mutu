@@ -27,61 +27,44 @@ class Tagihan extends Admin_Controller
         $this->load->view('admin/tagihan/edit_diskon', $this->data);
     }
 
-
-
-    public function buatTagihan()
+    public function buatTagihanLainnya()
     {
-        if ($this->input->post("lingkup") == "semuasiswa") {
-            $this->db->select('nis');
-            $this->db->from('siswa');
-            $siswaAll = $this->db->get();
-
-
-            $pembayaran = $this->db->get_where('pembayaran', array('id' => $this->input->post('tagihan')))->row_array();
-
-            if ($pembayaran['is_spp'] == 1) {
-                foreach ($siswaAll->result() as $row) {
-
-                    $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-
-                    for ($i = 0; $i <= 11; $i++) {
-                        $tagihan_spp = [
-                            "nis" => $row->nis,
-                            "id_pembayaran" => $pembayaran['id'],
-                            "harga" => $pembayaran['harga'],
-                            "jml_dibayar" => 0,
-                            "is_lunas" => 0,
-                            "tahun" => $this->input->post('tahun'),
-                            "bulan" => $bulan[$i],
-                            "sisa_bayar" => $pembayaran['harga'],
-                            "is_spp" => $pembayaran['is_spp'],
-                            "nama_tagihan" => $pembayaran['nama_pembayaran'] . ' ' . $bulan[$i]
-                        ];
-
-                        $this->db->insert("tagihan", $tagihan_spp);
-                    }
-                }
-            } else {
-
-                foreach ($siswaAll->result() as $row) {
-                    $tagihan = [
-                        "nis" => $row->nis,
-                        "id_pembayaran" => $pembayaran['id'],
-                        "harga" => $pembayaran['harga'],
-                        "jml_dibayar" => 0,
-                        "is_lunas" => 0,
-                        "tahun" => $this->input->post('tahun'),
-                        "sisa_bayar" => $pembayaran['harga'],
-                        "is_spp" => $pembayaran['is_spp'],
-                        "nama_tagihan" => $pembayaran['nama_pembayaran']
-                    ];
-
-                    $this->db->insert("tagihan", $tagihan);
-                }
-            }
+        $target = $this->input->post('pilih_kelas');
+        if($target == 'all'){
+            $siswa = $this->db->get_where('siswa', ['kelas !=' => 13])->result_array();
+            $jml_siswa = $this->db->get_where('siswa', ['kelas !=' => 13])->num_rows();
+        }else{
+            $siswa = $this->db->get_where('siswa', ['kelas' => $target])->result_array();
+            $jml_siswa = $this->db->get_where('siswa', ['kelas' => $target])->num_rows();
         }
 
-        redirect("admin/tagihan");
+        $this->db->select_max('kode_tagihan', 'kode');
+        $kode_tagihan = $this->db->get('tagihan')->row_array();
+
+        if(!empty($siswa)){
+            $i = 0;
+            foreach($siswa as $s){
+                $data = [
+                    'nis' => $s['nis'],
+                    'harga' => str_replace('.', '', $this->input->post('harga')),
+                    'kode_tagihan' => empty($kode_tagihan['kode']) ? 2 : $kode_tagihan['kode'] + 1,
+                    'nama_tagihan' => $this->input->post('nama_tagihan')
+                ];
+                $this->db->insert('tagihan', $data);
+                $i++;
+            }
+            if($i == $jml_siswa){
+                $this->session->set_flashdata('message', 'Berhasil membuat tagihan...');
+                redirect('admin/tagihan');
+            }else{
+                $this->session->set_flashdata('message', 'Berhasil membuat tagihan...');
+                $this->session->set_flashdata('message_error', $i . ' tagihan gagal dibuat');
+                redirect('admin/tagihan');  
+            }
+        }else{
+            $this->session->set_flashdata('message_error', 'Target siswa kosong...');
+            redirect('admin/tagihan');  
+        }
     }
 
 

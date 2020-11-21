@@ -109,9 +109,9 @@
                       <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="pills-spp-tab" data-toggle="pill" href="#pills-spp" role="tab" aria-controls="pills-spp" aria-selected="false">SPP</a>
                       </li>
-                      <li class="nav-item" role="presentation">
+                      <!-- <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pills-kat-tab" data-toggle="pill" href="#pills-kat" role="tab" aria-controls="pills-kat" aria-selected="true">KAT</a>
-                      </li>
+                      </li> -->
 
                       <li class="nav-item" role="presentation">
                         <a class="nav-link" id="pills-lainnya-tab" data-toggle="pill" href="#pills-lainnya" role="tab" aria-controls="pills-lainnya" aria-selected="false">LAINNYA</a>
@@ -189,16 +189,16 @@
                                 Rp. 0
                               <?php endif; ?>
                             </td>
-                            <td>
+                            <td class="text-center">
                               <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
                               <?php else : ?>
                                 <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
                                 <?php endif; ?>
                               <?php endif; ?>
                             </td>
-                            <td>
+                            <td class="text-center">
                               <?php if (empty($cek)) : ?>
                                 <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= $tahun ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
                                 </button>
@@ -246,16 +246,16 @@
                                 Rp. 0
                               <?php endif; ?>
                             </td>
-                            <td>
+                            <td class="text-center">
                               <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
                               <?php else : ?>
                                 <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
                                 <?php endif; ?>
                               <?php endif; ?>
                             </td>
-                            <td>
+                            <td class="text-center">
                               <?php if (empty($cek)) : ?>
                                 <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="SPP <?= $d . ' ' . date('Y') ?>" data-harga="<?= $siswa['spp'] ?>" data-dibayar="<?= number_format($siswa['spp'], 0, ',', '.') ?>" data-tahun="<?= ($tahun + 1) ?>" data-bulan="<?= $k ?>" data-kode="1" data-nama="SPP <?= $d . ' ' . ($tahun + 1) ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
                                 </button>
@@ -278,7 +278,95 @@
                           </tr>
                         <?php endforeach; ?>
 
-                        <!--                         
+                        <!-- 
+                        <tr>
+                          <th colspan="5">Semester Ganjil</th>
+                        </tr>
+                        <?php
+                        foreach ($sem_ganjil as $ganjil) :
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $ganjil['id_tagihan']])->row_array();
+                          $sisa = $ganjil['harga'] - $ganjil['jml_dibayar'];
+                        ?>
+                          <tr>
+                            <td><?= $ganjil['nama_tagihan'] ?></td>
+                            <td>Rp. <?= number_format($ganjil['harga'], 0, ',', '.') ?></td>
+                            <td>Rp. <?= number_format($ganjil['jml_dibayar'], 0, ',', '.') ?></td>
+                            <td class="text-center">
+                              <?php if ($ganjil['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                              <?php else : ?>
+                                <?php if (date('Y') > substr($ganjil['tahun'], 0, 4) || (date('Y') == substr($ganjil['tahun'], 0, 4) && date('m') >= $ganjil['bulan'])) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                              <?php if (!$ganjil['is_lunas']) : ?>
+                                <?php
+                                if (empty($cek_cart)) :
+                                ?>
+                                  <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $ganjil['nis'] ?>" data-item="<?= $ganjil['nama_tagihan'] ?>" data-id="<?= $ganjil['id_tagihan'] ?>" data-sisa="<?= number_format($sisa, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                  </button>
+                                <?php else : ?>
+                                  <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                    <i class="fa fa-shopping-cart"></i> Checkout
+                                  </button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                          <th colspan="5">Semester Genap</th>
+                        </tr>
+                        <?php
+                        foreach ($sem_genap as $genap) :
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $genap['id_tagihan']])->row_array();
+                          $sisa2 = $genap['harga'] - $genap['jml_dibayar'];
+                        ?>
+                          <tr>
+                            <td><?= $genap['nama_tagihan'] ?></td>
+                            <td>Rp. <?= number_format($genap['harga'], 0, ',', '.') ?></td>
+                            <td>Rp. <?= number_format($genap['jml_dibayar'], 0, ',', '.') ?></td>
+                            <td class="text-center">
+                              <?php if ($genap['is_lunas']) : ?>
+                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                              <?php else : ?>
+                                <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y') == substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                            <td class="text-center">
+                              <?php if (!$genap['is_lunas']) : ?>
+                                <?php
+                                if (empty($cek_cart)) :
+                                ?>
+                                  <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $genap['nis'] ?>" data-item="<?= $genap['nama_tagihan'] ?>" data-id="<?= $genap['id_tagihan'] ?>" data-sisa="<?= number_format($sisa2, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                  </button>
+                                <?php else : ?>
+                                  <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                    <i class="fa fa-shopping-cart"></i> Checkout
+                                  </button>
+                                <?php endif; ?>
+                              <?php endif; ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?> -->
+                      </tbody>
+                    </table>
+
+                    <!-- <table class="table table-striped projects mt-3" id="datatable">
+                      <thead class="thead-darkblue">
+                        <tr>
+                          <th style="width: 20%">Nama Tagihan</th>
+                          <th>Jumlah Tagihan</th>
+                          <th>Jumlah Dibayar</th>
+                          <th class="text-center">Status</th>
+                          <th style="width: 20%" class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
                         <tr>
                           <th colspan="5">Semester Ganjil</th>
                         </tr>
@@ -355,153 +443,7 @@
                         <?php endforeach; ?>
                       </tbody>
                     </table> -->
-
-
-
-
-                        <table class="table table-striped projects mt-3" id="datatable">
-                          <thead class="thead-darkblue">
-                            <tr>
-                              <th style="width: 20%">Nama Tagihan</th>
-                              <th>Jumlah Tagihan</th>
-                              <th>Jumlah Dibayar</th>
-                              <th class="text-center">Status</th>
-                              <th style="width: 20%" class="text-center">Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th colspan="5">Semester Ganjil</th>
-                            </tr>
-                            <?php
-                            foreach ($sem_ganjil as $ganjil) :
-                              $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $ganjil['id_tagihan']])->row_array();
-                              $sisa = $ganjil['harga'] - $ganjil['jml_dibayar'];
-                            ?>
-                              <tr>
-                                <td><?= $ganjil['nama_tagihan'] ?></td>
-                                <td>Rp. <?= number_format($ganjil['harga'], 0, ',', '.') ?></td>
-                                <td>Rp. <?= number_format($ganjil['jml_dibayar'], 0, ',', '.') ?></td>
-                                <td class="text-center">
-                                  <?php if ($ganjil['is_lunas']) : ?>
-                                    <button type="button" class="btn btn-success btn-xs">Lunas</button>
-                                  <?php else : ?>
-                                    <?php if (date('Y') > substr($ganjil['tahun'], 0, 4) || (date('Y') == substr($ganjil['tahun'], 0, 4) && date('m') >= $ganjil['bulan'])) : ?>
-                                      <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
-                                    <?php endif; ?>
-                                  <?php endif; ?>
-                                </td>
-                                <td class="text-center">
-                                  <?php if (!$ganjil['is_lunas']) : ?>
-                                    <?php
-                                    if (empty($cek_cart)) :
-                                    ?>
-                                      <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $ganjil['nis'] ?>" data-item="<?= $ganjil['nama_tagihan'] ?>" data-id="<?= $ganjil['id_tagihan'] ?>" data-sisa="<?= number_format($sisa, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
-                                      </button>
-                                    <?php else : ?>
-                                      <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
-                                        <i class="fa fa-shopping-cart"></i> Checkout
-                                      </button>
-                                    <?php endif; ?>
-                                  <?php endif; ?>
-                                </td>
-                              </tr>
-                            <?php endforeach; ?>
-                            <tr>
-                              <th colspan="5">Semester Genap</th>
-                            </tr>
-                            <?php
-                            foreach ($sem_genap as $genap) :
-                              $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $genap['id_tagihan']])->row_array();
-                              $sisa2 = $genap['harga'] - $genap['jml_dibayar'];
-                            ?>
-                              <tr>
-                                <td><?= $genap['nama_tagihan'] ?></td>
-                                <td>Rp. <?= number_format($genap['harga'], 0, ',', '.') ?></td>
-                                <td>Rp. <?= number_format($genap['jml_dibayar'], 0, ',', '.') ?></td>
-                                <td class="text-center">
-                                  <?php if ($genap['is_lunas']) : ?>
-                                    <button type="button" class="btn btn-success btn-xs">Lunas</button>
-                                  <?php else : ?>
-                                    <?php if (date('Y') > substr($genap['tahun'], 0, 4) + 1 || (date('Y') == substr($genap['tahun'], 0, 4) + 1  && date('m') >= $genap['bulan'])) : ?>
-                                      <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
-                                    <?php endif; ?>
-                                  <?php endif; ?>
-                                </td>
-                                <td class="text-center">
-                                  <?php if (!$genap['is_lunas']) : ?>
-                                    <?php
-                                    if (empty($cek_cart)) :
-                                    ?>
-                                      <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $genap['nis'] ?>" data-item="<?= $genap['nama_tagihan'] ?>" data-id="<?= $genap['id_tagihan'] ?>" data-sisa="<?= number_format($sisa2, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
-                                      </button>
-                                    <?php else : ?>
-                                      <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
-                                        <i class="fa fa-shopping-cart"></i> Checkout
-                                      </button>
-                                    <?php endif; ?>
-                                  <?php endif; ?>
-                                </td>
-                              </tr>
-                            <?php endforeach; ?>
-                          </tbody>
-                        </table>
                   </div>
-
-                  <div class="tab-pane fade" id="pills-kat" role="tabpanel" aria-labelledby="pills-kat-tab">
-                    <table class="table table-striped projects">
-                      <thead class="thead-darkblue">
-                        <tr>
-                          <th style="width: 20%">Nama Tagihan</th>
-                          <th>Jumlah Tagihan</th>
-                          <th>Jumlah Dibayar</th>
-                          <th>Status</th>
-                          <th style="width: 20%">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $cek_cart_kat = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $uang_kat['id_tagihan']])->row_array();
-                        $sisa_kat = $uang_kat['harga'] - $uang_kat['jml_dibayar'];
-                        ?>
-                        <tr>
-                          <td>
-                            <?= $uang_kat['nama_tagihan'] ?>
-                          </td>
-                          <td>
-                            Rp. <?= number_format($uang_kat['harga'], 0, ',', '.') ?>
-                          </td>
-                          <td>
-                            Rp. <?= number_format($uang_kat['jml_dibayar'], 0, ',', '.') ?>
-                          </td>
-                          <td class="text-center">
-                            <?php if ($uang_kat['is_lunas']) : ?>
-                              <button type="button" class="btn btn-success btn-xs">Lunas</button>
-                            <?php else : ?>
-                              <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
-                            <?php endif; ?>
-                          </td>
-                          <td class="text-center">
-                            <?php if (!$uang_kat['is_lunas']) : ?>
-                              <?php
-                              if (empty($cek_cart_kat)) :
-                              ?>
-                                <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $uang_kat['nis'] ?>" data-item="<?= $uang_kat['nama_tagihan'] ?>" data-id="<?= $uang_kat['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_kat, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
-                                </button>
-                              <?php else : ?>
-                                <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
-                                  <i class="fa fa-shopping-cart"></i> Checkout
-                                </button>
-                              <?php endif; ?>
-                            <?php endif; ?>
-                          </td>
-                        </tr>
-
-                      </tbody>
-                    </table>
-                  </div>
-
-
 
                   <div class="tab-pane fade" id="pills-lainnya" role="tabpanel" aria-labelledby="pills-lainnya-tab">
                     <table class="table table-striped projects">
@@ -518,6 +460,7 @@
                         <?php
                         foreach ($uang_lainnya as $u) :
                           $sisa_l = $u['harga'] - $u['jml_dibayar'];
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $u['id_tagihan']])->row_array();
                         ?>
 
                           <tr>
@@ -532,7 +475,7 @@
                             </td>
                             <td>
                               <?php if ($u['is_lunas']) : ?>
-                                <button type="button" class="btn btn-success btn-xs">Lunas</button>
+                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
                               <?php else : ?>
                                 <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
                               <?php endif; ?>
@@ -540,7 +483,7 @@
                             <td>
                               <?php if (!$u['is_lunas']) : ?>
                                 <?php
-                                if (empty($cek_cart_kat)) :
+                                if (empty($cek_cart)) :
                                 ?>
                                   <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $u['nis'] ?>" data-item="<?= $u['nama_tagihan'] ?>" data-id="<?= $u['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_l, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
                                   </button>
