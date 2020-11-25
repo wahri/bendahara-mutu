@@ -43,6 +43,11 @@
     <link href="<?= base_url('assets') ?>/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url('assets') ?>/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <link href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152092/smartwizard/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152092/smartwizard/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="<?= base_url('assets') ?>/build/css/bootstrap-datepicker.min.css">
+
+    
     <!-- Custom Theme Style -->
     <link href="<?= base_url('assets') ?>/build/css/custom.min.css" rel="stylesheet">
     <link href="<?= base_url('assets') ?>/build/css/style.css" rel="stylesheet">

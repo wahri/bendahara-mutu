@@ -43,7 +43,14 @@
                                                         <td><?= $item['kode_transaksi'] ?></td>
                                                         <td><?= date('d F Y', strtotime($item['date'])) ?></td>
                                                         <td>Rp. <?= number_format($item['total'], 0, ',', '.') ?></td>
-                                                        <td><a href="<?= base_url('bendahara/transaksi/print/' . $item['kode_transaksi']) ?>" class="btn btn-primary"><i class="fa fa-print" aria-hidden="true"></i></a><button class="btn btn-dark"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+                                                        <td>
+                                                            <a href="<?= base_url('bendahara/transaksi/print/' . $item['kode_transaksi']) ?>" class="btn btn-primary">
+                                                                <i class="fa fa-print" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a href="<?= base_url('bendahara/transaksi/success/' . $item['kode_transaksi']) ?>" class="btn btn-dark">
+                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
 

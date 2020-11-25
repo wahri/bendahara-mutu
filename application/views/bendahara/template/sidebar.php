@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Admin</span></a>
+            <a href="<?= base_url() ?>" class="site_title"><span>SMK - MUTU</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -13,7 +13,7 @@
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2><?= $user_login['username'] ?></h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -39,14 +39,16 @@
 
                     <li><a href="<?= base_url('bendahara/pembayaran') ?>"> <i class="fa fa-dollar"></i> Pembayaran</a></li>
                     <li><a href="<?= base_url('bendahara/uang_keluar') ?>"><i class="fa fa-dollar"></i> Uang Keluar</a></li>
+                    <li><a href="<?= base_url('bendahara/laporan') ?>"><i class="fa fa-file-text"></i> Laporan</a></li>
 
 
-                    <li><a><i class="fa fa-file-text" aria-hidden="true"></i> Laporan <span class="fa fa-chevron-down"></span></a>
+                    <!-- <li><a><i class="fa fa-file-text" aria-hidden="true"></i> Laporan <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            <li><a href="<?= base_url('bendahara/laporan/index') ?>">Laporan Keseluruhan</a></li>
                             <li><a href="<?= base_url('bendahara/laporan/uang_masuk') ?>">Uang Masuk</a></li>
                             <li><a href="<?= base_url('bendahara/laporan/uang_keluar') ?>">Uang Keluar</a></li>
                         </ul>
-                    </li>
+                    </li> -->
 
                 </ul>
             </div>

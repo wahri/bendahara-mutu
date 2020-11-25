@@ -13,6 +13,14 @@
             <!-- /page content -->
             <div class="right_col" role="main">
                 <div class="row">
+                    <div class="col-1 my-4">
+                        <a id="cartButton" href="<?= base_url('bendahara/pembayaran') ?>" class="btn btn-lg btn-success">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_content">

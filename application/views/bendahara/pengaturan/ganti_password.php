@@ -37,12 +37,12 @@
                                                     <input type="password" name="password_lama" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="password_baru">Password Baru</label>
-                                                    <input type="password" name="password_baru" class="form-control">
+                                                    <label for="password">Password Baru</label>
+                                                    <input type="password" name="password" class="form-control">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="password_lama">Confirm Password</label>
-                                                    <input type="password" name="password_lama" class="form-control">
+                                                    <label for="password_confirm">Confirm Password</label>
+                                                    <input type="password" name="password_confirm" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <button class="btn btn-success">

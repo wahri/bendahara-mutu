@@ -37,7 +37,7 @@
 <script src="<?= base_url('assets') ?>/vendors/pdfmake/build/vfs_fonts.js"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="<?= base_url('assets') ?>/build/js/custom.min.js"></script>
 <script src="<?= base_url('assets') ?>/build/js/bootstrap-datepicker.min.js"></script>
+<script src="<?= base_url('assets') ?>/build/js/custom.min.js"></script>
 
 <script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152197/smartwizard/jquery.smartWizard.min.js"></script>

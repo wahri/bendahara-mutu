@@ -41,50 +41,8 @@ class Login extends CI_Controller
 						'status' => 'lgn'
 					];
 
-					// $ipaddress = '';
-					// if (isset($_SERVER['HTTP_CLIENT_IP']))
-					// 	$ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-					// else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-					// 	$ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-					// else if (isset($_SERVER['HTTP_X_FORWARDED']))
-					// 	$ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-					// else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
-					// 	$ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-					// else if (isset($_SERVER['HTTP_FORWARDED']))
-					// 	$ipaddress = $_SERVER['HTTP_FORWARDED'];
-					// else if (isset($_SERVER['REMOTE_ADDR']))
-					// 	$ipaddress = $_SERVER['REMOTE_ADDR'];
-					// else
-					// 	$ipaddress = 'IP tidak dikenali';
-
-					// $browser = '';
-					// if (strpos($_SERVER['HTTP_USER_AGENT'], 'Netscape'))
-					// $browser = 'Netscape';
-					// else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox'))
-					// $browser = 'Firefox';
-					// else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome'))
-					// $browser = 'Chrome';
-					// else if (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera'))
-					// $browser = 'Opera';
-					// else if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE'))
-					// $browser = 'Internet Explorer';
-					// else
-					// 	$browser = 'Other';
-
-					// $ipaddress = $_SERVER['REMOTE_ADDR'];
-					// echo $ipaddress;
-					// die;
-					
-					// $level = $user['level'] == 1 ? 'Superadmin' : $user['level'] == 2 ? 'Kepala Sekolah' : 'Bendahara';
-					// $pesan = "$level sedang login dengan ip $ipaddress menggunakan $browser";
-					// $chat_id = '1008610964';
-					// $token = "1468037738:AAG-j63RMXp8XnxmsKkuco2iS6I329gPNoU";
-					// $url = "https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=$pesan";
-
-					// // echo $pesan;
-					// $curl = curl_init($url);
-					// curl_exec($curl);
-					// // curl_close($curl);
+					$update['last_login'] = date('Y-m-d H:i:s');
+					$this->db->update('user', $update, ['id' => $user['id']]);
 					
 					$this->session->set_userdata($data);
 					redirect('admin/dashboard', 'refresh');

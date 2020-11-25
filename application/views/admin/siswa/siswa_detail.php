@@ -60,14 +60,14 @@
                                                     <label for="tahun_masuk">Tahun Masuk</label>
                                                     <input value="<?= $siswa['tahun_masuk'] ?>" disabled type="text" id="tahun_masuk" name="tahun_masuk" class="form-control">
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label for="tahun_lulus">Tahun Lulus</label>
                                                     <input value="<?= $siswa['tahun_lulus'] ?>" disabled type="text" id="tahun_lulus" name="tahun_lulus" class="form-control">
-                                                </div>
-                                                <div class="form-group">
+                                                </div> -->
+                                                <!-- <div class="form-group">
                                                     <label for="cash">Cash</label>
                                                     <input value="<?= $siswa['cash'] ?>" disabled type="text" id="cash" name="cash" class="form-control">
-                                                </div>
+                                                </div> -->
                                                 <div class="form-inline mt-3">
                                                     <button type="button" class="btn btn-success btn-edit">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> Edit

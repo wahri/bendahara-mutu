@@ -1,4 +1,4 @@
-<?php $this->load->view('admin/template/header') ?>
+<?php $this->load->view('bendahara/template/header') ?>
 
 </head>
 
@@ -72,7 +72,7 @@
                                                     <th>Nama</th>
                                                     <th>Date</th>
                                                     <th>Nominal</th>
-                                                    <th>Action</th>
+                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -83,7 +83,7 @@
                                                         <td><?= $d['nama'] ?></td>
                                                         <td><?= date('d F Y', strtotime($d['date'])) ?></td>
                                                         <td>Rp. <?= number_format($d['total'], 0, ',', '.') ?></td>
-                                                        <td><a href="<?= base_url('bendahara/laporan/detail_uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
+                                                        <td class="text-center"><a href="<?= base_url('bendahara/laporan/detail_uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

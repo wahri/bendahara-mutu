@@ -21,6 +21,19 @@ class Siswa extends Admin_Controller
 
     public function detail($id)
     {
+        if($this->input->post('simpan')){
+            $data = [
+                'nama' => $this->input->post('nama'),
+                'kelas' => $this->input->post('kelas'),
+                'jurusan' => $this->input->post('jurusan'),
+                'tahun_masuk' => $this->input->post('tahun_masuk'),
+                'spp' => str_replace('.', '', $this->input->post('spp'))
+            ];
+            $this->db->insert('siswa', $data);
+
+            $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
+            redirect('admin/siswa/detail/' . $id);
+        }
         $this->data['title'] = "Detail Siswa";
         $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id])->row_array();
         $this->load->view('admin/siswa/siswa_detail', $this->data);
@@ -29,7 +42,34 @@ class Siswa extends Admin_Controller
     public function tambah()
     {
         $this->data['title'] = "Tambah Siswa";
-        $this->load->view('admin/siswa/siswa_tambah');
+        $this->load->view('admin/siswa/siswa_tambah', $this->data);
+    }
+
+    public function tambahSiswaBaru()
+    {
+        $cek_nis = $this->db->get_where('siswa', ['nis' => $this->input->post('nis')])->row_array();
+        $cek_nisn = $this->db->get_where('siswa', ['nisn' => $this->input->post('nisn')])->row_array();
+        if(!empty($cek_nis)){
+            $this->session->set_flashdata('message_error', 'Gagal menambah siswa, NIS duplikat');
+            redirect('admin/siswa');
+        }elseif(!empty($cek_nisn)){
+            $this->session->set_flashdata('message_error', 'Gagal menambah siswa, NISN duplikat');
+            redirect('admin/siswa');
+        }else{
+            $data = [
+                'nis' => $this->input->post('nis'),
+                'nisn' => $this->input->post('nisn'),
+                'nama' => $this->input->post('nama'),
+                'kelas' => $this->input->post('kelas'),
+                'jurusan' => $this->input->post('jurusan'),
+                'tahun_masuk' => $this->input->post('tahun_masuk'),
+                'spp' => str_replace('.', '', $this->input->post('spp'))
+            ];
+            $this->db->insert('siswa', $data);
+
+            $this->session->set_flashdata('message', 'Berhasil menambah siswa');
+            redirect('admin/siswa');
+        }
     }
 
     public function update($id)

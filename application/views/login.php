@@ -70,8 +70,8 @@
 
                         <div class="separator">
                             <div>
-                                <h1><i class="fa fa-paw"></i> Sistem Keuangan SMK MUTU</h1>
-                                <p>&copy;<?= date('Y') ?> W2SDEV</p>
+                                <h1>Sistem Keuangan SMK MUTU</h1>
+                                <p>W2SDEV &copy; <?= date('Y') ?></p>
                             </div>
                         </div>
                     </form>

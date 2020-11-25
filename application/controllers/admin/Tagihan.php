@@ -11,6 +11,9 @@ class Tagihan extends Admin_Controller
 
     public function index()
     {
+        $this->db->distinct();
+        $this->db->select('kode_tagihan, nama_tagihan');
+        $this->data['tagihan'] = $this->db->get_where('tagihan', ['kode_tagihan !=' => 1])->result_array();
         $this->data['title'] = "Tagihan";
         $this->load->view('admin/tagihan/tagihan', $this->data);
     }

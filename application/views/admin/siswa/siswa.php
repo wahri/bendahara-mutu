@@ -97,7 +97,7 @@
                                                     <!-- <p class="text-danger mt-2">Error</p> -->
                                                 </div>
                                                 <div class="form-row mt-3">
-                                                    <div class="form-group col-md-6">
+                                                    <!-- <div class="form-group col-md-6">
                                                         <label for="uang_kat">Uang KAT</label>
                                                         <div class="input-group flex-nowrap">
                                                             <div class="input-group-prepend">
@@ -105,7 +105,7 @@
                                                             </div>
                                                             <input type="text" class="form-control" placeholder="0" name="kat" id="kat">
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="form-group col-md-6">
                                                         <label for="uang_spp">Uang SPP</label>
                                                         <div class="input-group flex-nowrap">

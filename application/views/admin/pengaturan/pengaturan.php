@@ -19,6 +19,24 @@
                             </a>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <?php if (!empty($this->session->flashdata('message'))) : ?>
+                                <div class="alert alert-success alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($this->session->flashdata('message_error'))) : ?>
+                                <div class="alert alert-error alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message_error'); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
 
                     <div class="clearfix"></div>
 
