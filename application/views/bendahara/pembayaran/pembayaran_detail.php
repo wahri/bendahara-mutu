@@ -447,7 +447,7 @@
 
                   <div class="tab-pane fade" id="pills-lainnya" role="tabpanel" aria-labelledby="pills-lainnya-tab">
                     <table class="table table-striped projects">
-                      <thead class="thead-darkblue``">
+                      <thead class="thead-darkblue">
                         <tr>
                           <th style="width: 20%">Nama Tagihan</th>
                           <th>Jumlah Tagihan</th>
@@ -456,7 +456,75 @@
                           <th style="width: 20%">Action</th>
                         </tr>
                       </thead>
+
                       <tbody>
+                        <?php
+                        foreach ($uang_lainnya as $d) :
+                          $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'kode_tagihan' => $d['kode_tagihan']])->row_array();
+
+                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                        ?>
+                          <?php if (empty($cek)) : ?>
+                            <tr>
+                              <td>
+                                <?= $d['nama_tagihan'] ?>
+                              </td>
+                              <td>
+                                Rp. <?= number_format($d['harga'], 0, ',', '.') ?>
+                              </td>
+                              <td>
+                                Rp. 0
+                              </td>
+                              <td>
+                                <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                              </td>
+                              <td>
+                                <button type="button" data-toggle="modal" data-target="#buatTagihan" data-nis="<?= $siswa['nis'] ?>" data-item="<?= $d['nama_tagihan'] ?>" data-harga="<?= $d['harga'] ?>" data-dibayar="<?= number_format($d['harga'], 0, ',', '.') ?>" data-kode="<?= $d['kode_tagihan'] ?>" data-nama="<?= $d['nama_tagihan'] ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                </button>
+                              </td>
+                            </tr>
+                          <?php else : ?>
+                            <tr>
+                              <td>
+                                <?= $d['nama_tagihan'] ?>
+                              </td>
+                              <td>
+                                Rp. <?= number_format($d['harga'], 0, ',', '.') ?>
+                              </td>
+                              <td>
+                                Rp. <?= number_format($cek['jml_dibayar'], 0, ',', '.') ?>
+                              </td>
+                              <td>
+                                <?php if ($cek['is_lunas']) : ?>
+                                  <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                                <?php else : ?>
+                                  <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                <?php endif; ?>
+                              </td>
+                              <td>
+                                <?php if (!$cek['is_lunas']) : ?>
+                                  <?php
+                                  $sisa_tagihan = $cek['harga'] - $cek['jml_dibayar'];
+                                  if (empty($cek_cart)) :
+                                  ?>
+                                    <button type="button" data-toggle="modal" data-target="#bayarModal" data-nis="<?= $cek['nis'] ?>" data-item="<?= $cek['nama_tagihan'] ?>" data-id="<?= $cek['id_tagihan'] ?>" data-sisa="<?= number_format($sisa_tagihan, 0, ',', '.') ?>" class="btn btn-success btn-xs" id="btnCart"><i class="fa fa-money"></i> Bayar
+                                    </button>
+                                  <?php else : ?>
+                                    <button id="cartButton" type="button" data-toggle="modal" data-target="#cartModal" class="btn btn-xs btn-info">
+                                      <i class="fa fa-shopping-cart"></i> Checkout
+                                    </button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
+                              </td>
+                            </tr>
+
+                          <?php endif; ?>
+                        <?php endforeach; ?>
+                      </tbody>
+
+
+
+                      <!-- <tbody>
                         <?php
                         foreach ($uang_lainnya as $u) :
                           $sisa_l = $u['harga'] - $u['jml_dibayar'];
@@ -497,7 +565,7 @@
                           </tr>
                         <?php endforeach; ?>
 
-                      </tbody>
+                      </tbody> -->
                     </table>
                   </div>
                 </div>

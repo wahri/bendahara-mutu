@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Tagihan</h3>
+                            <h3><?= $title ?></h3>
                         </div>
 
                     </div>
@@ -42,39 +42,46 @@
                         <div class="col-md-6 col-sm-6">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Tambah Tagihan</h2>
+                                    <h2>Edit Tagihan</h2>
                                     <div class="clearfix"></div>
                                 </div>
 
                                 <div class="x_content">
-                                    <form action="<?= base_url('admin/tagihan/buattagihanlainnya') ?>" method="POST">
-                                        <div class="form-group">
-                                            <label for="pilih_kelas">Ruang Lingkup Tagihan</label>
-                                            <select name="pilih_kelas" class="custom-select">
-                                                <option value="all">Semua Siswa</option>
-                                                <option value="10">Kelas 10</option>
-                                                <option value="11">Kelas 11</option>
-                                                <option value="12">Kelas 12</option>
-                                                <!-- <option value="13">Alumni</option> -->
-                                            </select>
-                                        </div>
+                                    <form action="" method="POST">
                                         <div class="form-group">
                                             <label for="harga">Jumlah Tagihan</label>
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="inputGroup-sizing-default">Rp.</span>
                                                 </div>
-                                                <input name="harga" id="harga" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                <input name="harga" id="harga" value="<?= number_format($tagihans['harga'], 0, ',', '.')  ?>" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="nama_tagihan">Nama Tagihan</label>
-                                            <input type="text" name="nama_tagihan" class="form-control">
+                                            <input type="text" name="nama_tagihan" value="<?= $tagihans['nama_tagihan'] ?>" class="form-control">
                                         </div>
+                                        <div class="form-group my-3">
+                                            <button type="button" class="btn btn btn-danger" data-toggle="modal" data-target="#hapusdata">Hapus data tagihan!</button>
 
+                                            <!-- modal -->
+                                            <div class="modal fade" id="hapusdata" tabindex="-1" role="dialog" aria-labelledby="hapusdataLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="hapusdataLabel">Apakah anda yakin?</h5>
+                                                            <a href="<?= base_url('admin/tagihan/deletetagihan/') . $tagihans['kode_tagihan'] ?>" class="btn btn-danger ml-auto">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
+                                            <a href="<?= base_url('admin/tagihan') ?>" class="btn btn-secondary">
+                                                Batal
+                                            </a>
                                             <button class="btn btn-success">
-                                                Submit
+                                                Update
                                             </button>
                                         </div>
                                     </form>

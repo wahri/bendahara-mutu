@@ -176,7 +176,7 @@
                                                     </tbody>
                                                     <tfoot class="thead-darkblue">
                                                         <tr>
-                                                            <td class="text-right">Total : </td>
+                                                            <td class="text-right">Total cash saat ini : </td>
                                                             <?php
                                                             $cash = $cash_sebelumnya + $total_uangmasuk['total'] - $total_uangkeluar['nominal'];
                                                             ?>

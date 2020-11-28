@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4">
+                    <!-- <div class="col-12 col-md-4">
                         <div class="card  text-white mb-3" style="max-width:30rem; ">
                             <div class="card-header bg-light-blue">Laporan</div>
                             <div class="card-body py-4 bg-dark-blue">
@@ -44,14 +44,14 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-12 col-md-4">
                         <div class="card  text-white mb-3" style="max-width:30rem; ">
                             <div class="card-header bg-light-blue">Laporan</div>
                             <div class="card-body py-4 bg-dark-blue">
                                 <i class="fa fa-file-text fa-2x" aria-hidden="true"></i>
-                                <a class="custom-link" href="<?= base_url('bendahara/laporan/uang_keluar') ?>">
-                                    <h5 class="card-title d-inline ml-2"> Uang Keluar</h5>
+                                <a class="custom-link" href="<?= base_url('bendahara/laporan') ?>">
+                                    <h5 class="card-title d-inline ml-2"> Laporan Keuangan</h5>
                                 </a>
                             </div>
                         </div>

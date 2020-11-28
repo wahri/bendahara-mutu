@@ -14,7 +14,7 @@
             <div class="right_col" role="main">
                 <div class="row">
                     <div class="col-1 my-4">
-                        <a id="cartButton" href="<?= base_url('bendahara/pembayaran') ?>" class="btn btn-lg btn-success">
+                        <a id="cartButton" href="<?= base_url('bendahara/pembayaran/detail/') . $transaksi['nis'] ?>" class="btn btn-lg btn-success">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>
                         </a>
                     </div>

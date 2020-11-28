@@ -59,24 +59,24 @@
                                     <table class="table mt-2" id="dataTables">
                                         <thead class="thead-darkblue">
                                             <tr>
+                                                <th>Tanggal</th>
                                                 <th>Nama Pengambil</th>
                                                 <th>Nominal</th>
                                                 <th>Catatan</th>
-                                                <th>Tanggal</th>
-                                                <th class="text-center">Action</th>
+                                                <!-- <th class="text-center">Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($transaksi_pengeluaran as $d) : ?>
                                                 <tr>
+                                                    <td><?= date('d F Y', strtotime($d['datetime'])) ?></td>
                                                     <td><?= $d['nama_pemakai'] ?></td>
                                                     <td>Rp. <?= number_format($d['nominal'], 0, ',', '.') ?></td>
                                                     <td><?= $d['catatan'] ?></td>
-                                                    <td><?= date('d F Y', strtotime($d['datetime'])) ?></td>
-                                                    <td class="text-center">
+                                                    <!-- <td class="text-center">
                                                         <a href="" class="btn btn-sm btn-danger">Hapus</a>
                                                         <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
