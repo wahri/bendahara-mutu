@@ -22,17 +22,58 @@ class Siswa extends Admin_Controller
     public function detail($id)
     {
         if($this->input->post('simpan')){
-            $data = [
-                'nama' => $this->input->post('nama'),
-                'kelas' => $this->input->post('kelas'),
-                'jurusan' => $this->input->post('jurusan'),
-                'tahun_masuk' => $this->input->post('tahun_masuk'),
-                'spp' => str_replace('.', '', $this->input->post('spp'))
-            ];
-            $this->db->insert('siswa', $data);
+            $siswa = $this->db->get_where('siswa', ['id' => $id])->row_array();
+            $nis = empty($this->input->post('nis')) ? null : $this->input->post('nis');
+            $nisn = empty($this->input->post('nisn')) ? null : $this->input->post('nisn');
 
-            $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
-            redirect('admin/siswa/detail/' . $id);
+            if($this->input->post('nis') != $siswa['nis']){
+                $cek_mhs = $this->db->get_Where('siswa', "nis = '$nis'")->num_rows();
+                if($cek_mhs > 0){
+                    $this->session->set_flashdata('message_error', 'Gagal mengubah data siswa, NIS duplikat');
+                    redirect('admin/siswa/detail/' . $id);
+                }else{
+                    $data = [
+                        'nama' => $this->input->post('nama'),
+                        'kelas' => $this->input->post('kelas'),
+                        'nis' => $nis,
+                        'jurusan' => $this->input->post('jurusan'),
+                        'tahun_masuk' => $this->input->post('tahun_masuk')
+                    ];
+                    $this->db->update('siswa', $data, ['id' => $id]);
+
+                    $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
+                    redirect('admin/siswa/detail/' . $id);
+                }
+            }elseif( $this->input->post('nisn') != $siswa['nisn']){
+                $cek_mhs = $this->db->get_Where('siswa', "nisn = '$nisn'")->num_rows();
+                if ($cek_mhs > 0) {
+                    $this->session->set_flashdata('message_error', 'Gagal mengubah data siswa, NISN duplikat');
+                    redirect('admin/siswa/detail/' . $id);
+                } else {
+                    $data = [
+                        'nama' => $this->input->post('nama'),
+                        'kelas' => $this->input->post('kelas'),
+                        'nisn' => $nisn,
+                        'jurusan' => $this->input->post('jurusan'),
+                        'tahun_masuk' => $this->input->post('tahun_masuk')
+                    ];
+                    $this->db->update('siswa', $data, ['id' => $id]);
+
+                    $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
+                    redirect('admin/siswa/detail/' . $id);
+                }
+            }else{
+                $data = [
+                    'nama' => $this->input->post('nama'),
+                    'kelas' => $this->input->post('kelas'),
+                    'jurusan' => $this->input->post('jurusan'),
+                    'tahun_masuk' => $this->input->post('tahun_masuk')
+                ];
+                $this->db->update('siswa', $data, ['id' => $id]);
+
+                $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
+                redirect('admin/siswa/detail/' . $id);
+            }
         }
         $this->data['title'] = "Detail Siswa";
         $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id])->row_array();

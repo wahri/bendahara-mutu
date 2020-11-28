@@ -22,6 +22,25 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-12">
+                            <?php if (!empty($this->session->flashdata('message'))) : ?>
+                                <div class="alert alert-success alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message'); ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (!empty($this->session->flashdata('message_error'))) : ?>
+                                <div class="alert alert-error alert-dismissible " role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <?php echo $this->session->flashdata('message_error'); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
                     <div class="row mt-2">
                         <div class="col-md-8">
                             <div class="x_panel">
@@ -57,6 +76,10 @@
                                                     <input value="<?= $siswa['kelas'] ?>" disabled type="text" id="kelas" name="kelas" class="form-control">
                                                 </div>
                                                 <div class="form-group">
+                                                    <label for="jurusan">Jurusan</label>
+                                                    <input value="<?= $siswa['jurusan'] ?>" disabled type="text" id="jurusan" name="jurusan" class="form-control">
+                                                </div>
+                                                <div class="form-group">
                                                     <label for="tahun_masuk">Tahun Masuk</label>
                                                     <input value="<?= $siswa['tahun_masuk'] ?>" disabled type="text" id="tahun_masuk" name="tahun_masuk" class="form-control">
                                                 </div>
@@ -72,7 +95,7 @@
                                                     <button type="button" class="btn btn-success btn-edit">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                                                     </button>
-                                                    <button type="submit" class="btn btn-success ml-3">
+                                                    <button id="simpan" type="submit" name="simpan" value="1" class="btn btn-success ml-3" style="display: none;">
                                                         <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
                                                     </button>
                                                 </div>
@@ -97,6 +120,7 @@
     $(".btn-edit").click(function() {
         var input = $('.update-siswa .form-group input')
         input.prop("disabled", !input.prop("disabled"))
+        $('#simpan').show()
 
     })
 </script>
