@@ -1,20 +1,20 @@
-<?php $this->load->view('admin/template/header') ?>
+<?php $this->load->view('kepsek/template/header') ?>
 
 </head>
 
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <?php $this->load->view('admin/template/sidebar') ?>
+            <?php $this->load->view('kepsek/template/sidebar') ?>
 
-            <?php $this->load->view('admin/template/topbar') ?>
+            <?php $this->load->view('kepsek/template/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Dashboard Admin</h3>
+                            <h3>Dashboard kepsek</h3>
                         </div>
 
                         <div class="title_right">
@@ -67,7 +67,7 @@
             </div>
             <!-- /page content -->
 
-            <?php $this->load->view('admin/template/footer') ?>
+            <?php $this->load->view('kepsek/template/footer') ?>
 </body>
 
 </html>

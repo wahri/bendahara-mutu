@@ -1,13 +1,13 @@
-<?php $this->load->view('bendahara/template/header') ?>
+<?php $this->load->view('kepsek/template/header') ?>
 
 </head>
 
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <?php $this->load->view('bendahara/template/sidebar') ?>
+            <?php $this->load->view('kepsek/template/sidebar') ?>
 
-            <?php $this->load->view('bendahara/template/topbar') ?>
+            <?php $this->load->view('kepsek/template/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">
@@ -98,7 +98,7 @@
 
 
             <!-- /page content -->
-            <?php $this->load->view('bendahara/template/footer') ?>
+            <?php $this->load->view('kepsek/template/footer') ?>
             <script>
                 function goBack() {
                     window.history.back();

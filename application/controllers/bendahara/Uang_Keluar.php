@@ -13,6 +13,13 @@ class Uang_Keluar extends Bendahara_Controller
     public function index()
     {
         $this->data['transaksi_pengeluaran'] = $this->db->get('transaksi_pengeluaran')->result_array();
+
+        $this->db->select_sum('total');
+        $this->data['total_uangmasuk'] = $this->db->get('transaksi')->row_array();
+
+        $this->db->select_sum('nominal');
+        $this->data['total_uangkeluar'] = $this->db->get('transaksi_pengeluaran')->row_array();
+
         $this->data['title'] = "Uang Keluar";
         $this->load->view('bendahara/uang_keluar/uang_keluar', $this->data);
     }

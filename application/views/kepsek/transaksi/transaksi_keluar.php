@@ -14,9 +14,9 @@
                 <div class="">
                     <div class="row">
                         <div class="col-1">
-                            <button onclick="goBack()" class="btn btn-lg btn-success">
+                            <a id="cartButton" href="<?= base_url('bendahara/laporan/uang_keluar') ?>" class="btn btn-lg btn-success">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
 
@@ -32,23 +32,19 @@
                                 <div class="x_content">
                                     <div class="row">
                                         <div class="col-6">
-                                            <h2>Nama Siswa</h2>
-                                            <h2>NIS</h2>
-                                            <h2>Tanggal</h2>
-                                            <h2>Jam</h2>
+                                            <h2>Nama Akun</h2>
+                                            <h2>Date</h2>
+                                            <h2>Time</h2>
                                         </div>
                                         <div class="col-6">
                                             <h2 class="text-success">
-                                                : <?= $transaksi['nama'] ?>
+                                                : Akun 1
                                             </h2>
                                             <h2 class="text-success">
-                                                : <?= $transaksi['nis'] ?>
+                                                : 24/09/2020
                                             </h2>
                                             <h2 class="text-success">
-                                                : <?= date('d F Y', strtotime($transaksi['date'])) ?>
-                                            </h2>
-                                            <h2 class="text-success">
-                                                : <?= date('H:i', strtotime($transaksi['date'])) ?>
+                                                : 10:20:59
                                             </h2>
                                         </div>
                                     </div>
@@ -72,18 +68,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($transaksi_detail as $d) : ?>
-                                                <tr>
-                                                    <td><?= $d['nama_item'] ?></td>
-                                                    <td>Rp. <?= number_format($d['nominal'], 0, '.', ',') ?></td>
-                                                </tr>
+                                            <tr>
+                                                <td>Item 1</td>
+                                                <td>Rp.300.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Item 2</td>
+                                                <td>Rp.300.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Item 3</td>
+                                                <td>Rp.300.000</td>
+                                            </tr>
 
-                                            <?php endforeach; ?>
                                         </tbody>
                                         <tfoot class="thead-darkblue">
                                             <tr>
                                                 <td class="text-right">Total</td>
-                                                <td>Rp. <?= number_format($transaksi['total'], 0, '.', ',') ?></td>
+                                                <td>Rp.900.000</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -99,11 +101,7 @@
 
             <!-- /page content -->
             <?php $this->load->view('bendahara/template/footer') ?>
-            <script>
-                function goBack() {
-                    window.history.back();
-                }
-            </script>
+
 </body>
 
 

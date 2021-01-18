@@ -3,15 +3,21 @@
 </head>
 
 <body class="nav-md">
+
     <div class="container body">
+
         <div class="main_container">
+
             <?php $this->load->view('admin/template/sidebar') ?>
 
             <?php $this->load->view('admin/template/topbar') ?>
 
             <!-- page content -->
+            
             <div class="right_col" role="main">
+
                 <div class="">
+
                     <div class="clearfix"></div>
 
                     <div class="row">
@@ -42,7 +48,7 @@
                     </div>
 
                     <div class="row mt-2">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_title">
                                     <h2>Detail Siswa</h2>
@@ -56,7 +62,7 @@
                                                 <h2 class="text-uppercase">Info Siswa</h2>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-12 mt-3">
+                                        <div class="col-md-12 mt-3">
                                             <form class="update-siswa" method="POST" action="">
                                                 <!-- Material input -->
                                                 <div class="form-group">
@@ -92,7 +98,10 @@
                                                     <input value="<?= $siswa['cash'] ?>" disabled type="text" id="cash" name="cash" class="form-control">
                                                 </div> -->
                                                 <div class="form-inline mt-3">
-                                                    <button type="button" class="btn btn-success btn-edit">
+                                                    <button type="button" class="btn btn-secondary btn-edit" id="cancel" style="display: none;">
+                                                        <i class="fa fa-back" aria-hidden="true"></i> Cancel
+                                                    </button>
+                                                    <button type="button" id="edit" class="btn btn-success btn-edit">
                                                         <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                                                     </button>
                                                     <button id="simpan" type="submit" name="simpan" value="1" class="btn btn-success ml-3" style="display: none;">
@@ -106,9 +115,79 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Detail Transaksi</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+
+                                    <div class="profile_title">
+                                        <div class="col-md-6">
+                                            <h2 class="text-uppercase">Info Siswa</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        <table id="data-table" class="table table-striped projects">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kode Transaksi</th>
+                                                    <th>Waktu Transaksi</th>
+                                                    <th>Jumlah Transaksi</th>
+                                                    <th style="width: 20%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($transaksi as $item) : ?>
+                                                    <tr>
+                                                        <td><?= $item['kode_transaksi'] ?></td>
+                                                        <td><?= date('d F Y', strtotime($item['date'])) ?></td>
+                                                        <td>Rp. <?= number_format($item['total'], 0, ',', '.') ?></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn btn-danger" data-toggle="modal" data-target="#hapusdata"><i class="fa fa-trash"></i></button>
+
+                                                            <!-- modal -->
+                                                            <div class="modal fade" id="hapusdata" tabindex="-1" role="dialog" aria-labelledby="hapusdataLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="hapusdataLabel">Apakah anda yakin?</h5>
+                                                                            <a href="<?= base_url('admin/uang_keluar/hapustransaksi/') . $d['id_transaksi'] ?>" class="btn btn-danger ml-auto">Hapus</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <a target="_blank" href="<?= base_url('admin/transaksi/print/' . $item['kode_transaksi']) ?>" class="btn btn-primary">
+                                                                <i class="fa fa-print" aria-hidden="true"></i>
+                                                            </a>
+                                                            <a href="<?= base_url('admin/transaksi/success/' . $item['kode_transaksi']) ?>" class="btn btn-dark">
+                                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                                            </a>
+
+
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- /page content -->
         <?php $this->load->view('admin/template/footer') ?>
 
@@ -121,6 +200,14 @@
         var input = $('.update-siswa .form-group input')
         input.prop("disabled", !input.prop("disabled"))
         $('#simpan').show()
-
+        $('#cancel').show()
+        $('#edit').hide()
+    })
+    $("#cancel").click(function() {
+        var input = $('.update-siswa .form-group input')
+        input.prop("disabled", 1)
+        $('#simpan').hide()
+        $('#cancel').hide()
+        $('#edit').show()
     })
 </script>

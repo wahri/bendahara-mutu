@@ -75,8 +75,10 @@ class Siswa extends Admin_Controller
                 redirect('admin/siswa/detail/' . $id);
             }
         }
+
         $this->data['title'] = "Detail Siswa";
         $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id])->row_array();
+        $this->data['transaksi'] = $this->db->get_where('transaksi', ['nis' => $this->data['siswa']['nis']])->result_array();
         $this->load->view('admin/siswa/siswa_detail', $this->data);
     }
 

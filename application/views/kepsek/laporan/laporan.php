@@ -1,13 +1,13 @@
-<?php $this->load->view('bendahara/template/header') ?>
+<?php $this->load->view('kepsek/template/header') ?>
 
 </head>
 
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <?php $this->load->view('bendahara/template/sidebar') ?>
+            <?php $this->load->view('kepsek/template/sidebar') ?>
 
-            <?php $this->load->view('bendahara/template/topbar') ?>
+            <?php $this->load->view('kepsek/template/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">
@@ -74,7 +74,7 @@
                                                 Filter
                                             </button>
                                             <?php if (!empty($this->input->get('tgl_awal'))) : ?>
-                                                <a href="<?= base_url('bendahara/laporan') ?>" class="btn btn-secondary">Reset</a>
+                                                <a href="<?= base_url('kepsek/laporan') ?>" class="btn btn-secondary">Reset</a>
                                             <?php endif; ?>
                                         </div>
                                     </form>
@@ -102,7 +102,7 @@
                                                                 <td class="align-middle"><?= $d['nama'] ?></td>
                                                                 <td class="align-middle"><?= date('d F Y', strtotime($d['date'])) ?></td>
                                                                 <td class="align-middle">Rp. <?= number_format($d['total'], 0, ',', '.') ?></td>
-                                                                <td class="text-center"><a href="<?= base_url('bendahara/laporan/detail_uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
+                                                                <td class="text-center"><a href="<?= base_url('kepsek/laporan/detail_uang_masuk/') . $d['kode_transaksi'] ?>" class="btn btn-success">Detail</a></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
@@ -212,7 +212,7 @@
 
 
             <!-- /page content -->
-            <?php $this->load->view('bendahara/template/footer') ?>
+            <?php $this->load->view('kepsek/template/footer') ?>
             <script>
                 $(document).ready(function() {
 

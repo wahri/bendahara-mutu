@@ -55,8 +55,20 @@
                                             <?php echo $this->session->flashdata('message_error'); ?>
                                         </div>
                                     <?php endif; ?>
-                                    <a href="<?= base_url('bendahara/uang_keluar/tambah_transaksi') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Transaksi</a>
-                                    <table class="table mt-2" id="dataTables">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <a href="<?= base_url('bendahara/uang_keluar/tambah_transaksi') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Transaksi</a>
+
+                                        </div>
+                                        <div class="col-6 text-right">
+                                            <?php
+                                            $cash = $total_uangmasuk['total'] - $total_uangkeluar['nominal'] ;
+                                            ?>
+                                            <h2 class="btn btn-info btn-round">Cash : Rp. <?= number_format($cash,0,',','.') ?></h2>
+
+                                        </div>
+                                    </div>
+                                    <table class="table mt-2 table-striped" id="dataTables">
                                         <thead class="thead-darkblue">
                                             <tr>
                                                 <th>Tanggal</th>
@@ -69,10 +81,10 @@
                                         <tbody>
                                             <?php foreach ($transaksi_pengeluaran as $d) : ?>
                                                 <tr>
-                                                    <td><?= date('d F Y', strtotime($d['datetime'])) ?></td>
-                                                    <td><?= $d['nama_pemakai'] ?></td>
-                                                    <td>Rp. <?= number_format($d['nominal'], 0, ',', '.') ?></td>
-                                                    <td><?= $d['catatan'] ?></td>
+                                                    <td class="align-middle"><?= date('d F Y', strtotime($d['datetime'])) ?></td>
+                                                    <td class="align-middle"><?= $d['nama_pemakai'] ?></td>
+                                                    <td class="align-middle">Rp. <?= number_format($d['nominal'], 0, ',', '.') ?></td>
+                                                    <td><?= nl2br($d['catatan']) ?></td>
                                                     <!-- <td class="text-center">
                                                         <a href="" class="btn btn-sm btn-danger">Hapus</a>
                                                         <a href="" class="btn btn-sm btn-warning">Edit</a>

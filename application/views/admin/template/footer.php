@@ -1,7 +1,7 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        <a href="#">W2SDev Team</a> &copy; <?= date('Y') ?>
+        <a href="https://w2sdev.com/">W2SDev Team</a> &copy; <?= date('Y') ?>
     </div>
     <div class="clearfix"></div>
 </footer>

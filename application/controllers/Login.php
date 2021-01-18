@@ -10,6 +10,9 @@ class Login extends CI_Controller
 			if ($this->session->userdata('level') == 1) {
 				redirect('admin/dashboard', 'refresh');
 			}
+			if ($this->session->userdata('level') == 2) {
+				redirect('kepsek/dashboard', 'refresh');
+			}
 			if ($this->session->userdata('level') == 3) {
 				redirect('bendahara/dashboard', 'refresh');
 			}

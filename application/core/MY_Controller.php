@@ -25,6 +25,22 @@ class Admin_Controller extends MY_Controller
     }
 }
 
+class Kepsek_Controller extends MY_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->data['user_login'] = $this->db->get_where('user', ['id' => $this->session->userdata('id')])->row_array();
+
+        if ($this->session->userdata('status') != "lgn") {
+            redirect('login');
+        }
+        if ($this->session->userdata('level') != 2) {
+            redirect('login');
+        }
+    }
+}
+
 class Bendahara_Controller extends MY_Controller
 {
     function __construct()

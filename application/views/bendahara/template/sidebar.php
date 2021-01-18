@@ -50,6 +50,8 @@
                     </li>
                     <li><a href="<?= base_url('bendahara/pengaturan') ?>"><i class="fa fa-wrench"></i> Pengaturan Akun </a>
                     </li>
+                    <li><a href="<?= base_url('login/logout') ?>"><i class="fa fa-power-off"></i> Logout Akun </a>
+                    </li>
                 </ul>
             </div>
 
