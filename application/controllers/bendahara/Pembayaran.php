@@ -19,7 +19,8 @@ class Pembayaran extends Bendahara_Controller
 
     public function detail($nis, $tahun = null)
     {
-        $tahun = !empty($tahun) ? $tahun : date('Y');
+        $tahun = !empty($tahun) ? $tahun : date('m') <= 6 ? date('Y')  - 1 : date('Y');
+
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
         $this->data['tahun'] = $tahun;
 
@@ -32,8 +33,8 @@ class Pembayaran extends Bendahara_Controller
         $this->data['sem_genap'] = $this->db->get_where('tagihan', ['nis' => $nis, 'tahun' => $tahun . '2', 'kode_tagihan' => 1])->result_array();
         // $this->data['uang_kat'] = $this->db->get_where('tagihan', ['nis' => $nis, 'kode_tagihan' => 2])->row_array();
         // $this->data['uang_lainnya'] = $this->db->get_where('tagihan', ['nis' => $nis, 'kode_tagihan !=' => 1])->result_array();
-        $this->data['uang_lainnya'] = $this->db->get_where('tagihan_lainnya', 'target = "all" OR target ='. $this->data['siswa']['kelas'])->result_array();
-        
+        $this->data['uang_lainnya'] = $this->db->get_where('tagihan_lainnya', 'target = "all" OR target =' . $this->data['siswa']['kelas'])->result_array();
+
         $this->data['title'] = "Detail Pembayaran";
         $this->load->view('bendahara/pembayaran/pembayaran_detail', $this->data);
     }
@@ -42,7 +43,7 @@ class Pembayaran extends Bendahara_Controller
     {
         $tahun = empty($this->input->post('tahun')) ? NULL : $this->input->post('tahun');
         $bulan = empty($this->input->post('bulan')) ? NULL : $this->input->post('bulan');
-        
+
         $data = [
             'nis' => $this->input->post('nis'),
             'harga' => $this->input->post('harga'),

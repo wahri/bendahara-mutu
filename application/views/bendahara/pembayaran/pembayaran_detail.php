@@ -37,7 +37,7 @@
             </button>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mb-1">
           <div class="col-md-12">
             <?php if (!empty($this->session->flashdata('message'))) : ?>
               <div class="alert alert-success alert-dismissible " role="alert">
@@ -55,7 +55,7 @@
             <?php endif; ?>
           </div>
         </div>
-        <div class="row mt-1">
+        <div class="row">
           <div class="col-md-12">
             <div class="x_panel">
 
@@ -83,7 +83,7 @@
                       </li>
                       <li class="mt-3">
                         <h2>Kelas :</h2>
-                        <h2 class="text-primary"> <?= $siswa['kelas'] ?></h2>
+                        <h2 class="text-primary"> <?= $siswa['kelas'] != 13 ? $siswa['kelas'] : 'Alumni' ?></h2>
                       </li>
                     </ul>
                   </div>
@@ -164,11 +164,10 @@
                         $genap = [1 => "Januari", 2 => "Februari", 3 => "Maret", 4 => "April", 5 => "Mei", 6 => "Juni"];
                         ?>
 
-
-
                         <tr>
                           <th colspan="5">Semester Ganjil</th>
                         </tr>
+
                         <?php
                         foreach ($ganjil as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => $tahun, 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
@@ -184,7 +183,7 @@
                             </td>
                             <td>
                               <?php if (!empty($cek['jml_dibayar'])) : ?>
-                                <?= $cek['jml_dibayar'] ?>
+                                Rp. <?= number_format($cek['jml_dibayar'], 0, ',', '.') ?>
                               <?php else : ?>
                                 Rp. 0
                               <?php endif; ?>
@@ -222,10 +221,10 @@
                         <?php endforeach; ?>
 
 
-
                         <tr>
                           <th colspan="5">Semester Genap</th>
                         </tr>
+
                         <?php
                         foreach ($genap as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => ($tahun + 1), 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
@@ -241,7 +240,7 @@
                             </td>
                             <td>
                               <?php if (!empty($cek['jml_dibayar'])) : ?>
-                                <?= $cek['jml_dibayar'] ?>
+                                Rp. <?= number_format($cek['jml_dibayar'], 0, ',', '.') ?>
                               <?php else : ?>
                                 Rp. 0
                               <?php endif; ?>

@@ -11,7 +11,7 @@
 
             <!-- page content -->
             <div class="right_col" role="main">
-                <div class="row" style="margin-top: 80px;">
+                <div class="row">
                     <div class="col-1">
                         <a id="cartButton" href="<?= base_url('bendahara/pembayaran/detail/') . $nis ?>" class="btn btn-lg btn-success">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>

@@ -184,7 +184,7 @@ class Siswa extends Admin_Controller
         // }
 
         $this->session->set_flashdata('message', 'kelas berhasil di update...');
-        redirect('admin/siswa/naik_kelas');
+        redirect('admin/siswa');
     }
 
 
