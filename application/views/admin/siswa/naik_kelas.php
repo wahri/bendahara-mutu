@@ -23,7 +23,7 @@
                         <div class="col-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Kenaikan Kelas</h2>
+                                    <h2>Data Kelas <?= $kelas ?></h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
@@ -49,9 +49,11 @@
                                         </div>
 
                                         <div class="col-4 text-right offset-4">
-                                            <button type="button" data-toggle="modal" data-target="#yakin" class="btn btn-success btn-xs">
-                                                <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
-                                            </button>
+                                            <?php if($kelas != 10): ?>
+                                                <a href="<?= base_url('admin/siswa/naik_kelas/') . ($kelas-1) ?>" class="btn btn-success btn-xs">
+                                                 Kelas <?= $kelas-1 ?>
+                                                </a>
+                                            <?php endif;?>
                                             <!-- modal yakin? -->
                                             <div class="modal fade" id="yakin" tabindex="-1" aria-labelledby="yakinLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -79,7 +81,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <form id="formNaikKelas" action="<?= base_url('admin/siswa/progresnaikkelas') ?>" method="post">
+                                            <form id="formNaikKelas" action="<?= base_url('admin/siswa/progresnaikkelas/'. $kelas) ?>" method="post">
                                                 <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                     <thead class="thead-darkblue">
                                                         <tr>
@@ -113,6 +115,13 @@
                                                     </tbody>
                                                 </table>
                                             </form>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-2 offset-10 d-flex justify-content-end">
+                                            <button type="button" data-toggle="modal" data-target="#yakin" class="btn btn-success btn-xs">
+                                                 Update
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

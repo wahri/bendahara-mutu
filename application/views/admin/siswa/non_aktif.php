@@ -51,32 +51,18 @@
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-12">
-                       
-                        <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/upload') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-upload" aria-hidden="true"></i> Upload Data Siswa     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/alumni') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-users" aria-hidden="true"></i> Data Alumni     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/non_aktif') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-users" aria-hidden="true"></i> Data Siswa Non Aktif     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/naik_kelas/12') ?>" type="button" class="btn btn-sm btn-success">
-                            <i class="fa fa-pencil" aria-hidden="true"></i> Update data kelas
-                        </a>
+                        <div class="col-1">
+                            <a id="cartButton" href="<?= base_url('admin/siswa') ?>" class="btn btn-lg btn-success">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
-
                     <div class="row mt-3">
 
                         <div class="col-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Pengelolaan Data Siswa</h2>
+                                    <h2>Data Siswa Non aktif</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">

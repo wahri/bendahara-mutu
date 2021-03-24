@@ -51,51 +51,22 @@
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-12">
-                       
-                        <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/upload') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-upload" aria-hidden="true"></i> Upload Data Siswa     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/alumni') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-users" aria-hidden="true"></i> Data Alumni     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/non_aktif') ?>" class="btn btn-sm btn-success">
-                            <i class="fa fa-users" aria-hidden="true"></i> Data Siswa Non Aktif     
-                        </a>
-                        <a href="<?= base_url('admin/siswa/naik_kelas/12') ?>" type="button" class="btn btn-sm btn-success">
-                            <i class="fa fa-pencil" aria-hidden="true"></i> Update data kelas
-                        </a>
+                        <div class="col-1">
+                            <a id="cartButton" href="<?= base_url('admin/siswa') ?>" class="btn btn-lg btn-success">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
-
                     <div class="row mt-3">
 
                         <div class="col-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <h2>Pengelolaan Data Siswa</h2>
+                                    <h2>Data Alumni</h2>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="form-inline mx-4 mb-4">
-                                                <label for="filter-siswa">Filter Siswa</label>
-                                                <select class="custom-select ml-2" id="filter-siswa">
-                                                    <option value="">Semua Kelas</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="Alumni">Alumni</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                        
-                                    </div>
+                                  
                                     <div class="row">
                                         <div class="col-12">
                                             <table id="dataSiswa" style="width: 100%;" class="table table-striped">
@@ -104,8 +75,9 @@
                                                         <th class="text-center" width="10%">Nama</th>
                                                         <th class="text-center">NIS</th>
                                                         <th class="text-center">NISN</th>
-                                                        <th class="text-center">Kelas</th>
+                                                    
                                                         <th class="text-center">Tahun Masuk</th>
+                                                        <th class="text-center">Tahun Lulus</th>
                                                         <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
@@ -116,8 +88,9 @@
                                                             <td class="text-center"><?= $s['nama'] ?></td>
                                                             <td class="text-center"><?= $s['nis'] ?></td>
                                                             <td class="text-center"><?= $s['nisn'] ?></td>
-                                                            <td class="text-center"><?= $s['kelas'] == 13 ? 'Alumni' : $s['kelas'] ?></td>
+                                    
                                                             <td class="text-center"><?= $s['tahun_masuk'] ?></td>
+                                                            <td class="text-center"><?= $s['tahun_lulus'] ?></td>
                                                             <td class="text-center"><a href="<?= base_url('admin/siswa/detail/') . $s['id'] ?>" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i>
                                                             </td>
                                                         </tr>
