@@ -47,85 +47,31 @@
                     </div>
                 </div> -->
                 <div class="">
-                    <div class="page-title">
-                        <div class="title_left">
-                            <h3>Form Upload </h3>
-                        </div>
-
-                        <div class="title_right">
-                            <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                   
                     <div class="clearfix"></div>
 
                     <div class="row">
-                        <div class="col-md-12 col-sm-12 ">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>Form Upload Data Siswa</h2>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <?php if (!empty($this->session->flashdata('message'))) : ?>
-                                        <div class="alert alert-success alert-dismissible " role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                            </button>
-                                            <?php echo $this->session->flashdata('message'); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if (!empty($this->session->flashdata('message_error'))) : ?>
-                                        <div class="alert alert-error alert-dismissible " role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                            </button>
-                                            <?php echo $this->session->flashdata('message_error'); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <form action="<?= base_url('admin/siswa/importdatasiswates') ?>" method="POST" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="form-group border border-info p-3">
-                                                    <label for="file">Upload data siswa</label>
-                                                    <input type="file" name="file" class="form-control-file">
-                                                    <!-- <p class="text-danger mt-2">Error</p> -->
-                                                </div>
-                                                <div class="form-row mt-3">
-                                                    <!-- <div class="form-group col-md-6">
-                                                        <label for="uang_kat">Uang KAT</label>
-                                                        <div class="input-group flex-nowrap">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">Rp</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="0" name="kat" id="kat">
-                                                        </div>
-                                                    </div> -->
-                                                    <div class="form-group col-md-6">
-                                                        <label for="uang_spp">Uang SPP</label>
-                                                        <div class="input-group flex-nowrap">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">Rp</span>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="0" name="spp" id="spp">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button type="submit" class="btn btn-success btn-sm mt-2">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="col-12">
+                       
+                        <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa     
+                        </a>
+                        <a href="<?= base_url('admin/siswa/upload') ?>" class="btn btn-sm btn-success">
+                            <i class="fa fa-upload" aria-hidden="true"></i> Upload Data Siswa     
+                        </a>
+                        <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                            <i class="fa fa-users" aria-hidden="true"></i> Data Alumni     
+                        </a>
+                        <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
+                            <i class="fa fa-users" aria-hidden="true"></i> Data Siswa Non Aktif     
+                        </a>
+                        <a href="<?= base_url('admin/siswa/naik_kelas') ?>" type="button" class="btn btn-sm btn-success">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Update data kelas
+                        </a>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-3">
 
                         <div class="col-12">
                             <div class="x_panel">
@@ -148,14 +94,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-4 text-right offset-4">
-                                            <a href="<?= base_url('admin/siswa/naik_kelas') ?>" type="button" class="btn btn-sm btn-success">
-                                                <i class="fa fa-arrow-up" aria-hidden="true"></i> Kenaikan Kelas
-                                            </a>
-                                            <a href="<?= base_url('admin/siswa/tambah') ?>" class="btn btn-sm btn-success">
-                                                <i class="fa fa-plus" aria-hidden="true"></i> Tambah Siswa
-                                            </a>
-                                        </div>
+                        
                                     </div>
                                     <div class="row">
                                         <div class="col-12">

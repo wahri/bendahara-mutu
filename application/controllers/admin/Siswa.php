@@ -19,6 +19,11 @@ class Siswa extends Admin_Controller
         $this->load->view('admin/siswa/siswa', $this->data);
     }
 
+    public function upload(){
+        $this->data['title'] = "Upload Data Siswa";
+        $this->load->view('admin/siswa/siswa_upload', $this->data);
+    }
+
     public function detail($id)
     {
         if($this->input->post('simpan')){
