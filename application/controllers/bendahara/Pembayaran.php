@@ -19,7 +19,7 @@ class Pembayaran extends Bendahara_Controller
 
     public function detail($nis, $tahun = null)
     {
-        $tahun = !empty($tahun) ? $tahun : date('m') <= 6 ? date('Y')  - 1 : date('Y');
+        $tahun = !empty($tahun) ? $tahun : (date('m') <= 6 ? (date('Y')  - 1) : date('Y'));
 
         $this->data['siswa'] = $this->db->get_where('siswa', ['nis' => $nis])->row_array();
         $this->data['tahun'] = $tahun;

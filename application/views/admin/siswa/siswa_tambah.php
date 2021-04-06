@@ -44,7 +44,14 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="kelas">Kelas</label>
-                                                    <input id="kelas" type="text" name="kelas" class="form-control">
+                                                    <div class="input-group mb-3">
+                                                        <select name="kelas" class="form-control" id="inputGroupSelect01">
+                                                            <option selected>Pilih Kelas</option>
+                                                            <option value="10">10</option>
+                                                            <option value="11">11</option>
+                                                            <option value="12">12</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="jurusan">Jurusan</label>

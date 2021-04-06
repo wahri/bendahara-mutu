@@ -26,27 +26,36 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                    <li>
+
+                <li>
                         <a href="<?= base_url('admin/dashboard') ?>"><i class="fa fa-home"></i> Home</a>
                     </li>
+                <li><a><i class="fa fa-edit"></i> Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
                     <li>
-                        <a href="<?= base_url('admin/siswa') ?>"><i class="fa fa-sitemap"></i> Siswa Management</a>
+                        <a href="<?= base_url('admin/siswa') ?>"><i class="fa fa-users"></i> Siswa Management</a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('admin/jurusan') ?>"><i class="fa fa-users"></i> Jurusan Management</a>
                     </li>
                     <!-- <li><a href="<?= base_url('admin/keuangan') ?>"><i class="fa fa-dollar"></i> Keuangan Management </a>
                     </li> -->
                     <li>
-                        <a href="<?= base_url('admin/user') ?>"><i class="fa fa-sitemap"></i> User Management</a>
+                        <a href="<?= base_url('admin/user') ?>"><i class="fa fa-user"></i> User Management</a>
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/tagihan') ?>"><i class="fa fa-sitemap"></i> Tagihan Management </a>
+                        <a href="<?= base_url('admin/tagihan') ?>"><i class="fa fa-dollar"></i> Tagihan Management </a>
                         <!-- <ul class="nav child_menu">
                             <li><a href="<?= base_url('admin/tagihan') ?>">Tagihan</a></li>
                             <li><a href="<?= base_url('admin/tagihan/diskon') ?>">Diskon Tagihan</a></li>
                         </ul> -->
                     </li>
                     <li>
-                        <a href="<?= base_url('admin/uang_keluar') ?>"><i class="fa fa-sitemap"></i> Pengeluaran Management</a>
+                        <a href="<?= base_url('admin/uang_keluar') ?>"><i class="fa fa-dollar"></i> Pengeluaran Management</a>
                     </li>
+                    </ul>
+                  </li>
+                
                 </ul>
             </div>
             <div class="menu_section">

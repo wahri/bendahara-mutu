@@ -19,6 +19,27 @@ class Siswa extends Admin_Controller
         $this->load->view('admin/siswa/siswa', $this->data);
     }
 
+    public function alumni()
+    {
+        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['title'] = "Alumni";
+        $this->load->view('admin/siswa/alumni', $this->data);
+    }
+
+    public function non_aktif()
+    {
+        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['title'] = "Siswa Non Aktif";
+        $this->load->view('admin/siswa/non_aktif', $this->data);
+    }
+
+
+
+    public function upload(){
+        $this->data['title'] = "Upload Data Siswa";
+        $this->load->view('admin/siswa/siswa_upload', $this->data);
+    }
+
     public function detail($id)
     {
         if($this->input->post('simpan')){
@@ -119,15 +140,50 @@ class Siswa extends Admin_Controller
     {
     }
 
-    public function naik_kelas()
+
+    public function naik_kelas($kelas)
     {
-        $this->data['title'] = "Naik Kelas";
-        $this->data['siswa'] = $this->db->get_where('siswa', 'kelas != 13')->result_array();
-        $this->load->view('admin/siswa/naik_kelas', $this->data);
+
+        if($kelas == 12){
+            $this->data['title'] = "Kelas 12";
+            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 
+            12')->result_array();
+            $this->data['kelas']=12;
+            $this->load->view('admin/siswa/naik_kelas', $this->data);
+
+        }else if($kelas == 11){
+            $this->data['title'] = "Kelas 11";
+            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 11')->result_array();
+            $this->data['kelas']=11;
+            $this->load->view('admin/siswa/naik_kelas', $this->data);
+
+        }else if($kelas == 10){
+            $this->data['title'] = "Kelas 10";
+            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 10')->result_array();
+            $this->data['kelas']=10;
+            $this->load->view('admin/siswa/naik_kelas', $this->data);
+        }else{
+            return redirect('admin/siswa');
+        }
+
+    
     }
 
-    public function progresnaikkelas()
+    
+
+    public function progresnaikkelas($kelas)
     {
+        if($kelas==12){
+            redirect('admin/siswa/naik_kelas/11');
+        }else if($kelas==11){
+            redirect('admin/siswa/naik_kelas/10');
+        }else if($kelas == 10 ){
+            $this->session->set_flashdata('message', 'kelas berhasil di update...');
+            redirect('admin/siswa');    
+        }
+
+
+
         $data13['kelas']=13;
         $data13['tahun_lulus']= date('Y');
         $this->db->where('kelas', 12);
@@ -183,8 +239,7 @@ class Siswa extends Admin_Controller
         //     }
         // }
 
-        $this->session->set_flashdata('message', 'kelas berhasil di update...');
-        redirect('admin/siswa');
+       
     }
 
 
