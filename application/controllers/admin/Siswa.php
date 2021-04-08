@@ -14,45 +14,59 @@ class Siswa extends Admin_Controller
 
     public function index()
     {
-        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['status' => 1])->result_array();
         $this->data['title'] = "Siswa Management";
         $this->load->view('admin/siswa/siswa', $this->data);
     }
 
     public function alumni()
     {
-        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => 13, 'status' => 1])->result_array();
         $this->data['title'] = "Alumni";
         $this->load->view('admin/siswa/alumni', $this->data);
     }
 
     public function non_aktif()
     {
-        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['status' => 0])->result_array();
         $this->data['title'] = "Siswa Non Aktif";
         $this->load->view('admin/siswa/non_aktif', $this->data);
     }
 
 
 
-    public function upload(){
+    public function upload()
+    {
+        $this->db->order_by('nama_jurusan', 'ASC');
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
         $this->data['title'] = "Upload Data Siswa";
         $this->load->view('admin/siswa/siswa_upload', $this->data);
     }
 
+    public function nonAktifkanSiswa($id)
+    {
+        $status = $this->db->get_where('siswa', ['id' => $id])->row()->status;
+        $data['status'] = !$status;
+        $this->db->update('siswa', $data, ['id' => $id]);
+
+        $this->session->set_flashdata('message', 'Siswa berhasil di non-aktifkan');
+        redirect('admin/siswa/detail/' . $id);
+    }
+
     public function detail($id)
     {
-        if($this->input->post('simpan')){
+        if ($this->input->post('simpan')) {
             $siswa = $this->db->get_where('siswa', ['id' => $id])->row_array();
             $nis = empty($this->input->post('nis')) ? null : $this->input->post('nis');
             $nisn = empty($this->input->post('nisn')) ? null : $this->input->post('nisn');
 
-            if($this->input->post('nis') != $siswa['nis']){
+            if ($this->input->post('nis') != $siswa['nis']) {
                 $cek_mhs = $this->db->get_Where('siswa', "nis = '$nis'")->num_rows();
-                if($cek_mhs > 0){
+                if ($cek_mhs > 0) {
                     $this->session->set_flashdata('message_error', 'Gagal mengubah data siswa, NIS duplikat');
                     redirect('admin/siswa/detail/' . $id);
-                }else{
+                } else {
                     $data = [
                         'nama' => $this->input->post('nama'),
                         'kelas' => $this->input->post('kelas'),
@@ -65,7 +79,7 @@ class Siswa extends Admin_Controller
                     $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
                     redirect('admin/siswa/detail/' . $id);
                 }
-            }elseif( $this->input->post('nisn') != $siswa['nisn']){
+            } elseif ($this->input->post('nisn') != $siswa['nisn']) {
                 $cek_mhs = $this->db->get_Where('siswa', "nisn = '$nisn'")->num_rows();
                 if ($cek_mhs > 0) {
                     $this->session->set_flashdata('message_error', 'Gagal mengubah data siswa, NISN duplikat');
@@ -83,7 +97,7 @@ class Siswa extends Admin_Controller
                     $this->session->set_flashdata('message', 'Berhasil mengubah data siswa');
                     redirect('admin/siswa/detail/' . $id);
                 }
-            }else{
+            } else {
                 $data = [
                     'nama' => $this->input->post('nama'),
                     'kelas' => $this->input->post('kelas'),
@@ -113,13 +127,13 @@ class Siswa extends Admin_Controller
     {
         $cek_nis = $this->db->get_where('siswa', ['nis' => $this->input->post('nis')])->row_array();
         $cek_nisn = $this->db->get_where('siswa', ['nisn' => $this->input->post('nisn')])->row_array();
-        if(!empty($cek_nis)){
+        if (!empty($cek_nis)) {
             $this->session->set_flashdata('message_error', 'Gagal menambah siswa, NIS duplikat');
             redirect('admin/siswa');
-        }elseif(!empty($cek_nisn)){
+        } elseif (!empty($cek_nisn)) {
             $this->session->set_flashdata('message_error', 'Gagal menambah siswa, NISN duplikat');
             redirect('admin/siswa');
-        }else{
+        } else {
             $data = [
                 'nis' => $this->input->post('nis'),
                 'nisn' => $this->input->post('nisn'),
@@ -144,59 +158,62 @@ class Siswa extends Admin_Controller
     public function naik_kelas($kelas)
     {
 
-        if($kelas == 12){
+        if ($kelas == 12) {
             $this->data['title'] = "Kelas 12";
-            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 
-            12')->result_array();
-            $this->data['kelas']=12;
+            $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => 12, 'status' => 1])->result_array();
+            $this->data['kelas'] = 12;
             $this->load->view('admin/siswa/naik_kelas', $this->data);
-
-        }else if($kelas == 11){
+        } else if ($kelas == 11) {
             $this->data['title'] = "Kelas 11";
-            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 11')->result_array();
-            $this->data['kelas']=11;
+            $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => 11, 'status' => 1])->result_array();
+            $this->data['kelas'] = 11;
             $this->load->view('admin/siswa/naik_kelas', $this->data);
-
-        }else if($kelas == 10){
+        } else if ($kelas == 10) {
             $this->data['title'] = "Kelas 10";
-            $this->data['siswa'] = $this->db->get_where('siswa', 'kelas = 10')->result_array();
-            $this->data['kelas']=10;
+            $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => 10, 'status' => 1])->result_array();
+            $this->data['kelas'] = 10;
             $this->load->view('admin/siswa/naik_kelas', $this->data);
-        }else{
+        } else {
             return redirect('admin/siswa');
         }
-
-    
     }
 
-    
+
 
     public function progresnaikkelas($kelas)
     {
-        if($kelas==12){
-            redirect('admin/siswa/naik_kelas/11');
-        }else if($kelas==11){
-            redirect('admin/siswa/naik_kelas/10');
-        }else if($kelas == 10 ){
-            $this->session->set_flashdata('message', 'kelas berhasil di update...');
-            redirect('admin/siswa');    
+        if ($kelas == 12) {
+            $data13['kelas'] = 13;
+            $data13['tahun_lulus'] = date('Y');
+            $this->db->where('kelas', 12);
+            $this->db->where_not_in('nis', $this->input->post('nis'));
+            $this->db->update('siswa', $data13);
+        } elseif ($kelas == 11) {
+            $data12['kelas'] = 12;
+            $this->db->where('kelas', 11);
+            $this->db->where_not_in('nis', $this->input->post('nis'));
+            $this->db->update('siswa', $data12);
+        } elseif ($kelas == 10) {
+            $data11['kelas'] = 11;
+            $this->db->where('kelas', 10);
+            $this->db->where_not_in('nis', $this->input->post('nis'));
+            $this->db->update('siswa', $data11);
+        } else {
+            $this->session->set_flashdata('message_error', 'Something is wrong...');
+            redirect('admin/siswa');
         }
 
-
-
-        $data13['kelas']=13;
-        $data13['tahun_lulus']= date('Y');
-        $this->db->where('kelas', 12);
-        $this->db->where_not_in('nis', $this->input->post('nis'));
-        $this->db->update('siswa', $data13);
-        $data12['kelas']=12;
-        $this->db->where('kelas', 11);
-        $this->db->where_not_in('nis', $this->input->post('nis'));
-        $this->db->update('siswa', $data12);
-        $data11['kelas']=11;
-        $this->db->where('kelas', 10);
-        $this->db->where_not_in('nis', $this->input->post('nis'));
-        $this->db->update('siswa', $data11);
+        if ($kelas == 12) {
+            redirect('admin/siswa/naik_kelas/11');
+        } else if ($kelas == 11) {
+            redirect('admin/siswa/naik_kelas/10');
+        } else if ($kelas == 10) {
+            $this->session->set_flashdata('message', 'kelas berhasil di update...');
+            redirect('admin/siswa');
+        }else{
+            $this->session->set_flashdata('message_error', 'Something is wrong...');
+            redirect('admin/siswa');
+        }
 
         // buat tagihan setahun kedepan
         // $siswa = $this->db->get_where('siswa', ('kelas != 13'))->result_array();
@@ -239,7 +256,7 @@ class Siswa extends Admin_Controller
         //     }
         // }
 
-       
+
     }
 
 
@@ -275,14 +292,14 @@ class Siswa extends Admin_Controller
 
             $hitung_error_baris = "";
             for ($j = 0; $j < count($sheetData); $j++) {
-                
+
                 // cek field kosong
-                if (empty($sheetData[$j][0]) && empty($sheetData[$j][1]) && empty($sheetData[$j][2]) && empty($sheetData[$j][3]) && empty($sheetData[$j][4]) && empty($sheetData[$j][5])) {
+                if (empty($sheetData[$j][0]) && empty($sheetData[$j][1]) && empty($sheetData[$j][2]) && empty($sheetData[$j][3]) && empty($sheetData[$j][4])) {
                     continue;
                 }
 
                 // cek data kosong
-                if (empty($sheetData[$j][0]) || empty($sheetData[$j][1]) || empty($sheetData[$j][2]) || empty($sheetData[$j][3]) || empty($sheetData[$j][4]) || empty($sheetData[$j][5])) {
+                if (empty($sheetData[$j][0]) || empty($sheetData[$j][1]) || empty($sheetData[$j][2]) || empty($sheetData[$j][3]) || empty($sheetData[$j][4])) {
                     $hitung_error_baris .= "Baris " . ($j + 1) . " gagal ditambahkan, Data tidak lengkap<br />";
                     print_r($sheetData[$j]);
                     die;
@@ -306,7 +323,7 @@ class Siswa extends Admin_Controller
                     "nama" => $sheetData[$j][2],
                     "kelas" => $sheetData[$j][3],
                     "tahun_masuk" => $sheetData[$j][4],
-                    "jurusan" => $sheetData[$j][5],
+                    "jurusan" => $this->input->post('jurusan'),
                     'spp' => str_replace('.', '', $this->input->post('spp'))
                 ];
                 // $import = $this->db->insert("siswa", $data);

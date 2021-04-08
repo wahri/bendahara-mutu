@@ -107,6 +107,15 @@
                                                             <input type="text" class="form-control" placeholder="0" name="spp" id="spp">
                                                         </div>
                                                     </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="jurusan">Jurusan</label>
+                                                        <select class="form-control" name="jurusan">
+                                                            <option value="">Pilih Jurusan</option>
+                                                            <?php foreach ($jurusan as $j) : ?>
+                                                                <option value="<?= $j['nama_jurusan'] ?>"><?= $j['nama_jurusan'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-success btn-sm mt-2">Submit</button>
                                             </div>
@@ -124,7 +133,39 @@
 
 
     <?php $this->load->view('admin/template/footer') ?>
+    <script type="text/javascript">
+        var spp = document.getElementById('spp');
+        spp.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatspp() untuk mengubah angka yang di ketik menjadi format angka
+            spp.value = formatRupiah(this.value);
+        });
 
+        var kat = document.getElementById('kat');
+        kat.addEventListener('keyup', function(e) {
+            // tambahkan 'Rp.' pada saat form di ketik
+            // gunakan fungsi formatkat() untuk mengubah angka yang di ketik menjadi format angka
+            kat.value = formatRupiah(this.value);
+        });
+
+        /* Fungsi formatRupiah */
+        function formatRupiah(angka, prefix) {
+            var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            // tambahkan titik jika yang di input sudah menjadi angka ribuan
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        }
+    </script>
 </body>
 
 </html>

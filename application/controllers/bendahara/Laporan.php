@@ -35,6 +35,7 @@ class Laporan extends Bendahara_Controller
         } else {
             $this->data['laporan'] = null;
         }
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
         $this->data['title'] = 'Laporan Uang Masuk';
         $this->load->view('bendahara/laporan/laporan', $this->data);
     }
@@ -89,5 +90,11 @@ class Laporan extends Bendahara_Controller
     {
         $this->data['title'] = "Detail Transaksi Keluar";
         $this->load->view('bendahara/transaksi/transaksi_keluar', $this->data);
+    }
+
+    public function hutang()
+    {
+        $this->data['title'] = 'Laporan Hutang';
+        $this->load->view('bendahara/laporan/hutang', $this->data);
     }
 }

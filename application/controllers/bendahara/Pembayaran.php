@@ -13,7 +13,8 @@ class Pembayaran extends Bendahara_Controller
     public function index()
     {
         $this->data['title'] = "Cari Siswa";
-        $this->data['siswa'] = $this->db->get('siswa')->result_array();
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['status' => 1])->result_array();
         $this->load->view('bendahara/pembayaran/pembayaran', $this->data);
     }
 

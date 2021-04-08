@@ -49,11 +49,17 @@
                                         </div>
 
                                         <div class="col-4 text-right offset-4">
-                                            <?php if($kelas != 10): ?>
-                                                <a href="<?= base_url('admin/siswa/naik_kelas/') . ($kelas-1) ?>" class="btn btn-success btn-xs">
-                                                 Kelas <?= $kelas-1 ?>
+                                            <?php if ($kelas != 10) : ?>
+                                                <a href="<?= base_url('admin/siswa/naik_kelas/') . ($kelas - 1) ?>" class="btn btn-success btn-xs">
+                                                    Kelas <?= $kelas - 1 ?>
                                                 </a>
-                                            <?php endif;?>
+                                            <?php
+                                            else :
+                                            ?>
+                                                <a href="<?= base_url('admin/siswa/') ?>" class="btn btn-success btn-xs">
+                                                    Selesai
+                                                </a>
+                                            <?php endif; ?>
                                             <!-- modal yakin? -->
                                             <div class="modal fade" id="yakin" tabindex="-1" aria-labelledby="yakinLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -64,15 +70,15 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                            <div class="modal-body">
-                                                                <p class="text-left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim ipsum rem voluptatum asperiores, alias placeat. Veniam odit ex repellendus minus vel ipsam, assumenda fugiat nemo officiis facere magni enim est.</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button class="btn btn-success" onclick="document.getElementById('formNaikKelas').submit()">
-                                                                    <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
-                                                                </button>
-                                                            </div>
+                                                        <div class="modal-body">
+                                                            <p class="text-left">Semua data kelas siswa selain yang di cek akan berubah, apakah anda yakin? </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button class="btn btn-success" onclick="document.getElementById('formNaikKelas').submit()">
+                                                                <i class="fa fa-arrow-up" aria-hidden="true"></i> Naik Kelas
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,7 +87,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <form id="formNaikKelas" action="<?= base_url('admin/siswa/progresnaikkelas/'. $kelas) ?>" method="post">
+                                            <form id="formNaikKelas" action="<?= base_url('admin/siswa/progresnaikkelas/' . $kelas) ?>" method="post">
                                                 <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                     <thead class="thead-darkblue">
                                                         <tr>
@@ -120,7 +126,7 @@
                                     <div class="row mt-4">
                                         <div class="col-2 offset-10 d-flex justify-content-end">
                                             <button type="button" data-toggle="modal" data-target="#yakin" class="btn btn-success btn-xs">
-                                                 Update
+                                                Update
                                             </button>
                                         </div>
                                     </div>

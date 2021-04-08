@@ -13,7 +13,7 @@
             <?php $this->load->view('admin/template/topbar') ?>
 
             <!-- page content -->
-            
+
             <div class="right_col" role="main">
 
                 <div class="">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-12">
                             <?php if (!empty($this->session->flashdata('message'))) : ?>
                                 <div class="alert alert-success alert-dismissible " role="alert">
@@ -89,6 +89,11 @@
                                                     <label for="tahun_masuk">Tahun Masuk</label>
                                                     <input value="<?= $siswa['tahun_masuk'] ?>" disabled type="text" id="tahun_masuk" name="tahun_masuk" class="form-control">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="status">Status</label>
+                                                    <br>
+                                                    <button class="btn btn-sm <?= $siswa['status'] ? 'btn-success' : 'btn-danger' ?>" disabled><?= $siswa['status'] ? 'Aktif' : 'Non-Aktif' ?></button>
+                                                </div>
                                                 <!-- <div class="form-group">
                                                     <label for="tahun_lulus">Tahun Lulus</label>
                                                     <input value="<?= $siswa['tahun_lulus'] ?>" disabled type="text" id="tahun_lulus" name="tahun_lulus" class="form-control">
@@ -97,7 +102,7 @@
                                                     <label for="cash">Cash</label>
                                                     <input value="<?= $siswa['cash'] ?>" disabled type="text" id="cash" name="cash" class="form-control">
                                                 </div> -->
-                                                <div class="form-inline mt-3">
+                                                <div class="form-inline d-flex mt-3">
                                                     <button type="button" class="btn btn-secondary btn-edit" id="cancel" style="display: none;">
                                                         <i class="fa fa-back" aria-hidden="true"></i> Cancel
                                                     </button>
@@ -107,6 +112,24 @@
                                                     <button id="simpan" type="submit" name="simpan" value="1" class="btn btn-success ml-3" style="display: none;">
                                                         <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
                                                     </button>
+
+                                                    <button type="button" class="btn btn-danger ml-auto" id="non-aktif" style="display: none;" data-toggle="modal" data-target="#nonAktif">Non-Aktifkan Siswa</button>
+
+                                                    <div class="modal fade" id="nonAktif" tabindex="-1" role="dialog" aria-labelledby="nonAktifLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="nonAktifLabel">Apakah anda yakin?</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Siswa ini akan di non-aktifkan dan tidak akan muncul di list pembayaran</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <a href="<?= base_url('admin/siswa/nonAktifkanSiswa/') . $siswa['id'] ?>" class="btn btn-danger">Non-Aktifkan!</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -201,6 +224,7 @@
         input.prop("disabled", !input.prop("disabled"))
         $('#simpan').show()
         $('#cancel').show()
+        $('#non-aktif').show()
         $('#edit').hide()
     })
     $("#cancel").click(function() {
@@ -208,6 +232,7 @@
         input.prop("disabled", 1)
         $('#simpan').hide()
         $('#cancel').hide()
+        $('#non-aktif').hide()
         $('#edit').show()
     })
 </script>

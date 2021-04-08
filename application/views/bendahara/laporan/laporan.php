@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Uang Masuk</h3>
+                            <h3>Laporan Keuangan</h3>
                         </div>
 
                         <!-- <div class="title_right">
@@ -32,6 +32,45 @@
 
                     <div class="clearfix"></div>
 
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Cetak laporan pembayaran</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <form action="<?= base_url('bendahara/laporan/hutang') ?>" method="POST">
+                                                <div class="form-group">
+                                                    <label for="kelas">Kelas</label>
+                                                    <select name="kelas" class="form-control" id="kelas">
+                                                        <option value="">Pilih kelas</option>
+                                                        <option value="10">Kelas 10</option>
+                                                        <option value="11">Kelas 11</option>
+                                                        <option value="12">Kelas 12</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="kelas">Jurusan</label>
+                                                    <select name="kelas" class="form-control" id="kelas">
+                                                        <option value="">Pilih jurusan</option>
+                                                        <?php foreach ($jurusan as $j) : ?>
+                                                            <option value="<?= $j['nama_jurusan'] ?>"><?= $j['nama_jurusan'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                            <a href="<?= base_url('bendahara/laporan/hutang') ?>" class="btn btn-success">Cetak laporan pembayaran per kelas</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
 
                         <div class="col-md-12">
