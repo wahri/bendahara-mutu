@@ -72,9 +72,10 @@
                                             <table id="dataSiswa" style="width: 100%;" class="table table-striped">
                                                 <thead class="thead-darkblue">
                                                     <tr>
-                                                        <th class="text-center" width="10%">Nama</th>
-                                                        <th class="text-center">NIS</th>
                                                         <th class="text-center">NISN</th>
+                                                        <th class="text-center">NIS</th>
+                                                        <th class="">Nama</th>
+                                                        <th class="text-center">Jurusan</th>
                                                     
                                                         <th class="text-center">Tahun Masuk</th>
                                                         <th class="text-center">Tahun Lulus</th>
@@ -85,9 +86,10 @@
                                                 <tbody>
                                                     <?php foreach ($siswa as $s) : ?>
                                                         <tr>
-                                                            <td class="text-center"><?= $s['nama'] ?></td>
-                                                            <td class="text-center"><?= $s['nis'] ?></td>
                                                             <td class="text-center"><?= $s['nisn'] ?></td>
+                                                            <td class="text-center"><?= $s['nis'] ?></td>
+                                                            <td class=""><?= $s['nama'] ?></td>
+                                                            <td class="text-center"><?= $s['jurusan'] ?></td>
                                     
                                                             <td class="text-center"><?= $s['tahun_masuk'] ?></td>
                                                             <td class="text-center"><?= $s['tahun_lulus'] ?></td>

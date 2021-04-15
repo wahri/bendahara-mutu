@@ -11,8 +11,8 @@
                         <img src="<?= base_url('upload/images/') . $user_login['foto'] ?>" alt=""><?= $user_login['username'] ?>
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<?= base_url('bendahara/profile') ?>"> Profile</a>
-                        <a class="dropdown-item" href="<?= base_url('bendahara/pengaturan') ?>">
+                        <a class="dropdown-item" href="<?= base_url('kepsek/profile') ?>"> Profile</a>
+                        <a class="dropdown-item" href="<?= base_url('kepsek/pengaturan') ?>">
                             <span>Pengaturan Akun</span>
                         </a>
                         <a class="dropdown-item" href="<?= base_url('login/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a>

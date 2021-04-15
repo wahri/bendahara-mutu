@@ -46,7 +46,7 @@
                                                     <label for="kelas">Kelas</label>
                                                     <div class="input-group mb-3">
                                                         <select name="kelas" class="form-control" id="inputGroupSelect01">
-                                                            <option selected>Pilih Kelas</option>
+                                                            <option value="" selected>Pilih Kelas</option>
                                                             <option value="10">10</option>
                                                             <option value="11">11</option>
                                                             <option value="12">12</option>
@@ -55,8 +55,20 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="jurusan">Jurusan</label>
-                                                    <input id="jurusan" type="text" name="jurusan" class="form-control">
+                                                    <div class="input-group mb-3">
+                                                        <select name="jurusan" class="form-control" id="inputGroupSelect01">
+                                                            <option value="" selected>Pilih Jurusan</option>
+                                                            <?php foreach ($jurusan as $j) : ?>
+                                                                <option value="<?= $j['nama_jurusan'] ?>"><?= $j['nama_jurusan'] ?></option>
+
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
+                                                <!-- <div class="form-group">
+                                                    <label for="jurusan">Jurusan</label>
+                                                    <input id="jurusan" type="text" name="jurusan" class="form-control">
+                                                </div> -->
                                                 <div class="form-group">
                                                     <label for="tahun_masuk">Tahun Masuk</label>
                                                     <input id="tahun_masuk" name="tahun_masuk" type="text" class="form-control">

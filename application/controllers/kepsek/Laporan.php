@@ -28,13 +28,14 @@ class Laporan extends Kepsek_Controller
             $this->data['laporan_uangmasuk'] = $this->db->get_where('transaksi', ['date >=' => $awal, 'date <=' => $akhir])->result_array();
             $this->db->select_sum('total');
             $this->data['total_uangmasuk'] = $this->db->get_where('transaksi', ['date >=' => $awal, 'date <=' => $akhir])->row_array();
-            
+
             $this->data['laporan_uangkeluar'] = $this->db->get_where('transaksi_pengeluaran', ['datetime >=' => $awal, 'datetime <=' => $akhir])->result_array();
             $this->db->select_sum('nominal');
             $this->data['total_uangkeluar'] = $this->db->get_where('transaksi_pengeluaran', ['datetime >=' => $awal, 'datetime <=' => $akhir])->row_array();
         } else {
             $this->data['laporan'] = null;
         }
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
         $this->data['title'] = 'Laporan Uang Masuk';
         $this->load->view('kepsek/laporan/laporan', $this->data);
     }
@@ -89,5 +90,16 @@ class Laporan extends Kepsek_Controller
     {
         $this->data['title'] = "Detail Transaksi Keluar";
         $this->load->view('kepsek/transaksi/transaksi_keluar', $this->data);
+    }
+
+    public function hutang()
+    {
+        $kelas = $this->input->get('kelas');
+        $jurusan = $this->input->get('jurusan');
+
+        $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->result_array();
+        $this->data['jml_siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->num_rows();
+        $this->data['title'] = 'Laporan Hutang';
+        $this->load->view('kepsek/laporan/hutang', $this->data);
     }
 }

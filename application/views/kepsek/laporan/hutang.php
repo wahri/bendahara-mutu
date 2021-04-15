@@ -1,18 +1,17 @@
-<?php $this->load->view('bendahara/template/header') ?>
+<?php $this->load->view('kepsek/template/header') ?>
 
 </head>
 
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">
-            <?php $this->load->view('bendahara/template/sidebar') ?>
+            <?php $this->load->view('kepsek/template/sidebar') ?>
 
-            <?php $this->load->view('bendahara/template/topbar') ?>
+            <?php $this->load->view('kepsek/template/topbar') ?>
 
             <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
-
                     <div class="page-title">
                         <div class="title_left">
                             <h3>Laporan Keuangan</h3>
@@ -44,7 +43,7 @@
                                 <div class="x_content">
                                     <div class="row mt-3">
                                         <div class="col-4">
-                                            <table class="table table-striped table-bordered">
+                                            <table class="table table-striped">
                                                 <tr>
                                                     <th class="text-center" colspan="2">Laporan Pembayaran SPP Siswa</th>
                                                 </tr>
@@ -53,11 +52,11 @@
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Kelas</th>
-                                                    <td>: <?= $this->input->get('kelas') ?> <?= $this->input->get('jurusan') ?></td>
+                                                    <td><?= $this->input->get('kelas') ?> <?= $this->input->get('jurusan') ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Jml Siswa</th>
-                                                    <td>: <?= $jml_siswa ?></td>
+                                                    <td><?= $jml_siswa ?></td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -212,7 +211,7 @@
 
 
             <!-- /page content -->
-            <?php $this->load->view('bendahara/template/footer') ?>
+            <?php $this->load->view('kepsek/template/footer') ?>
             <script>
                 $(document).ready(function() {
 

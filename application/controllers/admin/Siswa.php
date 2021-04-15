@@ -15,7 +15,7 @@ class Siswa extends Admin_Controller
     public function index()
     {
         $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
-        $this->data['siswa'] = $this->db->get_where('siswa', ['status' => 1])->result_array();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['status' => 1, 'kelas !=' => 13])->result_array();
         $this->data['title'] = "Siswa Management";
         $this->load->view('admin/siswa/siswa', $this->data);
     }
@@ -50,7 +50,7 @@ class Siswa extends Admin_Controller
         $data['status'] = !$status;
         $this->db->update('siswa', $data, ['id' => $id]);
 
-        $this->session->set_flashdata('message', 'Siswa berhasil di non-aktifkan');
+        $this->session->set_flashdata('message', $status == 1 ? 'Siswa berhasil di non-aktifkan' : 'Siswa berhasil di aktifkan');
         redirect('admin/siswa/detail/' . $id);
     }
 
@@ -113,6 +113,7 @@ class Siswa extends Admin_Controller
 
         $this->data['title'] = "Detail Siswa";
         $this->data['siswa'] = $this->db->get_where('siswa', ['id' => $id])->row_array();
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
         $this->data['transaksi'] = $this->db->get_where('transaksi', ['nis' => $this->data['siswa']['nis']])->result_array();
         $this->load->view('admin/siswa/siswa_detail', $this->data);
     }
@@ -120,6 +121,7 @@ class Siswa extends Admin_Controller
     public function tambah()
     {
         $this->data['title'] = "Tambah Siswa";
+        $this->data['jurusan'] = $this->db->get('jurusan')->result_array();
         $this->load->view('admin/siswa/siswa_tambah', $this->data);
     }
 
@@ -210,7 +212,7 @@ class Siswa extends Admin_Controller
         } else if ($kelas == 10) {
             $this->session->set_flashdata('message', 'kelas berhasil di update...');
             redirect('admin/siswa');
-        }else{
+        } else {
             $this->session->set_flashdata('message_error', 'Something is wrong...');
             redirect('admin/siswa');
         }

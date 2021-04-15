@@ -81,10 +81,23 @@
                                                     <label for="kelas">Kelas</label>
                                                     <input value="<?= $siswa['kelas'] ?>" disabled type="text" id="kelas" name="kelas" class="form-control">
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="jurusan">Jurusan</label>
-                                                    <input value="<?= $siswa['jurusan'] ?>" disabled type="text" id="jurusan" name="jurusan" class="form-control">
+                                                    <div class="input-group mb-3">
+                                                        <select name="jurusan" id="jurusan" disabled class="form-control" id="inputGroupSelect01">
+                                                            <option value="" selected>Pilih Jurusan</option>
+                                                            <?php foreach ($jurusan as $j) : ?>
+                                                                <option value="<?= $j['nama_jurusan'] ?>" <?= $j['nama_jurusan'] == $siswa['jurusan'] ? 'selected' : '' ?>><?= $j['nama_jurusan'] ?></option>
+
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
+                                                <!-- <div class="form-group">
+                                                    <label for="jurusan">Jurusan</label>
+                                                    <input value="<?= $siswa['jurusan'] ?>" disabled type="text" id="jurusan" name="jurusan" class="form-control">
+                                                </div> -->
                                                 <div class="form-group">
                                                     <label for="tahun_masuk">Tahun Masuk</label>
                                                     <input value="<?= $siswa['tahun_masuk'] ?>" disabled type="text" id="tahun_masuk" name="tahun_masuk" class="form-control">
@@ -113,7 +126,7 @@
                                                         <i class="fa fa-floppy-o" aria-hidden="true"></i> Save
                                                     </button>
 
-                                                    <button type="button" class="btn btn-danger ml-auto" id="non-aktif" style="display: none;" data-toggle="modal" data-target="#nonAktif">Non-Aktifkan Siswa</button>
+                                                    <button type="button" class="btn <?= $siswa['status'] == 1 ? 'btn-danger' : 'btn-success' ?> ml-auto" id="non-aktif" style="display: none;" data-toggle="modal" data-target="#nonAktif"><?= $siswa['status'] == 1 ? 'Non-Aktifkan Siswa' : 'Aktifkan Siswa' ?></button>
 
                                                     <div class="modal fade" id="nonAktif" tabindex="-1" role="dialog" aria-labelledby="nonAktifLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered">
@@ -122,10 +135,16 @@
                                                                     <h5 class="modal-title" id="nonAktifLabel">Apakah anda yakin?</h5>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>Siswa ini akan di non-aktifkan dan tidak akan muncul di list pembayaran</p>
+                                                                    <?php if ($siswa['status'] == 1) : ?>
+                                                                        <p>Siswa ini akan di non-aktifkan dan tidak akan muncul di list pembayaran</p>
+
+                                                                    <?php else : ?>
+                                                                        <p>Siswa ini akan di aktifkan dan akan muncul di list pembayaran</p>
+
+                                                                    <?php endif; ?>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <a href="<?= base_url('admin/siswa/nonAktifkanSiswa/') . $siswa['id'] ?>" class="btn btn-danger">Non-Aktifkan!</a>
+                                                                    <a href="<?= base_url('admin/siswa/nonAktifkanSiswa/') . $siswa['id'] ?>" class="btn <?= $siswa['status'] == 1 ? 'btn-danger' : 'btn-success' ?>"><?= $siswa['status'] == 1 ? 'Non-Aktifkan Siswa' : 'Aktifkan Siswa' ?></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -221,6 +240,8 @@
 <script>
     $(".btn-edit").click(function() {
         var input = $('.update-siswa .form-group input')
+        var select = $('#jurusan')
+        select.prop("disabled", !select.prop("disabled"))
         input.prop("disabled", !input.prop("disabled"))
         $('#simpan').show()
         $('#cancel').show()
@@ -229,6 +250,8 @@
     })
     $("#cancel").click(function() {
         var input = $('.update-siswa .form-group input')
+        var select = $('#jurusan')
+        select.prop("disabled", 1)
         input.prop("disabled", 1)
         $('#simpan').hide()
         $('#cancel').hide()
