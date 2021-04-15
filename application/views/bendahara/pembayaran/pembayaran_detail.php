@@ -132,7 +132,7 @@
                         // Set your latest year you want in the range, in this case we use PHP to just set it to the current year.
                         // $latest_year = $siswa['tahun_masuk'] + 2;
                         if (empty($siswa['tahun_lulus'])) {
-                          $latest_year = $siswa['kelas'] == 10 ? date('Y') + 2 : $siswa['kelas'] == 11 ? date('Y') + 1 : date('Y');
+                          $latest_year = $siswa['kelas'] == 10 ? date('Y') + 2 : ($siswa['kelas'] == 11 ? date('Y') + 1 : date('Y'));
                         } else {
                           $latest_year = $siswa['tahun_lulus'] - 1;
                         }
