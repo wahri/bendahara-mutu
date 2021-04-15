@@ -49,11 +49,11 @@
                                                     <th class="text-center" colspan="2">Laporan Pembayaran SPP Siswa</th>
                                                 </tr>
                                                 <tr>
-                                                    <th class="text-center" colspan="2">TP. <?= (date('Y') - 1) ?> / <?= date('Y') ?></th>
+                                                    <th class="text-center" colspan="2">TP. <?= $this->input->get('tahun_angkatan') + $this->input->get('kelas') - 1 ?> / <?= $this->input->get('tahun_angkatan') + $this->input->get('kelas') ?></th>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Kelas</th>
-                                                    <td>: <?= $this->input->get('kelas') ?> <?= $this->input->get('jurusan') ?></td>
+                                                    <td>: <?= $this->input->get('kelas') == 1 ? '10' : ($this->input->get('kelas') == 2 ? '11' : '12') ?> <?= $this->input->get('jurusan') ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th width="40%">Jml Siswa</th>
@@ -70,10 +70,12 @@
                                                         <th class="text-center align-middle" rowspan="2">No</th>
                                                         <th class="text-center align-middle" rowspan="2">NIS</th>
                                                         <th class="text-center align-middle" rowspan="2">Nama Siswa</th>
-                                                        <th class="text-center align-middle" rowspan="2">Jumlah s/d DES <?= date('Y') - 1 ?></th>
+                                                        <th class="text-center align-middle" rowspan="2">
+                                                            Jumlah s/d DES <?= $this->input->get('tahun_angkatan') + $this->input->get('kelas') - 1 ?>
+                                                        </th>
                                                         <th class="text-center align-middle" colspan="6">SPP</th>
                                                         <!-- <th class="text-center align-middle" rowspan="2">Sukses Ujian Akhir</th> -->
-                                                        <th class="text-center align-middle" rowspan="2">Jumlah s/d JUN <?= date('Y') ?></th>
+                                                        <th class="text-center align-middle" rowspan="2">Jumlah s/d JUN <?= $this->input->get('tahun_angkatan') + $this->input->get('kelas') ?></th>
                                                     </tr>
                                                     <tr>
                                                         <th class="text-center align-middle" width="1%">1</th>
@@ -92,13 +94,12 @@
                                                         $tahun_masuk = $this->db->get_where('siswa', ['nis' => $s['nis']])->row()->tahun_masuk;
 
                                                         $this->db->select_sum('jml_dibayar');
-                                                        $this->db->where(['nis' => $s['nis'], 'tahun <' => date('Y')]);
+                                                        $this->db->where(['nis' => $s['nis'], 'tahun <' => $tahun_masuk + $this->input->get('kelas')]);
                                                         $spp_dibayar = $this->db->get('tagihan')->row()->jml_dibayar;
-
 
                                                         //data awal
                                                         $tgl_mulai = $tahun_masuk . '-07-01';
-                                                        $tgl_selesai = (date('Y') - 1) . '-12-31';
+                                                        $tgl_selesai = ($tahun_masuk + $this->input->get('kelas') - 1) . '-12-31';
 
                                                         //convert
                                                         $timeStart = strtotime($tgl_mulai);
@@ -111,7 +112,6 @@
                                                         $numBulan += date("m", $timeEnd) - date("m", $timeStart);
 
                                                         $jumlah_sebelum = ($numBulan * $spp) - $spp_dibayar;
-
                                                         $jumlah_hutang_seluruh = $jumlah_sebelum;
                                                         ?>
                                                         <tr>
@@ -121,73 +121,73 @@
                                                             <td class="text-center <?= $jumlah_sebelum > 0 ? $jumlah_sebelum : 'bg-dark text-light' ?>">
                                                                 <?= $jumlah_sebelum > 0 ? 'Rp. ' . number_format($jumlah_sebelum, 0, ',', '.') : '<i class="fa fa-check"></i>' ?>
                                                             </td>
-                                                            <?php if (cek_spp($s['nis'], 1, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 1, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 1, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 1, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 1, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 1, date('Y'));
+                                                                if (cek_spp($s['nis'], 1, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 1, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }
                                                             endif;
                                                             ?>
-                                                            <?php if (cek_spp($s['nis'], 2, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 2, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 2, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 2, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 2, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 2, date('Y'));
+                                                                if (cek_spp($s['nis'], 2, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 2, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }
                                                             endif;
                                                             ?>
-                                                            <?php if (cek_spp($s['nis'], 3, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 3, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 3, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 3, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 3, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 3, date('Y'));
+                                                                if (cek_spp($s['nis'], 3, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 3, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }
                                                             endif;
                                                             ?>
-                                                            <?php if (cek_spp($s['nis'], 4, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 4, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 4, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 4, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 4, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 4, date('Y'));
+                                                                if (cek_spp($s['nis'], 4, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 4, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }
                                                             endif;
                                                             ?>
-                                                            <?php if (cek_spp($s['nis'], 5, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 5, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 5, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 5, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 5, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 5, date('Y'));
+                                                                if (cek_spp($s['nis'], 5, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 5, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }
                                                             endif;
                                                             ?>
-                                                            <?php if (cek_spp($s['nis'], 6, date('Y')) == 1) : ?>
+                                                            <?php if (cek_spp($s['nis'], 6, $this->input->get('tahun_angkatan') + $this->input->get('kelas')) == 1) : ?>
                                                                 <td class="bg-dark text-light"><i class="fa fa-check"></i></td>
                                                             <?php else : ?>
-                                                                <td><small><?= substr(cek_spp($s['nis'], 6, date('Y')), 0, -3) ?></small></td>
+                                                                <td><small><?= substr(cek_spp($s['nis'], 6, $this->input->get('tahun_angkatan') + $this->input->get('kelas')), 0, -3) ?></small></td>
                                                             <?php
-                                                                if (cek_spp($s['nis'], 6, date('Y') > 0)) {
-                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 6, date('Y'));
+                                                                if (cek_spp($s['nis'], 6, $this->input->get('tahun_angkatan') + $this->input->get('kelas') > 0)) {
+                                                                    $jumlah_hutang_seluruh += cek_spp($s['nis'], 6, $this->input->get('tahun_angkatan') + $this->input->get('kelas'));
                                                                 } else {
                                                                     $jumlah_hutang_seluruh += $s['spp'];
                                                                 }

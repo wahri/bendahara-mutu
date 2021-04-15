@@ -108,9 +108,12 @@ class Laporan extends Bendahara_Controller
     {
         $kelas = $this->input->get('kelas');
         $jurusan = $this->input->get('jurusan');
+        $tahun_angkatan = $this->input->get('tahun_angkatan');
 
-        $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->result_array();
-        $this->data['jml_siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->num_rows();
+        $this->data['siswa'] = $this->db->get_where('siswa', ['tahun_masuk' => $tahun_angkatan, 'jurusan' => $jurusan])->result_array();
+        $this->data['jml_siswa'] = $this->db->get_where('siswa', ['tahun_masuk' => $tahun_angkatan, 'jurusan' => $jurusan])->num_rows();
+        // $this->data['siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->result_array();
+        // $this->data['jml_siswa'] = $this->db->get_where('siswa', ['kelas' => $kelas, 'jurusan' => $jurusan])->num_rows();
         $this->data['title'] = 'Laporan Hutang';
         $this->load->view('bendahara/laporan/hutang', $this->data);
     }

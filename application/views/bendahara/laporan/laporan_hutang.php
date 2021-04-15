@@ -45,21 +45,25 @@
                                         <div class="col-5">
                                             <form action="<?= base_url('bendahara/laporan/hutang') ?>" method="GET">
                                                 <div class="form-group">
-                                                    <label for="kelas">Kelas</label>
-                                                    <select name="kelas" class="form-control" id="kelas">
-                                                        <option value="">Pilih kelas</option>
-                                                        <option value="10">Kelas 10</option>
-                                                        <option value="11">Kelas 11</option>
-                                                        <option value="12">Kelas 12</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="jurusan">Jurusan</label>
                                                     <select name="jurusan" class="form-control" id="jurusan">
                                                         <option value="">Pilih jurusan</option>
                                                         <?php foreach ($jurusan as $j) : ?>
                                                             <option value="<?= $j['nama_jurusan'] ?>"><?= $j['nama_jurusan'] ?></option>
                                                         <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="angkatan">Tahun angkatan</label>
+                                                    <input type="number" class="form-control" name="tahun_angkatan" placeholder="Tahun Masuk Angkatan">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="kelas">Kelas</label>
+                                                    <select name="kelas" class="form-control" id="kelas">
+                                                        <option value="">Pilih kelas</option>
+                                                        <option value="1">Kelas 10</option>
+                                                        <option value="2">Kelas 11</option>
+                                                        <option value="3">Kelas 12</option>
                                                     </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-success">Cetak laporan hutang</button>
