@@ -172,7 +172,9 @@
                         foreach ($ganjil as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => $tahun, 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
 
-                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          if (!empty($cek)) {
+                            $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          }
                         ?>
                           <tr>
                             <td>
@@ -189,8 +191,14 @@
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
-                              <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                              <?php if (!empty($cek)) : ?>
+                                <?php if ($cek['is_lunas']) : ?>
+                                  <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                                <?php else : ?>
+                                  <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
+                                    <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
                               <?php else : ?>
                                 <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
@@ -229,7 +237,9 @@
                         foreach ($genap as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => ($tahun + 1), 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
 
-                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          if (!empty($cek)) {
+                            $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          }
                         ?>
                           <tr>
                             <td>
@@ -246,8 +256,14 @@
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
-                              <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                              <?php if (!empty($cek)) : ?>
+                                <?php if ($cek['is_lunas']) : ?>
+                                  <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                                <?php else : ?>
+                                  <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
+                                    <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
                               <?php else : ?>
                                 <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
