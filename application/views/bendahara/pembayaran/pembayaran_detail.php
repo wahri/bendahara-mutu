@@ -171,8 +171,9 @@
                         <?php
                         foreach ($ganjil as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => $tahun, 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
-
-                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          if (!empty($cek)) {
+                            $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          }
                         ?>
                           <tr>
                             <td>
@@ -228,8 +229,9 @@
                         <?php
                         foreach ($genap as $k => $d) :
                           $cek = $this->db->get_where('tagihan', ['nis' => $siswa['nis'], 'tahun' => ($tahun + 1), 'bulan' => $k, 'kode_tagihan' => 1])->row_array();
-
-                          $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          if (!empty($cek)) {
+                            $cek_cart = $this->db->get_where('cart', ['nis' => $siswa['nis'], 'id_tagihan' => $cek['id_tagihan']])->row_array();
+                          }
                         ?>
                           <tr>
                             <td>
