@@ -190,8 +190,14 @@
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
-                              <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                              <?php if (!empty($cek)) : ?>
+                                <?php if ($cek['is_lunas']) : ?>
+                                  <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                                <?php else : ?>
+                                  <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
+                                    <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
                               <?php else : ?>
                                 <?php if (date('Y') > $tahun || (date('Y') == $tahun && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
@@ -248,8 +254,14 @@
                               <?php endif; ?>
                             </td>
                             <td class="text-center">
-                              <?php if ($cek['is_lunas']) : ?>
-                                <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                              <?php if (!empty($cek)) : ?>
+                                <?php if ($cek['is_lunas']) : ?>
+                                  <button type="button" class="btn btn-info btn-xs">Lunas</button>
+                                <?php else : ?>
+                                  <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
+                                    <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
+                                  <?php endif; ?>
+                                <?php endif; ?>
                               <?php else : ?>
                                 <?php if (date('Y') > ($tahun + 1) || (date('Y') == ($tahun + 1) && date('m') >= $k)) : ?>
                                   <button type="button" class="btn btn-danger btn-xs">Terhutang</button>
